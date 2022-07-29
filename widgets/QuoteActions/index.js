@@ -31,8 +31,8 @@ const generateQuoteText = (quote) => {
     Protection:
       Name: ${line.protection.name ? line.protection.name : 'None'} 
       Due:
-        Today: ${line.protection.dueToday ? Number(line.protection.dueToday).toFixed(2) : 0.00} 
-        Monthly: ${line.protection.dueMonthly ? Number(line.protection.dueMonthly).toFixed(2) : 0.00} 
+        Today: $${line.protection.dueToday ? Number(line.protection.dueToday).toFixed(2) : 0.00} 
+        Monthly: $${line.protection.dueMonthly ? Number(line.protection.dueMonthly).toFixed(2) : 0.00} 
 `
   })
   
@@ -51,7 +51,7 @@ Account:
     Due:
       Monthly: $${Number(quote.account.plan.dueMonthly).toFixed(2)}
   Protection:
-    Name: ${quote.account.plan.name ? quote.account.plan.name : "None"}
+    Name: ${quote.account.protection.name ? quote.account.protection.name : "None"}
     Due:
       Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}
 ------------------------
