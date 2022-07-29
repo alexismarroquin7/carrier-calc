@@ -3,7 +3,7 @@ import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
 import { Line } from "../Line";
 
-const calcDueToday = (quote) => {
+export const calcDueToday = (quote) => {
   let res = 0;
 
   quote.lines.map(line => {
@@ -14,7 +14,7 @@ const calcDueToday = (quote) => {
   return res;
 }
 
-const calcDueMonthly = (quote) => {
+export const calcDueMonthly = (quote) => {
   let res = 0;
   res += Number(quote.account.plan.dueMonthly);
   res += Number(quote.account.protection.dueMonthly);
@@ -202,6 +202,7 @@ export const QuoteForm = () => {
               name="account.plan.dueMonthly"
               onChange={handleChange}
               value={quote.account.plan.dueMonthly}
+              min={0}
             />
           </label>
           
