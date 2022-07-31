@@ -1,14 +1,36 @@
 import { useDispatch, useSelector } from "react-redux"
 import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
-import { calcDueMonthly, calcDueToday } from "../QuoteForm";
+import { calcQuoteDueMonthly, calcQuoteDueToday } from "../QuoteForm";
 
-const generateQuoteText = (quote) => {
-  
-  let linesText = '';
+const todaysDate = () => {
+  let today = '';
 
-  quote.lines.map((line, i) => {
-    linesText += `------------------------
+  const d = new Date();
+
+  let month = d.getMonth() + 1;
+  let date = d.getDate();
+  let year = d.getFullYear();
+  if(month<10){
+    month = `0${month}`;
+  }
+  if(date<10){
+    date = `0${date}`;
+  }
+
+  today = `${month}-${date}-${year}`;
+
+  return today;
+}
+
+const generateQuoteDocument = (type, quote) => {
+
+  switch(type){
+    case 'text/plain':
+      let linesPlainText = '';
+
+      quote.lines.map((line, i) => {
+        linesPlainText += `------------------------
   Line: ${i+1}
     Type: ${line.type}    
     Name: ${line.name}    
@@ -34,16 +56,17 @@ const generateQuoteText = (quote) => {
         Today: $${line.protection.dueToday ? Number(line.protection.dueToday).toFixed(2) : 0.00} 
         Monthly: $${line.protection.dueMonthly ? Number(line.protection.dueMonthly).toFixed(2) : 0.00} 
 `
-  })
-  
-  return `
+      })
+      
+      return `
+${todaysDate()}
 ${quote.name}
 ------------------------
 Carrier: ${quote.carrier.title}
 ------------------------
 Due:
-  Today: $${calcDueToday(quote).toFixed(2)}
-  Monthly: $${calcDueMonthly(quote).toFixed(2)}
+  Today: $${calcQuoteDueToday(quote).toFixed(2)}
+  Monthly: $${calcQuoteDueMonthly(quote).toFixed(2)}
 ------------------------
 Account:
   Plan: 
@@ -56,8 +79,129 @@ Account:
       Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}
 ------------------------
 Lines: ${quote.lines.length}
-${linesText}
+  ${linesPlainText}
 `
+    
+    case 'text/html':
+      let linesHtml = `<table>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Phone Number</th>
+
+        <th>Device</th>
+        <th>Price</th>
+        <th>Downpayment</th>
+        <th>Trade In Credit</th>
+        <th>(Device) Due Today</th>
+        <th>(Device) Due Monthly</th>
+
+        <th>Plan</th>
+        <th>(Plan) Due Monthly</th>
+        <th>Protection</th>
+        <th>(Protection) Due Today</th>
+        <th>(Protection) Due Monthly</th>
+        
+      </tr>
+    `;
+      
+      quote.lines.forEach(line => {
+        linesHtml += `
+        <tr>
+          <td>${line.type}</td>
+          <td>${line.name}</td>
+          <td>${line.phoneNumber}</td>
+          <td>${line.device.name}</td>
+          <td>${line.device.price}</td>
+          <td>${line.device.downpayment}</td>
+          <td>${line.device.tradeInCredit}</td>
+          <td>${line.device.dueToday}</td>
+          <td>${line.device.dueMonthly}</td>
+          <td>${line.plan.name}</td>
+          <td>${line.plan.dueMonthly}</td>
+          <td>${line.protection.name}</td>
+          <td>${line.protection.dueToday}</td>
+          <td>${line.protection.dueMonthly}</td>
+        </tr>
+        `
+      })
+
+      linesHtml += `</table>`
+
+      return `
+      <!DOCTYPE html>
+      <html>
+        <head>
+          <title>${quote.name} ${quote.carrier.title} ${quote.lines.length} Lines</title>
+        </head>
+      
+        <body>
+          <div className="wrapper">
+            <h1>Member Quote Comparison</h1>
+            <h2>${quote.name}</h2>
+            <h2>Carrier: ${quote.carrier.title}</h2>
+            <h2>Due Today: $${calcQuoteDueToday(quote).toFixed(2)}</h2>
+            <h2>Due Monthly: $${calcQuoteDueMonthly(quote).toFixed(2)}</h2>
+
+            <h2>Account</h2>
+            <h2>Plan: ${quote.account.plan.name}</h2>
+            <h2>Due Monthly: $${Number(quote.account.plan.dueMonthly).toFixed(2)}</h2>
+            <h2>Protection: ${quote.account.protection.name}</h2>
+            <h2>Due Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}</h2>
+            
+            <div>
+              <h2>Lines: ${quote.lines.length}</h2>
+              ${linesHtml}
+            </div>
+          </div>
+        </body>
+          
+        <style>
+          * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+          }
+
+          body {
+            width: 100%;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+          }
+
+          .wrapper {
+            width: 80%;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: flex-start;
+          }
+
+          tr {
+            border: 1px solid black;
+            padding: 1rem;
+          }
+
+        </style>
+      </html>
+    `
+// - lines
+//   - name
+//   - phone number
+//   - plan
+//     - name
+//     - due monthly
+//   - device
+//     - name
+//     - price
+//     - downpayment
+//     - trade in credit
+//     - due today
+//     - due monthly
+
+    default:
+      throw Error(`unkown document type: ${type}`);
+  }
 }
 
 export const QuoteActions = () => {
@@ -100,11 +244,11 @@ export const QuoteActions = () => {
           onClick={(e) => {
             e.preventDefault();
             const element = document.createElement("a");
-            const file = new Blob([generateQuoteText(quote)], {
-              type: "text/plain"
+            const file = new Blob([generateQuoteDocument('text/html', quote)], {
+              type: "text/html"
             });
             element.href = URL.createObjectURL(file);
-            element.download = `${quote.name}-${quote.carrier.name}-lines_${quote.lines.length}.txt`;
+            element.download = `${todaysDate()}-${quote.name}-${quote.carrier.name}-${quote.lines.length}-lines.html`;
             document.body.appendChild(element);
             element.click();
           }}    
