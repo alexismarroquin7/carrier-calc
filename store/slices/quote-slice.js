@@ -38,7 +38,6 @@ class Line {
     this.type = type;
     this.plan = {
       name: '',
-      dueToday: 0,
       dueMonthly: 0
     }
     this.protection = {
@@ -49,12 +48,11 @@ class Line {
     this.device = {
       name: '',
       price: 0,
+      downpayment: 0,
+      tradeInCredit: 0,
       dueToday: 0,
       dueMonthly: 0,
-      downpayment: 0,
-      tradeInCredit: 0
     };
-    this.open = true;
   }
 }
 
@@ -73,12 +71,9 @@ class Quote {
       protection: {
         name: '',
         dueMonthly: 0
-      },
-      discounts: []
+      }
     };
     this.lines = [];
-    this.dueToday = 0;
-    this.dueMonthly = 0;
   }
 
 }

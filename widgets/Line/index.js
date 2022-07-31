@@ -2,14 +2,14 @@ import { useDispatch } from "react-redux";
 import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
 
-const calcDueToday = (line) => {
+const calcLineDueToday = (line) => {
   let res = 0;
   res += Number(line.device.dueToday);
   res += Number(line.protection.dueToday);
   return res;
 }
 
-const calcDueMonthly = (line) => {
+const calcLineDueMonthly = (line) => {
   let res = 0;
   res += Number(line.plan.dueMonthly);
   res += Number(line.device.dueMonthly);
@@ -66,7 +66,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              price: value
+              price: value === '' ? 0 : value
             }
           }
         }))
@@ -79,7 +79,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              downpayment: value
+              downpayment: value === '' ? 0 : value
             }
           }
         }))
@@ -92,7 +92,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              tradeInCredit: value
+              tradeInCredit: value === '' ? 0 : value
             }
           }
         }))
@@ -105,7 +105,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              dueToday: value
+              dueToday: value === '' ? 0 : value
             }
           }
         }))
@@ -118,7 +118,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              dueMonthly: value
+              dueMonthly: value === '' ? 0 : value
             }
           }
         }))
@@ -144,7 +144,7 @@ export const Line = ({ line, index }) => {
             ...line,
             plan: {
               ...line.plan,
-              dueMonthly: value
+              dueMonthly: value === '' ? 0 : value
             }
           }
         }))
@@ -170,7 +170,7 @@ export const Line = ({ line, index }) => {
             ...line,
             protection: {
               ...line.protection,
-              dueToday: value
+              dueToday: value === '' ? 0 : value
             }
           }
         }))
@@ -183,7 +183,7 @@ export const Line = ({ line, index }) => {
             ...line,
             protection: {
               ...line.protection,
-              dueMonthly: value
+              dueMonthly: value === '' ? 0 : value
             }
           }
         }))
@@ -421,8 +421,8 @@ export const Line = ({ line, index }) => {
           <p>{l.device.name}</p>
           <p>{l.plan.name}</p>
           <p>{l.protection.name}</p>
-          <p>Due Today: ${calcDueToday(line).toFixed(2)}</p>
-          <p>Due Monthly: ${calcDueMonthly(line).toFixed(2)}</p>
+          <p>Due Today: ${calcLineDueToday(line).toFixed(2)}</p>
+          <p>Due Monthly: ${calcLineDueMonthly(line).toFixed(2)}</p>
 
           <div
             className="expand-button"

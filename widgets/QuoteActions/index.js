@@ -85,6 +85,7 @@ Lines: ${quote.lines.length}
     case 'text/html':
       let linesHtml = `<table>
       <tr>
+        <th>Line</th>
         <th>Type</th>
         <th>Name</th>
         <th>Phone Number</th>
@@ -105,23 +106,24 @@ Lines: ${quote.lines.length}
       </tr>
     `;
       
-      quote.lines.forEach(line => {
+      quote.lines.forEach((line, i) => {
         linesHtml += `
         <tr>
+          <td>${i+1}</td>
           <td>${line.type}</td>
           <td>${line.name}</td>
           <td>${line.phoneNumber}</td>
           <td>${line.device.name}</td>
-          <td>${line.device.price}</td>
-          <td>${line.device.downpayment}</td>
-          <td>${line.device.tradeInCredit}</td>
-          <td>${line.device.dueToday}</td>
-          <td>${line.device.dueMonthly}</td>
+          <td>$${Number(line.device.price).toFixed(2)}</td>
+          <td>$${Number(line.device.downpayment).toFixed(2)}</td>
+          <td>$${Number(line.device.tradeInCredit).toFixed(2)}</td>
+          <td>$${Number(line.device.dueToday).toFixed(2)}</td>
+          <td>$${Number(line.device.dueMonthly).toFixed(2)}</td>
           <td>${line.plan.name}</td>
-          <td>${line.plan.dueMonthly}</td>
+          <td>$${Number(line.plan.dueMonthly).toFixed(2)}</td>
           <td>${line.protection.name}</td>
-          <td>${line.protection.dueToday}</td>
-          <td>${line.protection.dueMonthly}</td>
+          <td>$${Number(line.protection.dueToday).toFixed(2)}</td>
+          <td>$${Number(line.protection.dueMonthly).toFixed(2)}</td>
         </tr>
         `
       })
@@ -133,22 +135,33 @@ Lines: ${quote.lines.length}
       <html>
         <head>
           <title>${quote.name} ${quote.carrier.title} ${quote.lines.length} Lines</title>
+          <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
       
         <body>
-          <div className="wrapper">
+          <div class="wrapper">
             <h1>Member Quote Comparison</h1>
-            <h2>${quote.name}</h2>
-            <h2>Carrier: ${quote.carrier.title}</h2>
-            <h2>Due Today: $${calcQuoteDueToday(quote).toFixed(2)}</h2>
-            <h2>Due Monthly: $${calcQuoteDueMonthly(quote).toFixed(2)}</h2>
-
-            <h2>Account</h2>
-            <h2>Plan: ${quote.account.plan.name}</h2>
-            <h2>Due Monthly: $${Number(quote.account.plan.dueMonthly).toFixed(2)}</h2>
-            <h2>Protection: ${quote.account.protection.name}</h2>
-            <h2>Due Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}</h2>
+            <p>${quote.name}</p>
             
+            <p>Carrier: ${quote.carrier.title}</p>
+            
+            <div class="due-wrapper">
+              <p class="due">Due Today:
+                <span>$${calcQuoteDueToday(quote).toFixed(2)}</span>
+              </p>
+              <p class="due">Due Monthly: 
+                <span>$${calcQuoteDueMonthly(quote).toFixed(2)}</span>
+              </p>
+            </div>
+
+            <div class="account-wrapper">
+              <h2>Account</h2>
+              <h2>Plan: ${quote.account.plan.name ? quote.account.plan.name : 'None'}</h2>
+              <h2>Due Monthly: $${Number(quote.account.plan.dueMonthly).toFixed(2)}</h2>
+              <h2>Protection: ${quote.account.protection.name ? quote.account.protection.name : 'None'}</h2>
+              <h2>Due Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}</h2>
+            </div>
+
             <div>
               <h2>Lines: ${quote.lines.length}</h2>
               ${linesHtml}
@@ -157,10 +170,13 @@ Lines: ${quote.lines.length}
         </body>
           
         <style>
+          @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
           * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Roboto', sans-serif;
           }
 
           body {
@@ -171,13 +187,38 @@ Lines: ${quote.lines.length}
           }
 
           .wrapper {
-            width: 80%;
+            width: 100%;
             display: flex;
             flex-flow: column wrap;
             align-items: flex-start;
           }
 
-          tr {
+          .due-wrapper {
+            width: 100%;
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: center;
+            gap: 1rem;
+          }
+
+          .due {
+            width: 100%;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: center;
+          }
+
+          table {
+            border: 1px solid black;
+            padding: 1rem;
+            border-collapse: collapse;
+          }
+
+          th {
+            border: 1px solid black;
+          }
+
+          td {
             border: 1px solid black;
             padding: 1rem;
           }
