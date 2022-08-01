@@ -66,7 +66,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              price: value === '' ? 0 : value
+              price: value
             }
           }
         }))
@@ -79,7 +79,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              downpayment: value === '' ? 0 : value
+              downpayment: value
             }
           }
         }))
@@ -92,7 +92,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              tradeInCredit: value === '' ? 0 : value
+              tradeInCredit: value
             }
           }
         }))
@@ -105,7 +105,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              dueToday: value === '' ? 0 : value
+              dueToday: value
             }
           }
         }))
@@ -118,7 +118,7 @@ export const Line = ({ line, index }) => {
             ...line,
             device: {
               ...line.device,
-              dueMonthly: value === '' ? 0 : value
+              dueMonthly: value
             }
           }
         }))
@@ -144,7 +144,7 @@ export const Line = ({ line, index }) => {
             ...line,
             plan: {
               ...line.plan,
-              dueMonthly: value === '' ? 0 : value
+              dueMonthly: value
             }
           }
         }))
@@ -170,7 +170,7 @@ export const Line = ({ line, index }) => {
             ...line,
             protection: {
               ...line.protection,
-              dueToday: value === '' ? 0 : value
+              dueToday: value
             }
           }
         }))
@@ -183,7 +183,7 @@ export const Line = ({ line, index }) => {
             ...line,
             protection: {
               ...line.protection,
-              dueMonthly: value === '' ? 0 : value
+              dueMonthly: value
             }
           }
         }))

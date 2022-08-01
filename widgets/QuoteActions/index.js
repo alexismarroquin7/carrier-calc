@@ -119,9 +119,9 @@ Lines: ${quote.lines.length}
           <td>$${Number(line.device.tradeInCredit).toFixed(2)}</td>
           <td>$${Number(line.device.dueToday).toFixed(2)}</td>
           <td>$${Number(line.device.dueMonthly).toFixed(2)}</td>
-          <td>${line.plan.name}</td>
+          <td>${line.plan.name ? line.plan.name : 'None'}</td>
           <td>$${Number(line.plan.dueMonthly).toFixed(2)}</td>
-          <td>${line.protection.name}</td>
+          <td>${line.protection.name ? line.protection.name : 'None'}</td>
           <td>$${Number(line.protection.dueToday).toFixed(2)}</td>
           <td>$${Number(line.protection.dueMonthly).toFixed(2)}</td>
         </tr>
@@ -134,36 +134,40 @@ Lines: ${quote.lines.length}
       <!DOCTYPE html>
       <html>
         <head>
-          <title>${quote.name} ${quote.carrier.title} ${quote.lines.length} Lines</title>
+          <title>${quote.name} ${quote.carrier.title} ${quote.lines.length} ${quote.lines.length === 1 ? 'Line' : 'Lines'}</title>
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
         </head>
       
         <body>
           <div class="wrapper">
             <h1>Member Quote Comparison</h1>
-            <p>${quote.name}</p>
-            
-            <p>Carrier: ${quote.carrier.title}</p>
+            <h2>${quote.name} | ${quote.carrier.title} | ${quote.lines.length} ${quote.lines.length === 1 ? 'Line' : 'Lines'}</h2>
+            <h3>${todaysDate()}</h3>
             
             <div class="due-wrapper">
-              <p class="due">Due Today:
+              <h2 class="due">Due Today:
                 <span>$${calcQuoteDueToday(quote).toFixed(2)}</span>
-              </p>
-              <p class="due">Due Monthly: 
+              </h2>
+              <h2 class="due">Due Monthly: 
                 <span>$${calcQuoteDueMonthly(quote).toFixed(2)}</span>
-              </p>
+              </h2>
             </div>
 
             <div class="account-wrapper">
-              <h2>Account</h2>
-              <h2>Plan: ${quote.account.plan.name ? quote.account.plan.name : 'None'}</h2>
-              <h2>Due Monthly: $${Number(quote.account.plan.dueMonthly).toFixed(2)}</h2>
-              <h2>Protection: ${quote.account.protection.name ? quote.account.protection.name : 'None'}</h2>
-              <h2>Due Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}</h2>
+              <h3>Account</h3>
+              <h4 class="account-feature">Plan: 
+                ${quote.account.plan.name ? quote.account.plan.name : 'None'}
+                <span>Due Monthly: $${Number(quote.account.plan.dueMonthly).toFixed(2)}</span>
+              </h4>
+
+              <h4 class="account-feature">Protection: 
+                ${quote.account.protection.name ? quote.account.protection.name : 'None'}
+                <span>Due Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}</span>
+              </h4>
             </div>
 
-            <div>
-              <h2>Lines: ${quote.lines.length}</h2>
+            <div class="lines">
+              <h3>Lines: ${quote.lines.length}</h3>
               ${linesHtml}
             </div>
           </div>
@@ -202,10 +206,23 @@ Lines: ${quote.lines.length}
           }
 
           .due {
-            width: 100%;
             display: flex;
             flex-flow: column wrap;
             align-items: center;
+          }
+
+          .account-wrapper {
+            display: flex;
+            flex-flow: column wrap;
+          }
+
+          .account-feature {
+            border: 1px solid black;
+            padding: 1rem;
+            display: flex;
+            flex-flow: column wrap;
+            align-items: flex-start;
+            gap: 1rem;
           }
 
           table {
@@ -226,20 +243,6 @@ Lines: ${quote.lines.length}
         </style>
       </html>
     `
-// - lines
-//   - name
-//   - phone number
-//   - plan
-//     - name
-//     - due monthly
-//   - device
-//     - name
-//     - price
-//     - downpayment
-//     - trade in credit
-//     - due today
-//     - due monthly
-
     default:
       throw Error(`unkown document type: ${type}`);
   }
