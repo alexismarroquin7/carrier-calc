@@ -306,6 +306,7 @@ export const QuoteActions = () => {
                 e.preventDefault();
                 dispatch(quoteSlice.actions.create({ carrier: 'vzw' }));
                 toggleCarrierModalOpen();
+                toggleMenuActive();
               }}
             >{'Verizon'}</button>
             <button
@@ -314,6 +315,7 @@ export const QuoteActions = () => {
                 e.preventDefault();
                 dispatch(quoteSlice.actions.create({ carrier: 'att' }));
                 toggleCarrierModalOpen();
+                toggleMenuActive();
               }}
             >{'AT&T'}</button>
             <button
@@ -322,6 +324,7 @@ export const QuoteActions = () => {
                 e.preventDefault();
                 dispatch(quoteSlice.actions.create({ carrier: 'tmo' }));
                 toggleCarrierModalOpen();
+                toggleMenuActive();
               }}
             >{'T-Mobile'}</button>
             <button
