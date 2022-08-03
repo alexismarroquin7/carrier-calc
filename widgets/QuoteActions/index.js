@@ -250,12 +250,19 @@ Lines: ${quote.lines.length}
 
 export const QuoteActions = () => {
   const dispatch = useDispatch();
-  const {active,toggle} = useToggle();
-  const {active: deleteModeActive,toggle: toggleDeleteModeActive} = useToggle();
-  
-  const quote = useSelector(s => {
+  const { active: menuActive, toggle: toggleMenuActive } = useToggle();
+  const { active: deleteModeActive, toggle: toggleDeleteModeActive } = useToggle();
+  const { active: carrierModalOpen, toggle: toggleCarrierModalOpen } = useToggle();
+
+  const {
+    quote,
+    list
+  } = useSelector(s => {
     const [q] = s.quote.list.filter(item => item.id === s.quote.selected.quote.id);
-    return q;
+    return {
+      quote: q,
+      list: s.quote.list
+    };
   });
 
   return (
@@ -266,15 +273,67 @@ export const QuoteActions = () => {
         className="menu-button"
         onClick={(e) => {
           e.preventDefault();
-          toggle();
+          toggleMenuActive();
         }}
       >
         |||
       </button>
       
       <div
-        className={`quote-actions-buttons ${active ? '' : 'hidden'}`}
+        className={`quote-actions-buttons ${menuActive ? '' : 'hidden'}`}
       >
+        <button
+          className="quote-action-button"
+          onClick={(e) => {
+            e.preventDefault();
+            toggleCarrierModalOpen();
+          }}
+        >Create Quote</button>
+        <div
+          className={`carrier-menu ${carrierModalOpen ? '' : 'hidden'}`}
+          onClick={(e) => {
+            e.preventDefault();
+            toggleCarrierModalOpen();
+          }}
+        >
+          <div
+            className="carrier-menu-content"
+          >
+            <h6>Choose a carrier</h6>
+            <button
+              className="carrier-button carrier-button-vzw"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(quoteSlice.actions.create({ carrier: 'vzw' }));
+                toggleCarrierModalOpen();
+              }}
+            >{'Verizon'}</button>
+            <button
+              className="carrier-button carrier-button-att"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(quoteSlice.actions.create({ carrier: 'att' }));
+                toggleCarrierModalOpen();
+              }}
+            >{'AT&T'}</button>
+            <button
+              className="carrier-button carrier-button-tmo"
+              onClick={(e) => {
+                e.preventDefault();
+                dispatch(quoteSlice.actions.create({ carrier: 'tmo' }));
+                toggleCarrierModalOpen();
+              }}
+            >{'T-Mobile'}</button>
+            <button
+              className="carrier-button carrier-button-cancel"
+              onClick={(e) => {
+                e.preventDefault();
+                toggleCarrierModalOpen();
+              }}
+            >{'Cancel'}</button>
+          </div>
+        </div>
+
         <button
           className="quote-action-button"
           onClick={(e) => {
@@ -282,6 +341,7 @@ export const QuoteActions = () => {
             dispatch(quoteSlice.actions.duplicateSelectedQuote());
             toggle();
           }}    
+          disabled={list.length === 0}
         >Duplicate</button>
         <button
           className="quote-action-button"
@@ -295,7 +355,8 @@ export const QuoteActions = () => {
             element.download = `${todaysDate()}-${quote.name}-${quote.carrier.name}-${quote.lines.length}-lines.html`;
             document.body.appendChild(element);
             element.click();
-          }}    
+          }}   
+          disabled={list.length === 0} 
         >Export</button>
         {deleteModeActive ? (
         <>
@@ -322,6 +383,7 @@ export const QuoteActions = () => {
               e.preventDefault();
               toggleDeleteModeActive();
             }}
+            disabled={list.length === 0}
           >Delete</button>
         )}
       </div>
@@ -376,6 +438,63 @@ export const QuoteActions = () => {
         .cancel-delete-mode {
           color: var(--google-blue);
           background-color: white;
+        }
+
+        .carrier-menu {
+          width: 100%;
+          position: absolute;
+          z-index: 1000;
+          top: 0;
+          bottom: 0;
+          left: 0;
+          display: flex;
+          flex-flow: column wrap;
+          align-items: center;
+          justify-content: center;
+        }
+
+        .carrier-menu.hidden {
+          display: none;
+        }
+        
+        .carrier-menu-content {
+          position: relative;
+          display: flex;
+          flex-flow: column wrap;
+          justify-content: center;
+          border: 1px solid #eee;
+          padding: 2rem;
+          width: 90vw;
+          gap: 2rem;
+          border-radius: 2rem;
+          box-shadow: 0 0 5px black;
+          background-color: white;
+        }
+
+        .carrier-button {
+          padding: 2rem 0;
+          color: white;
+          border: 1px solid #eee;
+          border-radius: 2rem;
+          font-weight: bold;
+        }
+        
+        .carrier-button-vzw {
+          background-color: var(--vzw);
+          border-color: var(--vzw);
+        }
+        .carrier-button-att {
+          background-color: var(--att);
+          border-color: var(--att);
+        }
+        .carrier-button-tmo {
+          background-color: var(--tmo);
+          border-color: var(--tmo);
+        }
+        .carrier-button-cancel {
+          border-color: var(--google-red);
+          background-color: var(--white);
+          color: var(--google-red);
         }
       `}</style>
     </div>

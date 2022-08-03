@@ -1,16 +1,15 @@
 import { useDispatch, useSelector } from "react-redux"
-import { useToggle } from "../../hooks/useToggle";
+import { useToggle } from "../../hooks";
 import { quoteSlice } from "../../store/slices/quote-slice";
+import { AddALineMenu } from "../AddALineMenu";
 import { Line } from "../Line";
 
 export const calcQuoteDueToday = (quote) => {
   let res = 0;
-
   quote.lines.map(line => {
     res += Number(line.device.dueToday);
     res += Number(line.protection.dueToday);
-  })
-
+  });
   return res;
 }
 
@@ -22,7 +21,7 @@ export const calcQuoteDueMonthly = (quote) => {
     res += Number(line.device.dueMonthly);
     res += Number(line.plan.dueMonthly);
     res += Number(line.protection.dueMonthly);
-  })
+  });
   return res;
 }
 
@@ -30,18 +29,13 @@ export const QuoteForm = () => {
   const quote = useSelector(s => {
     const [q] = s.quote.list.filter(item => item.id === s.quote.selected.quote.id);
     return q;
-  })
+  });
   
   const dispatch = useDispatch();
   
   const {
-    active: addALineModalOpen,
-    toggle: toggleAddALineModalOpen
-  } = useToggle();
-  
-  const {
-    active: expandAccount,
-    toggle: toggleExpandAccount
+    active,
+    toggle
   } = useToggle();
 
   const handleChange = (e) => {
@@ -136,58 +130,32 @@ export const QuoteForm = () => {
         </div>
       </div>
 
-      <div
-        className="add-a-line-menu"
-      >
-        <button
-          onClick={(e) => {
-            e.preventDefault();
-            toggleAddALineModalOpen();
-          }}
-          className="add-a-line-button"
-        >Add A Line</button>
-        <div
-          className={`add-a-line-menu-content ${addALineModalOpen ? '' : 'hidden'}`}
-        >
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              dispatch(quoteSlice.actions.addALine('smartphone'));
-              toggleAddALineModalOpen();
-            }}
-            className="add-a-line-button-option"
-          >Smartphone</button>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              dispatch(quoteSlice.actions.addALine('watch'));
-              toggleAddALineModalOpen();
-            }}
-            className="add-a-line-button-option"
-          >Watch</button>
-          <button
-            onClick={(e) => {
-              e.preventDefault()
-              dispatch(quoteSlice.actions.addALine('tablet'));
-              toggleAddALineModalOpen();
-            }}
-            className="add-a-line-button-option"
-          >Tablet</button>
-        </div>
-      </div>
+      <AddALineMenu/>
       
       <div
         className="account-section"
       >
-        <h6>Account</h6>
-        {expandAccount ? (
+        <h6 
+          className="account-section-head"
+        >Account 
+          <button
+            className={`account-button ${active ? "collapse-account-button" : "expand-account-button"}`}
+            onClick={(e) => {
+              e.preventDefault();
+              toggle();
+            }}
+          >{'>'}</button>
+        </h6>
+
+        {active ? (
           <>
           <h6>Plan</h6>
           <label
             className="account-section-input"
-          >Name:
+          >
             <input 
               type="text"
+              placeholder="Name"
               name="account.plan.name"
               onChange={handleChange}
               value={quote.account.plan.name}
@@ -209,8 +177,9 @@ export const QuoteForm = () => {
           <h6>Protection</h6>
           <label
             className="account-section-input"
-          >Name:
+          >
             <input 
+              placeholder="Name"
               type="text"
               name="account.protection.name"
               onChange={handleChange}
@@ -228,32 +197,12 @@ export const QuoteForm = () => {
               value={quote.account.protection.dueMonthly}
             />
           </label>
-          <div
-            className="collapse-button"
-          >
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                toggleExpandAccount();
-              }}
-            >Collapse</button>
-          </div>
           </>
         ) : (
-          <>
-            <p>Plan: {quote.account.plan.name ? quote.account.plan.name : 'None'}</p>
-            <p>Protection: {quote.account.protection.name ? quote.account.protection.name : 'None'}</p>
-            <div
-              className="expand-button"
-            >
-              <button
-                onClick={(e) => {
-                  e.preventDefault();
-                  toggleExpandAccount();
-                }}
-              >Expand</button>
-            </div>
-          </>
+          <div className="account-section-collapsed">
+            <p>{quote.account.plan.name ? quote.account.plan.name : 'No account plan'} <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.plan.dueMonthly).toFixed(2)}/month</span></p>
+            <p>{quote.account.protection.name ? quote.account.protection.name : 'No account protection'} <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.protection.dueMonthly).toFixed(2)}/month</span></p>
+          </div>
         )}
     
       </div>
@@ -281,6 +230,7 @@ export const QuoteForm = () => {
         }
 
         .quote-name {
+          width: 90%;
           padding: 1rem;
         }
 
@@ -307,6 +257,35 @@ export const QuoteForm = () => {
           gap: 2rem;
         }
 
+        .account-section-head {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .account-section-collapsed { 
+          display: flex;
+          flex-flow: column wrap;
+          gap: 2rem;
+        }
+        
+        .account-section-collapsed p {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          align-items: flex-start;
+        }
+
+        .account-section-collapsed-due-monthly-text {
+          border-radius: 1rem;
+          padding: .5rem;
+          background-color: var(--google-green);
+          color: white;
+        }
+
         .account-section-input {
           width: 100%;
           display: flex;
@@ -322,34 +301,18 @@ export const QuoteForm = () => {
           padding: 1rem;
         }
 
-        .collapse-button {
-          width: 100%;
-          display: flex;
-          flex-flow: column wrap;
-          align-items: center;
-        }
-        
-        .collapse-button button {
-          padding: 1rem 2rem;
+        .account-button {
+          padding: 1rem;
           border-radius: 2rem;
           border: 1px solid var(--google-blue);
           color: white;
           background-color: var(--google-blue);
+          transform-origin: center;
+          transform: rotate(90deg);
         }
 
-        .expand-button {
-          width: 100%;
-          display: flex;
-          flex-flow: column wrap;
-          align-items: center;
-        }
-        
-        .expand-button button {
-          padding: 1rem 2rem;
-          border-radius: 2rem;
-          border: 1px solid var(--google-blue);
-          color: white;
-          background-color: var(--google-blue);
+        .collapse-account-button {
+          transform: rotate(270deg);
         }
 
         .lines-section {
@@ -361,49 +324,7 @@ export const QuoteForm = () => {
           padding: 2rem;
           gap: 2rem;
         }
-
-        .add-a-line-menu {
-          position: relative;
-          display: flex;
-          flex-flow: column wrap;
-          align-items: center;
-        }
-
-        .add-a-line-menu-content {
-          position: absolute;
-          z-index: 999;
-          display: flex;
-          flex-flow: column wrap;
-          top: 3rem;
-        }
-
-        .add-a-line-menu-content.hidden {
-          display: none;
-        }
-
-        .add-a-line-button {
-          border-radius: 2rem;
-          padding: 1rem 2rem;
-          border: 1px solid var(--google-blue);
-          background-color: var(--google-blue);
-          color: white;
-        }
         
-        .add-a-line-button-option:nth-child(1) {
-          border-top-left-radius: 1rem;
-          border-top-right-radius: 1rem;
-        }
-        
-        .add-a-line-button-option:last-child {
-          border-bottom-left-radius: 1rem;
-          border-bottom-right-radius: 1rem;
-        }
-
-        .add-a-line-button-option {
-          padding: 1rem 2rem;
-          border: 1px solid #eee;
-          border-top: 1px solid #ddd;
-        }
       `}</style>
     </div>
   )

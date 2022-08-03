@@ -15,9 +15,9 @@ export default function Home() {
       
       <h6>Member Purchase Guide</h6>
       
-      <QuoteTabs />
+      {quote.list.length > 0 && <QuoteTabs />}
 
-      {quote.list.length > 0 && <QuoteActions />}
+      <QuoteActions />
       {quote.list.length > 0 && <QuoteForm />}
 
       <style jsx>{`

@@ -25,7 +25,8 @@ class Line {
     const validTypes = [
       'smartphone',
       'tablet',
-      'watch'
+      'watch',
+      'hotspot'
     ];
 
     if(!validTypes.includes(type)){
