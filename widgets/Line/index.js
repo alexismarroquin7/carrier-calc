@@ -551,10 +551,10 @@ export const Line = ({ line, index }) => {
         }
 
         .due-today-text {
-          background-color: var(--google-blue);
-          color: var(--white);
+          background-color: var(--white);
+          color: var(--google-green);
           border-radius: 1rem;
-          border: 1px solid var(--google-blue);
+          border: 1px solid var(--google-green);
           padding: .5rem;
         }
         

@@ -13,7 +13,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head> 
       
-      <h6>Member Purchase Guide</h6>
+      <h6>Member Quote Comparison</h6>
       
       {quote.list.length > 0 && <QuoteTabs />}
 
