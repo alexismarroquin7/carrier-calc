@@ -2,14 +2,14 @@ import { useDispatch } from "react-redux";
 import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
 
-const calcDueToday = (line) => {
+const calcLineDueToday = (line) => {
   let res = 0;
   res += Number(line.device.dueToday);
   res += Number(line.protection.dueToday);
   return res;
 }
 
-const calcDueMonthly = (line) => {
+const calcLineDueMonthly = (line) => {
   let res = 0;
   res += Number(line.plan.dueMonthly);
   res += Number(line.device.dueMonthly);
@@ -196,20 +196,223 @@ export const Line = ({ line, index }) => {
   }
 
   const {
-    active: expanded,
-    toggle: toggleExpanded
+    active,
+    toggle
   } = useToggle();
   
   return (
-    <div
+    <section
       className="line"
     >
-      {expanded ? (
-      <>
-      <div>
-        <h6
-          className="line-number"
-        >Line {index + 1} 
+      <div className="line-head">
+        <h6>Line {index + 1}</h6>
+        
+        <button 
+          className={`line-control-button ${active ? 'line-collapse-button' : 'line-expand-button'}`}
+          onClick={(e) => {
+            e.preventDefault();
+            toggle();
+          }}
+        >{'>'}
+        </button>
+
+      </div>
+
+      {active ? (
+      <div className="line-expanded">  
+
+        <div
+          className="line-attrs"
+        >
+          <label className="line-label">Type: {l.type}</label>
+          
+          <label
+            className="line-label"
+          >
+            <input
+              type="text"
+              autoComplete="off" 
+              id={line.id}
+              name="name"
+              placeholder="Name"
+              onChange={handleChange}
+              value={l.name}
+            />
+          </label>
+
+          <label
+            className="line-label"
+          >
+            <input
+              autoComplete="off"
+              name="phoneNumber"
+              type="tel"
+              placeholder="Phone Number"
+              id={line.id}
+              onChange={handleChange}
+              value={l.phoneNumber}
+            />
+          </label>
+        
+        </div>
+
+        <div
+          className="device-attrs"
+        >
+          <h6>Device</h6>
+          <label
+            className="line-label"
+          >Name: 
+            <input
+              type="text"
+              autoComplete="off"
+              id={line.id}
+              name="device.name"
+              onChange={handleChange}
+              value={l.device.name}
+            />
+          </label>
+          
+          <label
+            className="line-label"
+          >Price: 
+            <input
+              autoComplete="off"
+              id={line.id}
+              name="device.price"
+              onChange={handleChange}
+              value={l.device.price}
+              type="number"
+            />
+          </label>
+          
+          <label
+            className="line-label"
+          >Downpayment: 
+            <input
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name='device.downpayment'
+              value={l.device.downpayment}
+              type="number"
+            />
+          </label>
+          
+          <label
+            className="line-label"
+          >Trade In Credit: 
+            <input
+              type="number"
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name='device.tradeInCredit'
+              value={l.device.tradeInCredit}
+            />
+          </label>
+          
+          <label
+            className="line-label"
+          >Due Today: 
+            <input
+              type="number"
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name="device.dueToday"
+              value={l.device.dueToday}
+            />
+          </label>
+          
+          <label
+            className="line-label"
+          >Due Monthly: 
+            <input
+              type="number"
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name="device.dueMonthly"
+              value={l.device.dueMonthly}
+            />
+          </label>
+        </div>
+
+        <div
+          className="plan-attrs"
+        >
+          <h6>Plan</h6>
+          <label
+            className="line-label"
+          >Name: 
+            <input
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name="plan.name"
+              value={l.plan.name}
+              type="text"
+            />
+          </label>
+          <label
+            className="line-label"
+          >Due Monthly: 
+            <input
+              type="number"            
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name="plan.dueMonthly"
+              value={l.plan.dueMonthly}
+            />
+          </label>
+        </div>
+        
+        <div
+          className="protection-attrs"
+        >
+          <h6>Protection</h6>
+          <label
+            className="line-label"
+          >Name: 
+            <input
+              type="text"
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name="protection.name"
+              value={l.protection.name}
+            />
+          </label>
+          <label
+            className="line-label"
+          >Due Today: 
+            <input
+              type="number"
+              autoComplete="off"
+              id={line.id}
+              onChange={handleChange}
+              name="protection.dueToday"
+              value={l.protection.dueToday}
+            />
+          </label>
+          <label
+            className="line-label"
+          >Due Monthly: 
+            <input
+              type="number"
+              autoComplete="off"
+              id={line.id}
+              name="protection.dueMonthly"
+              onChange={handleChange}
+              value={l.protection.dueMonthly}
+            />
+          </label>
+
+        </div>
+        
+        <div className="line-expanded-bottom-actions">
           <button 
             className="delete-line-button"
             onClick={(e) => {
@@ -218,222 +421,24 @@ export const Line = ({ line, index }) => {
             }}
           >Delete
           </button>
-        </h6>
-        <label
-          className="line-label"
-        >{l.type}</label>
+        </div>
       </div>
-      
-      <div
-        className="line-attrs"
-      >
-        <label
-          className="line-label"
-        >
-          <input
-            autoComplete="off" 
-            id={line.id}
-            name="name"
-            placeholder="Name"
-            onChange={handleChange}
-            value={l.name}
-          />
-        </label>
-
-        <label
-          className="line-label"
-        >
-          <input
-            autoComplete="off"
-            name="phoneNumber"
-            type="tel"
-            placeholder="Phone Number"
-            id={line.id}
-            onChange={handleChange}
-            value={l.phoneNumber}
-          />
-        </label>
-      
-      </div>
-
-      <div
-        className="device-attrs"
-      >
-        <h6>Device</h6>
-        <label
-          className="line-label"
-        >Name: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            name="device.name"
-            onChange={handleChange}
-            value={l.device.name}
-          />
-        </label>
-        
-        <label
-          className="line-label"
-        >Price: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            name="device.price"
-            onChange={handleChange}
-            value={l.device.price}
-          />
-        </label>
-        
-        <label
-          className="line-label"
-        >Downpayment: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name='device.downpayment'
-            value={l.device.downpayment}
-          />
-        </label>
-        
-        <label
-          className="line-label"
-        >Trade In Credit: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name='device.tradeInCredit'
-            value={l.device.tradeInCredit}
-          />
-        </label>
-        
-        <label
-          className="line-label"
-        >Due Today: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name="device.dueToday"
-            value={l.device.dueToday}
-          />
-        </label>
-        
-        <label
-          className="line-label"
-        >Due Monthly: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name="device.dueMonthly"
-            value={l.device.dueMonthly}
-          />
-        </label>
-      </div>
-
-      <div
-        className="plan-attrs"
-      >
-        <h6>Plan</h6>
-        <label
-          className="line-label"
-        >Name: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name="plan.name"
-            value={l.plan.name}
-          />
-        </label>
-        <label
-          className="line-label"
-        >Due Monthly: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name="plan.dueMonthly"
-            value={l.plan.dueMonthly}
-          />
-        </label>
-      </div>
-      
-      <div
-        className="protection-attrs"
-      >
-        <h6>Protection</h6>
-        <label
-          className="line-label"
-        >Name: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name="protection.name"
-            value={l.protection.name}
-          />
-        </label>
-        <label
-          className="line-label"
-        >Due Today: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            onChange={handleChange}
-            name="protection.dueToday"
-            value={l.protection.dueToday}
-          />
-        </label>
-        <label
-          className="line-label"
-        >Due Monthly: 
-          <input
-            autoComplete="off"
-            id={line.id}
-            name="protection.dueMonthly"
-            onChange={handleChange}
-            value={l.protection.dueMonthly}
-          />
-        </label>
-
-      </div>
-      <div
-        className="collapse-button"
-      >
-        <button
-          onClick={(e) => {
-            e.preventDefault()
-            toggleExpanded();
-          }}
-        >Collapse</button>
-      </div>
-      </>
       
       ) : (
         <div className="line-collapsed">
-          <h6>Line {index + 1}</h6>
-          <p>{l.type}</p>
-          <p>{l.name}</p>
-          <p>{l.phoneNumber}</p>
-          <p>{l.device.name}</p>
-          <p>{l.plan.name}</p>
-          <p>{l.protection.name}</p>
-          <p>Due Today: ${calcDueToday(line).toFixed(2)}</p>
-          <p>Due Monthly: ${calcDueMonthly(line).toFixed(2)}</p>
-
-          <div
-            className="expand-button"
-          >
-            <button 
-              onClick={(e) => {
-                e.preventDefault()
-                toggleExpanded();
-              }}
-            >Expand</button>
-          </div>
+          <p className="line-detail-collapsed">{l.type}</p>
+          <p className="line-detail-collapsed">{l.name}</p>
+          <p className="line-detail-collapsed">{l.phoneNumber}</p>
+          <div className="line-detail-border"></div>
+          <p className="line-detail-collapsed">{l.device.name ? l.device.name : 'No Device Selected'}</p>
+          <p className="line-detail-collapsed"><span className="due-today-text">${Number(l.device.dueToday).toFixed(2)} today</span> <span className="due-monthly-text">${Number(l.device.dueMonthly).toFixed(2)}/month</span></p>
+          <div className="line-detail-border"></div>
+          <p className="line-detail-collapsed">{l.plan.name ? l.plan.name : 'No Plan Selected'} <span className="due-monthly-text">${Number(l.plan.dueMonthly).toFixed(2)}/month</span></p>
+          <div className="line-detail-border"></div>
+          <p className="line-detail-collapsed">{l.protection.name ? l.protection.name : 'No Protection Selected'}</p>
+          <p className="line-detail-collapsed"><span className="due-today-text">${Number(l.protection.dueToday).toFixed(2)} today</span> <span className="due-monthly-text">${Number(l.protection.dueMonthly).toFixed(2)}/month</span></p>
+          <div className="line-detail-border"></div>
+          <p className="line-detail-collapsed"><span className="due-today-text">${calcLineDueToday(line).toFixed(2)} today</span> <span className="due-monthly-text">${calcLineDueMonthly(line).toFixed(2)}/month</span></p>
         </div>
       )}
 
@@ -443,17 +448,98 @@ export const Line = ({ line, index }) => {
           width: 100%;
           display: flex;
           flex-flow: column wrap;
-          gap: 2rem;
           border-top: 1px solid #eee;
           padding: 2rem 0;
+          gap: 2rem;
+          align-items: center;
         }
 
-        .line-number {
+        .line-head {
           width: 100%;
           display: flex;
           flex-flow: row wrap;
           align-items: center;
           justify-content: space-between;
+        }
+
+        .line-control-button {
+          padding: 1rem;
+          border-radius: 2rem;
+          border: 1px solid var(--google-blue);
+          color: white;
+          background-color: var(--google-blue);
+          transform-origin: center;
+          transform: rotate(90deg);
+        }
+
+        .line-collapse-button {
+          transform: rotate(270deg);
+        }
+
+        .line-label {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          gap: 1rem;
+        }
+        
+        .line-label input {
+          padding: 1rem;
+        }
+
+        .line-label input[type="text"],
+        .line-label input[type="tel"] {
+          width: 100%;
+        }
+        
+        .line-label input[type="number"] {
+          width: 10rem;
+        }
+
+        .line-attrs,
+        .device-attrs,
+        .plan-attrs,
+        .protection-attrs {
+          display: flex;
+          flex-flow: column wrap;
+          gap: 2rem;
+          padding: 2rem 0;
+        }
+
+        .line-expanded {
+          width: 100%;
+          display: flex;
+          flex-flow: column wrap;
+        }
+
+        .line-expanded-bottom-actions {
+          width: 100%;
+          display: flex;
+          flex-flow: column wrap;
+          align-items: center;
+          padding-top: 2rem;
+        }
+
+        .line-collapsed {
+          width: 100%;
+          display: flex;
+          flex-flow: column wrap;
+          gap: 1rem;
+        }
+
+        .line-detail-collapsed {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .line-detail-border {
+          width: 100%;
+          padding: .2rem;
+          background-color: #eee;
         }
 
         .delete-line-button {
@@ -464,50 +550,22 @@ export const Line = ({ line, index }) => {
           border-radius: 2rem;
         }
 
-        .line-label {
-          width: 100%;
-          display: flex;
-          flex-flow: column wrap;
-          gap: 1rem;
-        }
-        
-        .line-label input {
-          width: 100%;
-          padding: 1rem;
-        }
-
-        .line-attrs,
-        .device-attrs,
-        .plan-attrs,
-        .protection-attrs {
-          display: flex;
-          flex-flow: column wrap;
-          gap: 1rem;
-        }
-
-        .expand-button,
-        .collapse-button {
-          width: 100%;
-          display: flex;
-          flex-flow: column wrap;
-          align-items: center;
-          padding-top: 1rem;
-        }
-        
-        .expand-button button,
-        .collapse-button button {
-          border: 1px solid var(--google-blue);
-          padding: 1rem 2rem;
-          border-radius: 2rem;
+        .due-today-text {
           background-color: var(--google-blue);
-          color: white;
+          color: var(--white);
+          border-radius: 1rem;
+          border: 1px solid var(--google-blue);
+          padding: .5rem;
         }
-
-        .line-collapsed {
-          display: flex;
-          flex-flow: column wrap;
+        
+        .due-monthly-text {
+          background-color: var(--google-green);
+          color: var(--white);
+          border-radius: 1rem;
+          border: 1px solid var(--google-green);
+          padding: .5rem;
         }
       `}</style>
-    </div>
+    </section>
   )
 }
