@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useToggle } from "../../hooks";
-
+import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
+import { quoteSlice } from "../../store/slices/quote-slice";
 export const AccountSection = () => {
   const quote = useSelector(s => {
     const [q] = s.quote.list.filter(item => item.id === s.quote.selected.quote.id);
@@ -68,17 +69,31 @@ export const AccountSection = () => {
   <div
     className="account-section"
   >
-    <h6 
-      className="account-section-head"
-    >Account 
-      <button
-        className={`account-button ${active ? "collapse-account-button" : "expand-account-button"}`}
-        onClick={(e) => {
-          e.preventDefault();
-          toggle();
-        }}
-      >{'>'}</button>
-    </h6>
+    <div className="account-section-head">
+      <h6>Account</h6>
+      
+      {active ? (
+        <div className="account-button">
+          <KeyboardArrowDown
+            fontSize="inherit"
+            onClick={(e) => {
+              e.preventDefault();
+              toggle();
+            }}
+          />
+        </div>
+      ) : (
+        <div className="account-button">
+          <KeyboardArrowRight
+            fontSize="inherit"
+            onClick={(e) => {
+              e.preventDefault();
+              toggle();
+            }}
+          /> 
+        </div>
+      )}
+    </div>
 
     {active ? (
       <>
@@ -133,8 +148,14 @@ export const AccountSection = () => {
       </>
     ) : (
       <div className="account-section-collapsed">
-        <p>{quote.account.plan.name ? quote.account.plan.name : 'No account plan'} <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.plan.dueMonthly).toFixed(2)}/month</span></p>
-        <p>{quote.account.protection.name ? quote.account.protection.name : 'No account protection'} <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.protection.dueMonthly).toFixed(2)}/month</span></p>
+        <p>
+          {quote.account.plan.name ? quote.account.plan.name : 'No account plan'} 
+          {Number(quote.account.plan.dueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.plan.dueMonthly).toFixed(2)}/month</span>}
+        </p>
+        <p>
+          {quote.account.protection.name ? quote.account.protection.name : 'No account protection'} 
+          {Number(quote.account.protection.dueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.protection.dueMonthly).toFixed(2)}/month</span>}
+        </p>
       </div>
     )}
     <style jsx>{`
@@ -154,6 +175,13 @@ export const AccountSection = () => {
         flex-flow: row wrap;
         align-items: center;
         justify-content: space-between;
+      }
+
+      .account-button {
+        color: var(--google-blue);
+        font-size: 4rem;
+        display: flex;
+        flex-flow: row wrap;
       }
 
       .account-section-collapsed { 
@@ -192,19 +220,6 @@ export const AccountSection = () => {
         padding: 1rem;
       }
 
-      .account-button {
-        padding: 1rem;
-        border-radius: 2rem;
-        border: 1px solid var(--google-blue);
-        color: white;
-        background-color: var(--google-blue);
-        transform-origin: center;
-        transform: rotate(90deg);
-      }
-
-      .collapse-account-button {
-        transform: rotate(270deg);
-      }
     `}</style>
   </div>
   )

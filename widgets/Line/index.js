@@ -1,6 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
+import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
 
 const calcLineDueToday = (line) => {
   let res = 0;
@@ -207,14 +208,30 @@ export const Line = ({ line, index }) => {
       <div className="line-head">
         <h6>Line {index + 1}</h6>
         
-        <button 
-          className={`line-control-button ${active ? 'line-collapse-button' : 'line-expand-button'}`}
-          onClick={(e) => {
-            e.preventDefault();
-            toggle();
-          }}
-        >{'>'}
-        </button>
+        
+        {active ? (
+          <div className="line-arrow-button">
+            <KeyboardArrowDown
+              onClick={(e) => {
+                e.preventDefault();
+                toggle();
+              }}
+              fontSize="inherit"
+              
+            />
+          </div>
+        ) : (
+          <div className="line-arrow-button">
+            <KeyboardArrowRight
+              onClick={(e) => {
+                e.preventDefault();
+                toggle();
+              }}
+              fontSize="inherit"
+              className="line-arrow-button-svg"
+            />
+          </div>
+        )}
 
       </div>
 
@@ -431,12 +448,21 @@ export const Line = ({ line, index }) => {
           <p className="line-detail-collapsed">{l.phoneNumber}</p>
           <div className="line-detail-border"></div>
           <p className="line-detail-collapsed">{l.device.name ? l.device.name : 'No Device Selected'}</p>
-          <p className="line-detail-collapsed"><span className="due-today-text">${Number(l.device.dueToday).toFixed(2)} today</span> <span className="due-monthly-text">${Number(l.device.dueMonthly).toFixed(2)}/month</span></p>
+          <p className="line-detail-collapsed">
+            {Number(l.device.dueToday) > 0 && <span className="due-today-text">${Number(l.device.dueToday).toFixed(2)} today</span>}
+            {Number(l.device.dueMonthly) > 0 && <span className="due-monthly-text">${Number(l.device.dueMonthly).toFixed(2)}/month</span>}
+          </p>
           <div className="line-detail-border"></div>
-          <p className="line-detail-collapsed">{l.plan.name ? l.plan.name : 'No Plan Selected'} <span className="due-monthly-text">${Number(l.plan.dueMonthly).toFixed(2)}/month</span></p>
+          <p className="line-detail-collapsed">
+            {l.plan.name ? l.plan.name : 'No Plan Selected'} 
+            {Number(l.plan.dueMonthly) > 0 && <span className="due-monthly-text">${Number(l.plan.dueMonthly).toFixed(2)}/month</span>}
+          </p>
           <div className="line-detail-border"></div>
           <p className="line-detail-collapsed">{l.protection.name ? l.protection.name : 'No Protection Selected'}</p>
-          <p className="line-detail-collapsed"><span className="due-today-text">${Number(l.protection.dueToday).toFixed(2)} today</span> <span className="due-monthly-text">${Number(l.protection.dueMonthly).toFixed(2)}/month</span></p>
+          <p className="line-detail-collapsed">
+            {Number(l.protection.dueToday) > 0 && <span className="due-today-text">${Number(l.protection.dueToday).toFixed(2)} today</span>}
+            {Number(l.protection.dueMonthly) > 0 && <span className="due-monthly-text">${Number(l.protection.dueMonthly).toFixed(2)}/month</span>}
+          </p>
           <div className="line-detail-border"></div>
           <p className="line-detail-collapsed"><span className="due-today-text">${calcLineDueToday(line).toFixed(2)} today</span> <span className="due-monthly-text">${calcLineDueMonthly(line).toFixed(2)}/month</span></p>
         </div>
@@ -462,18 +488,9 @@ export const Line = ({ line, index }) => {
           justify-content: space-between;
         }
 
-        .line-control-button {
-          padding: 1rem;
-          border-radius: 2rem;
-          border: 1px solid var(--google-blue);
-          color: white;
-          background-color: var(--google-blue);
-          transform-origin: center;
-          transform: rotate(90deg);
-        }
-
-        .line-collapse-button {
-          transform: rotate(270deg);
+        .line-arrow-button {
+          font-size: 4rem;
+          color: var(--google-blue);
         }
 
         .line-label {

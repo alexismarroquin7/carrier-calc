@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux"
 import { AccountSection } from "../AccountSection";
 import { AddALineMenu } from "../AddALineMenu";
 import { LinesSection } from "../LinesSection";
-
+import { quoteSlice } from "../../store/slices/quote-slice";
 export const calcQuoteDueToday = (quote) => {
   let res = 0;
   quote.lines.map(line => {
