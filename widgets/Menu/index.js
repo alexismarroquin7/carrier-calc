@@ -2,6 +2,56 @@ import { useDispatch, useSelector } from "react-redux"
 import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
 import { calcQuoteDueMonthly, calcQuoteDueToday } from "../QuoteForm";
+import { v4 as uuid } from "uuid";
+import { useState } from "react";
+import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
+
+const initialOptions = [
+  {
+    id: uuid(),
+    name: 'Create Quote',
+    open: false,
+    options: [
+      {
+        id: uuid(),
+        name: 'Verizon',
+        action: 'quote-create-vzw'
+      },
+      {
+        id: uuid(),
+        name: 'AT&T',
+        action: 'quote-create-att'
+      },
+      {
+        id: uuid(),
+        name: 'T-Mobile',
+        action: 'quote-create-tmo'
+      }
+    ]
+  },
+  {
+    id: uuid(),
+    name: 'Selected Quote',
+    open: false,
+    options: [
+      {
+        id: uuid(),
+        name: 'Duplicate',
+        action: 'selected-quote-duplicate'
+      },
+      {
+        id: uuid(),
+        name: 'Export',
+        action: 'selected-quote-export'
+      },
+      {
+        id: uuid(),
+        name: 'Delete',
+        action: 'selected-quote-delete'
+      }
+    ]
+  }
+]
 
 const todaysDate = () => {
   let today = '';
@@ -203,12 +253,13 @@ const generateQuoteDocument = (quote) => {
 
 }
 
-export const QuoteActions = () => {
+export const Menu = () => {
   const dispatch = useDispatch();
+  
   const { active: menuActive, toggle: toggleMenuActive } = useToggle();
-  const { active: deleteModeActive, toggle: toggleDeleteModeActive } = useToggle();
-  const { active: carrierModalOpen, toggle: toggleCarrierModalOpen } = useToggle();
-
+  
+  const [options, setOptions] = useState(initialOptions);
+  
   const {
     quote,
     list
@@ -220,9 +271,50 @@ export const QuoteActions = () => {
     };
   });
 
+  const handleDispatch = (action) => {
+    switch(action){
+      case 'quote-create-vzw':
+        dispatch(quoteSlice.actions.create({ carrier: 'vzw' }));
+        toggleMenuActive();
+        break;
+      case 'quote-create-att':
+        dispatch(quoteSlice.actions.create({ carrier: 'att' }));
+        toggleMenuActive();
+        break;
+      case 'quote-create-tmo':
+        dispatch(quoteSlice.actions.create({ carrier: 'tmo' }));
+        toggleMenuActive();
+        break;
+      case 'selected-quote-duplicate':
+        if(list.length === 0) return;
+        dispatch(quoteSlice.actions.duplicateSelectedQuote());
+        toggleMenuActive();
+        break;
+      case 'selected-quote-export':
+        if(list.length === 0) return;
+        const element = document.createElement("a");
+        const file = new Blob([generateQuoteDocument(quote)], {
+          type: "text/html"
+        });
+        element.href = URL.createObjectURL(file);
+        element.download = `${todaysDate()}-${quote.name ? quote.name : 'Untitled'}-${quote.carrier.name ? quote.carrier.name : 'No Carrier Selected'}-${quote.lines.length}-lines.html`;
+        document.body.appendChild(element);
+        element.click();
+        toggleMenuActive();
+        break;
+      case 'selected-quote-delete':
+        if(list.length === 0) return;
+        dispatch(quoteSlice.actions.deleteSelectedQuote());
+        toggleMenuActive();
+        break;
+      default:
+        throw Error(`unkown action: ${action}`);
+    }
+  }
+
   return (
     <div
-      className="quote-actions-wrapper"
+      className="menu-wrapper"
     >
       <button
         className="menu-button"
@@ -235,127 +327,64 @@ export const QuoteActions = () => {
       </button>
       
       <div
-        className={`quote-actions-buttons ${menuActive ? '' : 'hidden'}`}
+        className={`menu-content ${menuActive ? '' : 'hidden'}`}
       >
-        <button
-          className="quote-action-button"
-          onClick={(e) => {
-            e.preventDefault();
-            toggleCarrierModalOpen();
-          }}
-        >Create Quote</button>
         <div
-          className={`carrier-menu ${carrierModalOpen ? '' : 'hidden'}`}
-          onClick={(e) => {
-            e.preventDefault();
-            toggleCarrierModalOpen();
-          }}
+          className={`menu-content-container`}
         >
-          <div
-            className="carrier-menu-content"
-          >
-            <h6>Choose a carrier</h6>
-            <button
-              className="carrier-button carrier-button-vzw"
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(quoteSlice.actions.create({ carrier: 'vzw' }));
-                toggleCarrierModalOpen();
-                toggleMenuActive();
-              }}
-            >{'Verizon'}</button>
-            <button
-              className="carrier-button carrier-button-att"
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(quoteSlice.actions.create({ carrier: 'att' }));
-                toggleCarrierModalOpen();
-                toggleMenuActive();
-              }}
-            >{'AT&T'}</button>
-            <button
-              className="carrier-button carrier-button-tmo"
-              onClick={(e) => {
-                e.preventDefault();
-                dispatch(quoteSlice.actions.create({ carrier: 'tmo' }));
-                toggleCarrierModalOpen();
-                toggleMenuActive();
-              }}
-            >{'T-Mobile'}</button>
-            <button
-              className="carrier-button carrier-button-cancel"
-              onClick={(e) => {
-                e.preventDefault();
-                toggleCarrierModalOpen();
-                toggleMenuActive();
-              }}
-            >{'Cancel'}</button>
-          </div>
+          {options.map(option => {
+            return <div
+              key={option.id}
+              className="menu-option"
+            >
+              <button
+                className="menu-option-button"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOptions(options.map(opt => {
+                    if(opt.id === option.id){
+                      opt.open = !opt.open;
+                    }
+                    return opt;
+                  }))
+                }}
+              >
+                <span>
+                  {option.name}
+                </span>
+                {option.open ? <KeyboardArrowDown fontSize="inherit"/> : <KeyboardArrowRight fontSize="inherit"/>}
+              </button>
+              {option.open && <div>
+                {option.options.map(subOption => {
+                  return <div
+                    key={subOption.id}
+                  >
+                    <button
+                      className="menu-sub-option-button"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleDispatch(subOption.action);
+                      }}
+                    >
+                      {subOption.name}
+                    </button>
+                  </div>    
+                })}
+              </div>}
+            </div>
+          })}
         </div>
-
-        <button
-          className="quote-action-button"
-          onClick={(e) => {
-            e.preventDefault();
-            dispatch(quoteSlice.actions.duplicateSelectedQuote());
-            toggleMenuActive();
-          }}    
-          disabled={list.length === 0}
-        >Duplicate</button>
-        <button
-          className="quote-action-button"
-          onClick={(e) => {
-            e.preventDefault();
-            const element = document.createElement("a");
-            const file = new Blob([generateQuoteDocument(quote)], {
-              type: "text/html"
-            });
-            element.href = URL.createObjectURL(file);
-            element.download = `${todaysDate()}-${quote.name ? quote.name : 'Untitled'}-${quote.carrier.name ? quote.carrier.name : 'No Carrier Selected'}-${quote.lines.length}-lines.html`;
-            document.body.appendChild(element);
-            element.click();
-          }}   
-          disabled={list.length === 0} 
-        >Export</button>
-        {deleteModeActive ? (
-        <>
-          <button
-            className="quote-action-button delete-mode"
-            onClick={(e) => {
-              e.preventDefault();
-              dispatch(quoteSlice.actions.deleteSelectedQuote());
-              toggleDeleteModeActive();
-              toggleMenuActive();
-            }}    
-          >Confirm Delete</button>
-          <button
-            className="quote-action-button cancel-delete-mode"
-            onClick={(e) => {
-              e.preventDefault();
-              toggleDeleteModeActive();
-            }}
-          >Cancel</button>
-          </>
-        ) : (
-          <button
-            className="quote-action-button"
-            onClick={(e) => {
-              e.preventDefault();
-              toggleDeleteModeActive();
-            }}
-            disabled={list.length === 0}
-          >Delete</button>
-        )}
       </div>
 
       <style jsx>{`
-        .quote-actions-wrapper {
+        .menu-wrapper {
           width: 100%;
           display: flex;
+          flex-flow: row wrap;
+          justify-content: flex-start;
           border-top: 1px solid #eee;
           border-bottom: 1px solid #eee;
           padding: 2rem;
-          gap: 1rem;
           position: relative;
         }
 
@@ -367,37 +396,57 @@ export const QuoteActions = () => {
           background-color: transparent;
         }
         
-        .quote-actions-buttons {
+        .menu-content {
+          width: 100%;
           display: flex;
           flex-flow: column wrap;
-          align-items: flex-start;
-          gap: 1rem;
+          align-items: center;
           position: absolute;
           z-index: 999;
-          top: 7rem;
+          left: 0;
+          right: 0;
+          top: 8.5rem;
+          box-shadow: 0 10px 15px black;
         }
         
-        .quote-actions-buttons.hidden {
+        .menu-content.hidden {
           display: none;
         }
 
-        .quote-action-button {
-          border: 1px solid var(--google-blue); 
-          border-radius: 2rem; 
-          color: white; 
-          background-color: var(--google-blue);
-          padding: 1rem 2rem;
-          box-shadow: 0 0 .2rem black;
+        .menu-content-container {
+          width: 100%;
+          display: flex;
+          flex-flow: column wrap;
+          align-items: flex-start;
+          bottom: 0;
+          position: relative;
         }
 
-        .delete-mode {
-          border-color: var(--google-red);
-          background-color: var(--google-red);
+        .menu-option {
+          width: 100%;
         }
         
-        .cancel-delete-mode {
-          color: var(--google-blue);
+        .menu-option-button {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+          padding: 2rem;
+          align-items: center;
+          border: 0;
+          font-size: 4rem;
+          border-top: 1px solid black;
+        }
+        
+        .menu-sub-option-button {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          padding: 2rem;
+          padding-left: 4rem;
+          border: 0;
           background-color: white;
+          border-top: 1px solid black;
         }
 
         .carrier-menu {

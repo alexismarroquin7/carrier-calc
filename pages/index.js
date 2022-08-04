@@ -1,7 +1,6 @@
 import Head from 'next/head'
 import { useSelector } from 'react-redux'
-import { QuoteTabs, QuoteForm } from "../widgets";
-import { QuoteActions } from '../widgets/QuoteActions';
+import { QuoteTabs, QuoteForm, Menu } from '../widgets';
 
 export default function Home() {
   const quote = useSelector(s => s.quote);
@@ -17,7 +16,8 @@ export default function Home() {
       
       {quote.list.length > 0 && <QuoteTabs />}
 
-      <QuoteActions />
+      <Menu />
+
       {quote.list.length > 0 && <QuoteForm />}
 
       <style jsx>{`
