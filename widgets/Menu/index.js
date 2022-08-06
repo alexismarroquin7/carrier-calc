@@ -53,7 +53,7 @@ const initialOptions = [
   }
 ]
 
-const todaysDate = () => {
+const todaysDate = (withColons = false) => {
   let today = '';
 
   const d = new Date();
@@ -82,7 +82,10 @@ const todaysDate = () => {
     sec = `0${sec}`;
   }
 
-  today = `${month}-${date}-${year}T${hr}-${min}-${sec}`;
+  today = withColons 
+  ? `${month}-${date}-${year}T${hr}:${min}:${sec}`
+  : `${month}-${date}-${year}T${hr}_${min}_${sec}`;
+
 
   return today;
 }
@@ -147,7 +150,7 @@ const generateQuoteDocument = (quote) => {
       <div class="wrapper">
         <h1>Member Quote</h1>
         <h2>${quote.name ? quote.name : 'Untitled'} | ${quote.carrier.title} | ${quote.lines.length} ${quote.lines.length === 1 ? 'Line' : 'Lines'}</h2>
-        <h3>${todaysDate()}</h3>
+        <h3>${todaysDate(true)}</h3>
         
         <div class="due-wrapper">
           <h2 class="due">Due Today:
@@ -158,21 +161,29 @@ const generateQuoteDocument = (quote) => {
           </h2>
         </div>
 
-        <div class="account-wrapper">
-          <h3>Account</h3>
-          <h4 class="account-feature">Plan: 
-            ${quote.account.plan.name ? quote.account.plan.name : 'None'}
-            <span>Due Monthly: $${Number(quote.account.plan.dueMonthly).toFixed(2)}</span>
-          </h4>
-
-          <h4 class="account-feature">Protection: 
-            ${quote.account.protection.name ? quote.account.protection.name : 'None'}
-            <span>Due Monthly: $${Number(quote.account.protection.dueMonthly).toFixed(2)}</span>
-          </h4>
-        </div>
+        <table>
+          <tr>
+            <th colspan="4">Account</th>
+          </tr>
+          
+          <tr>
+            <th>Plan</th>
+            <th>(Plan) Due Monthly</th>
+            <th>Protection</th>
+            <th>(Protection) Due Monthly</th>
+          </tr>
+            
+          <tr>
+            <td>${quote.account.plan.name ? quote.account.plan.name : 'None'}</td>
+            <td>$${Number(quote.account.plan.dueMonthly).toFixed(2)}</td>
+            <td>${quote.account.protection.name ? quote.account.protection.name : 'None'}</td>
+            <td>$${Number(quote.account.protection.dueMonthly).toFixed(2)}</td>
+          </tr>
+          
+        </table>
 
         <div class="lines">
-          <h3>Lines: ${quote.lines.length}</h3>
+          <th colspan="15">Lines: ${quote.lines.length}</th>
           ${linesHtml}
         </div>
       </div>
@@ -238,6 +249,8 @@ const generateQuoteDocument = (quote) => {
 
       th {
         border: 1px solid black;
+        padding: 1rem;
+        background-color: #eee;
       }
 
       td {
