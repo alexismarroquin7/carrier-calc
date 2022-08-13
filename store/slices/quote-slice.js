@@ -1,7 +1,7 @@
 import { v4 as uuid } from "uuid";
 import { createSlice } from "@reduxjs/toolkit"
 
-const carriers = {
+export const carriers = {
   vzw: {
     id: uuid(),
     title: 'Verizon',
@@ -17,6 +17,11 @@ const carriers = {
     title: 'T-Mobile',
     name: 'tmo'
   },
+  other: {
+    id: uuid(),
+    title: '',
+    name: 'other'
+  }
 }
 
 class Line {

@@ -2,7 +2,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { AccountSection } from "../AccountSection";
 import { AddALineMenu } from "../AddALineMenu";
 import { LinesSection } from "../LinesSection";
-import { quoteSlice } from "../../store/slices/quote-slice";
+import { quoteSlice, carriers } from "../../store/slices/quote-slice";
+
 export const calcQuoteDueToday = (quote) => {
   let res = 0;
   quote.lines.map(line => {
@@ -41,6 +42,21 @@ export const QuoteForm = () => {
           name: value
         }));
         break;
+      case 'carrier.name':
+        dispatch(quoteSlice.actions.updateSelectedQuote({
+          ...quote,
+          carrier: carriers[value]
+        }));
+        break;
+      case 'carrier.title':
+        dispatch(quoteSlice.actions.updateSelectedQuote({
+          ...quote,
+          carrier: {
+            ...quote.carrier,
+            title: value
+          }
+        }));
+        break;
       default:
         throw Error(`unkown e.target.name: ${name}`);
     }
@@ -57,7 +73,44 @@ export const QuoteForm = () => {
         value={quote.name}
       />
       
-      <h6>{quote.carrier.title}</h6>
+      <div className="select-carrier">
+        <label className="select-carrier-label">Carrier:
+          <select
+            className="select-carrier-select"
+            name="carrier.name"
+            value={quote.carrier.name}
+            onChange={handleChange}
+          >
+            <option
+              className="select-carrier-option"
+              value={'vzw'}
+            >Verizon</option>
+            <option
+              className="select-carrier-option"
+              value={'att'}
+            >AT&T</option>
+            <option
+              className="select-carrier-option"
+              value={'tmo'}
+            >T-Mobile</option>
+            <option
+              className="select-carrier-option"
+              value={'other'}
+            >Other</option>
+          </select>
+        </label>
+      
+        {quote.carrier.name === 'other' && (
+          <input
+            className="select-carrier-input"
+            placeholder="Other"
+            value={quote.carrier.title}
+            name="carrier.title"
+            onChange={handleChange}
+          />
+        )}
+      
+      </div>
       
       <div
         className="amount-due-section"
@@ -94,6 +147,24 @@ export const QuoteForm = () => {
 
         .quote-name {
           width: 90%;
+          padding: 1rem;
+        }
+
+        .select-carrier {
+          width: 90%;
+          display: flex;
+          flex-flow: column wrap;
+          gap: .5rem;
+        }
+
+        .select-carrier-label {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: space-between;
+        }
+
+        .select-carrier-input {
           padding: 1rem;
         }
 
