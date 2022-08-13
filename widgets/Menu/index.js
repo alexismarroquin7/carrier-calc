@@ -26,6 +26,11 @@ const initialOptions = [
         id: uuid(),
         name: 'T-Mobile',
         action: 'quote-create-tmo'
+      },
+      {
+        id: uuid(),
+        name: 'Other',
+        action: 'quote-create-other'
       }
     ]
   },
@@ -296,6 +301,10 @@ export const Menu = () => {
         break;
       case 'quote-create-tmo':
         dispatch(quoteSlice.actions.create({ carrier: 'tmo' }));
+        toggleMenuActive();
+        break;
+      case 'quote-create-other':
+        dispatch(quoteSlice.actions.create({ carrier: 'other' }));
         toggleMenuActive();
         break;
       case 'selected-quote-duplicate':
