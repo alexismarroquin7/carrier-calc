@@ -96,7 +96,7 @@ const todaysDate = (withColons = false) => {
 }
 
 const generateQuoteDocument = (quote) => {
-  let linesHtml = `<table>
+  let linesHtml = `
   <tr>
     <th>Line</th>
     <th>Type</th>
@@ -107,14 +107,14 @@ const generateQuoteDocument = (quote) => {
     <th>Price</th>
     <th>Downpayment</th>
     <th>Trade In Credit</th>
-    <th>(Device) Due Today</th>
-    <th>(Device) Due Monthly</th>
+    <th>Device (Due Today)</th>
+    <th>Device (Due Monthly)</th>
 
     <th>Plan</th>
-    <th>(Plan) Due Monthly</th>
+    <th>Plan (Due Monthly)</th>
     <th>Protection</th>
-    <th>(Protection) Due Today</th>
-    <th>(Protection) Due Monthly</th>
+    <th>Protection (Due Today)</th>
+    <th>Protection (Due Monthly)</th>
     
   </tr>
   `;
@@ -132,16 +132,22 @@ const generateQuoteDocument = (quote) => {
       <td>$${Number(line.device.tradeInCredit).toFixed(2)}</td>
       <td>$${Number(line.device.dueToday).toFixed(2)}</td>
       <td>$${Number(line.device.dueMonthly).toFixed(2)}</td>
-      <td>${line.plan.name ? line.plan.name : 'None'}</td>
+      <td>
+        ${line.plan.name === '' ? 'None' : ''}
+        ${line.plan.name === 'other' ?  `${line.plan.title === '' ? 'None' : line.plan.title}` : ''}
+        ${line.plan.name ? line.plan.name : ''}
+      </td>
       <td>$${Number(line.plan.dueMonthly).toFixed(2)}</td>
-      <td>${line.protection.name ? line.protection.name : 'None'}</td>
+      <td>
+        ${line.protection.name === '' ? 'None' : ''}
+        ${line.protection.name === 'other' ?  `${line.protection.title === '' ? 'None' : line.protection.title}` : ''}
+        ${line.protection.name ? line.protection.name : ''}
+      </td>
       <td>$${Number(line.protection.dueToday).toFixed(2)}</td>
       <td>$${Number(line.protection.dueMonthly).toFixed(2)}</td>
     </tr>
     `
   });
-
-  linesHtml += `</table>`;
 
   const html = `
   <!DOCTYPE html>
@@ -173,9 +179,9 @@ const generateQuoteDocument = (quote) => {
           
           <tr>
             <th>Plan</th>
-            <th>(Plan) Due Monthly</th>
+            <th>Plan (Due Monthly)</th>
             <th>Protection</th>
-            <th>(Protection) Due Monthly</th>
+            <th>Protection (Due Monthly)</th>
           </tr>
             
           <tr>
@@ -195,10 +201,71 @@ const generateQuoteDocument = (quote) => {
           
         </table>
 
-        <div class="lines">
-          <th colspan="15">Lines: ${quote.lines.length}</th>
+        <table class="lines">
+          <tr>
+            <th colspan="15">Lines: ${quote.lines.length}</th>
+          </tr>
           ${linesHtml}
-        </div>
+          <tr>
+            <th
+              colspan="5"
+            >
+              Totals:
+            </th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                console.log(acc)
+                acc += Number(curr.device.price);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                acc += Number(curr.device.downpayment);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                acc += Number(curr.device.tradeInCredit);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                acc += Number(curr.device.dueToday);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                acc += Number(curr.device.dueMonthly);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+            <th></th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                acc += Number(curr.plan.dueMonthly);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+            <th></th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                acc += Number(curr.protection.dueToday);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+            <th>
+              $${quote.lines.reduce((acc, curr) => {
+                acc += Number(curr.protection.dueMonthly);
+                return acc;
+              }, 0).toFixed(2)}
+            </th>
+
+          </tr>
+        </table>
       </div>
     </body>
       
@@ -224,6 +291,7 @@ const generateQuoteDocument = (quote) => {
         display: flex;
         flex-flow: column wrap;
         align-items: flex-start;
+        gap: 1rem;
       }
 
       .due-wrapper {
@@ -327,7 +395,7 @@ export const Menu = () => {
           type: "text/html"
         });
         element.href = URL.createObjectURL(file);
-        element.download = `${todaysDate()}-${quote.name ? quote.name : 'Untitled'}-${quote.carrier.name ? quote.carrier.name : 'No Carrier Selected'}-${quote.lines.length}-lines.html`;
+        element.download = `${todaysDate()}-${quote.name ? quote.name : 'Untitled'}-${quote.carrier.title ? quote.carrier.title : 'No Carrier Selected'}-${quote.lines.length}-lines.html`;
         document.body.appendChild(element);
         element.click();
         toggleMenuActive();

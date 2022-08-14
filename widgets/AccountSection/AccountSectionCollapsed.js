@@ -5,29 +5,52 @@ export const AccountSectionCollapsed = () => {
     const [q] = s.quote.list.filter(item => item.id === s.quote.selected.quote.id);
     return q;
   });
+
+  const planName = quote.account.plan.name;
+  const planTitle = quote.account.plan.title;
+  const planDueMonthly = quote.account.plan.dueMonthly;
+  const protectionName = quote.account.protection.name;
+  const protectionTitle = quote.account.protection.title;
+  const protectionDueMonthly = quote.account.protection.dueMonthly;
+
   return (
   <div className="account-section-collapsed">
-    <p>
-      {quote.account.plan.name ? quote.account.plan.name : 'No account plan'} 
-      {Number(quote.account.plan.dueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.plan.dueMonthly).toFixed(2)}/month</span>}
-    </p>
-    <p>
-      {quote.account.protection.name ? quote.account.protection.name : 'No account protection'} 
-      {Number(quote.account.protection.dueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.protection.dueMonthly).toFixed(2)}/month</span>}
-    </p>
+    <div>
+      <p>
+        {planName === 'other' && planTitle.length === 0 ? 'other' : ''}
+        {planName === 'other' && planTitle.length > 0 ? planTitle : ''}
+        {planName !== '' && planName !== 'other' ? planName : ''}
+        {planName === '' && 'No account-level plan'}
+      </p>
+      {Number(planDueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(planDueMonthly).toFixed(2)}/month</span>}
+    </div>
+    <div>
+      <p>
+        {protectionName === 'other' && protectionTitle.length === 0 ? 'other' : ''}
+        {protectionName === 'other' && protectionTitle.length > 0 ? protectionTitle : ''}
+        {protectionName !== '' && protectionName !== 'other' ? protectionName : ''}
+        {protectionName === '' && 'No account-level protection'}
+      </p>
+      {Number(protectionDueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(protectionDueMonthly).toFixed(2)}/month</span>}
+    </div>
+
     <style jsx>{`
       .account-section-collapsed { 
         display: flex;
         flex-flow: column wrap;
-        gap: 2rem;
+        gap: 1rem;
+      }
+      
+      .account-section-collapsed div { 
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: space-between;
+        justify-content: flex-end;
+        gap: .5rem;
       }
       
       .account-section-collapsed p {
         width: 100%;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-items: flex-start;
       }
 
       .account-section-collapsed-due-monthly-text {

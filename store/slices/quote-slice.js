@@ -74,10 +74,12 @@ class Quote {
     this.account = {
       plan: {
         name: '',
+        title: '',
         dueMonthly: 0
       },
       protection: {
         name: '',
+        title: '',
         dueMonthly: 0
       }
     };

@@ -1,8 +1,6 @@
-import { KeyboardArrowDown } from '@mui/icons-material';
 import { quoteSlice } from "../../store/slices/quote-slice";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuid } from "uuid";
-import { useToggle } from '../../hooks';
 
 const options = {
   plans: {
@@ -34,6 +32,18 @@ const options = {
       {
         id: uuid(),
         name: 'The Verizon Unlimited Plan'
+      },
+      {
+        id: uuid(),
+        name: 'Go Unlimited'
+      },
+      {
+        id: uuid(),
+        name: 'Above Unlimited'
+      },
+      {
+        id: uuid(),
+        name: 'Beyond Unlimited'
       },
       {
         id: uuid(),
@@ -92,10 +102,64 @@ const options = {
       {
         id: uuid(),
         name: 'AT&T Unlimited & More Premium'
-      }
+      },
+      {
+        id: uuid(),
+        name: 'other'
+      },
     ],
-    tmo: [],
-    other: []
+    tmo: [
+      {
+        id: uuid(),
+        name: ''
+      },
+      {
+        id: uuid(),
+        name: 'Magenta MAX'
+      },
+      {
+        id: uuid(),
+        name: 'Magenta'
+      },
+      {
+        id: uuid(),
+        name: 'Essentials'
+      },
+      {
+        id: uuid(),
+        name: 'Magenta MAX Military'
+      },
+      {
+        id: uuid(),
+        name: 'Magenta Military'
+      },
+      {
+        id: uuid(),
+        name: 'Magenta MAX 55+'
+      },
+      {
+        id: uuid(),
+        name: 'Magenta 55+'
+      },
+      {
+        id: uuid(),
+        name: 'Essentials 55+'
+      },
+      {
+        id: uuid(),
+        name: 'other'
+      },
+    ],
+    other: [
+      {
+        id: uuid(),
+        name: ''
+      },
+      {
+        id: uuid(),
+        name: 'other'
+      },
+    ]
   },
   protection: {
     vzw: [
@@ -117,10 +181,39 @@ const options = {
       }
     ],
     att: [
-      
+      {
+        id: uuid(),
+        name: ''
+      },
+      {
+        id: uuid(),
+        name: 'Protect Advantage For 4'
+      },
+      {
+        id: uuid(),
+        name: 'other'
+      }
     ],
-    tmo: [],
-    other: []
+    tmo: [
+      {
+        id: uuid(),
+        name: ''
+      },
+      {
+        id: uuid(),
+        name: 'other'
+      },
+    ],
+    other: [
+      {
+        id: uuid(),
+        name: ''
+      },
+      {
+        id: uuid(),
+        name: 'other'
+      },
+    ]
   }
 }
 
@@ -172,20 +265,13 @@ export const AccontSectionForm = () => {
         }));
         break;
       case 'account.protection.name':
-        let dm = 0;
-
-        if(value === 'Verizon Multi-Device Protection') {
-          dm = 50;
-        }
-      
         dispatch(quoteSlice.actions.updateSelectedQuote({
           ...quote,
           account: {
             ...quote.account,
             protection: {
               ...quote.account.protection,
-              name: value,
-              dueMonthly: dm
+              name: value
             }
           }
         }));
@@ -231,7 +317,14 @@ export const AccontSectionForm = () => {
       >
         {options.plans[quote.carrier.name].map(option => {
           return (
-            <option key={option.id} value={option.name}>{option.name ? option.name : '--select--'}</option>
+            <option 
+              key={option.id}
+              value={option.name}
+            >
+              {option.name !== 'other' && option.name === '' ? '--select--' : ''}
+              {option.name === 'other' ? 'other' : ''}
+              {option.name !== 'other' && option.name !== '' ? option.name : ''}
+            </option>
           )
         })}
       </select>
@@ -267,7 +360,14 @@ export const AccontSectionForm = () => {
       >
         {options.protection[quote.carrier.name].map(option => {
           return (
-            <option key={option.id} value={option.name}>{option.name ? option.name : '--select--'}</option>
+            <option 
+              key={option.id}
+              value={option.name}
+            >
+              {option.name !== 'other' && option.name === '' ? '--select--' : ''}
+              {option.name === 'other' ? 'other' : ''}
+              {option.name !== 'other' && option.name !== '' ? option.name : ''}
+            </option>
           )
         })}
       </select>

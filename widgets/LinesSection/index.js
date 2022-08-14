@@ -11,7 +11,11 @@ export const LinesSection = () => {
   <div
     className="lines-section"
   >
-    <h6>Lines: {quote.lines.length}</h6>
+    <div>
+      <h5>Lines: <span>{quote.lines.length}</span></h5>
+      
+
+    </div>
     {quote.lines.map((line, i) => {
       const l = {...line};
       return (
@@ -28,6 +32,18 @@ export const LinesSection = () => {
         border-radius: 2rem;
         padding: 2rem;
         gap: 2rem;
+      }
+
+      h5 {
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-end;
+        justify-content: space-between;
+      }
+
+      span {
+        font-size: 4rem;
       }
     `}</style>
   </div>

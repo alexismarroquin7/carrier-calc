@@ -164,8 +164,12 @@ export const QuoteForm = () => {
           justify-content: space-between;
         }
 
-        .select-carrier-input {
+        .select-carrier-select {
           padding: 1rem;
+        }
+
+        .select-carrier-input {
+          padding: 1rem;  
         }
 
         .amount-due-section {
