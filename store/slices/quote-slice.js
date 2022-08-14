@@ -44,10 +44,12 @@ class Line {
     this.type = type;
     this.plan = {
       name: '',
+      title: '',
       dueMonthly: 0
     }
     this.protection = {
       name: '',
+      title: '',
       dueToday: 0,
       dueMonthly: 0
     }

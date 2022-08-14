@@ -179,9 +179,17 @@ const generateQuoteDocument = (quote) => {
           </tr>
             
           <tr>
-            <td>${quote.account.plan.name ? quote.account.plan.name : 'None'}</td>
+            <td>
+              ${quote.account.plan.name === '' ? 'None' : ''}
+              ${quote.account.plan.name === 'other' ?  `${quote.account.plan.title === '' ? 'None' : quote.account.plan.title}` : ''}
+              ${quote.account.plan.name ? quote.account.plan.name : ''}
+            </td>
             <td>$${Number(quote.account.plan.dueMonthly).toFixed(2)}</td>
-            <td>${quote.account.protection.name ? quote.account.protection.name : 'None'}</td>
+            <td>
+              ${quote.account.protection.name === '' ? 'None' : ''}
+              ${quote.account.protection.name === 'other' ?  `${quote.account.protection.title === '' ? 'None' : quote.account.protection.title}` : ''}
+              ${quote.account.protection.name ? quote.account.protection.name : ''}
+            </td>
             <td>$${Number(quote.account.protection.dueMonthly).toFixed(2)}</td>
           </tr>
           
