@@ -2,6 +2,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { useToggle } from "../../hooks";
 import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
 import { quoteSlice } from "../../store/slices/quote-slice";
+import { AccountSectionCollapsed } from "./AccountSectionCollapsed";
+
 export const AccountSection = () => {
   const quote = useSelector(s => {
     const [q] = s.quote.list.filter(item => item.id === s.quote.selected.quote.id);
@@ -70,7 +72,7 @@ export const AccountSection = () => {
     className="account-section"
   >
     <div className="account-section-head">
-      <h6>Account</h6>
+      <h5>Account</h5>
       
       {active ? (
         <div className="account-button">
@@ -99,11 +101,10 @@ export const AccountSection = () => {
       <>
       <h6>Plan</h6>
       <label
-        className="account-section-input"
-      >
+        className="account-section-text-input"
+      >Name:
         <input 
           type="text"
-          placeholder="Name"
           name="account.plan.name"
           onChange={handleChange}
           value={quote.account.plan.name}
@@ -111,7 +112,7 @@ export const AccountSection = () => {
       </label>
 
       <label
-        className="account-section-input"
+        className="account-section-number-input"
       >Due Monthly:
         <input 
           type="number"
@@ -124,10 +125,9 @@ export const AccountSection = () => {
       
       <h6>Protection</h6>
       <label
-        className="account-section-input"
-      >
+        className="account-section-text-input"
+      >Name:
         <input 
-          placeholder="Name"
           type="text"
           name="account.protection.name"
           onChange={handleChange}
@@ -136,7 +136,7 @@ export const AccountSection = () => {
       </label>
 
       <label
-        className="account-section-input"
+        className="account-section-number-input"
       >Due Monthly:
         <input 
           type="number"
@@ -147,16 +147,7 @@ export const AccountSection = () => {
       </label>
       </>
     ) : (
-      <div className="account-section-collapsed">
-        <p>
-          {quote.account.plan.name ? quote.account.plan.name : 'No account plan'} 
-          {Number(quote.account.plan.dueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.plan.dueMonthly).toFixed(2)}/month</span>}
-        </p>
-        <p>
-          {quote.account.protection.name ? quote.account.protection.name : 'No account protection'} 
-          {Number(quote.account.protection.dueMonthly) > 0 && <span className="account-section-collapsed-due-monthly-text">${Number(quote.account.protection.dueMonthly).toFixed(2)}/month</span>}
-        </p>
-      </div>
+      <AccountSectionCollapsed/>
     )}
     <style jsx>{`
       .account-section {
@@ -184,42 +175,35 @@ export const AccountSection = () => {
         flex-flow: row wrap;
       }
 
-      .account-section-collapsed { 
+      .account-section-text-input {
+        width: 100%;
         display: flex;
         flex-flow: column wrap;
-        gap: 2rem;
+        gap: .5rem;
       }
-      
-      .account-section-collapsed p {
+
+      .account-section-number-input {
         width: 100%;
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
-        align-items: flex-start;
+        gap: .5rem;
       }
-
-      .account-section-collapsed-due-monthly-text {
-        border-radius: 1rem;
-        padding: .5rem;
-        background-color: var(--google-green);
-        color: white;
-      }
-
-      .account-section-input {
+      
+      .account-section-text-input input,
+      .account-section-number-input input {
         width: 100%;
         display: flex;
         flex-flow: column wrap;
-        gap: 1rem;
-      }
-      
-      .account-section-input input {
-        width: 100%;
-        display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
+        justify-content: flex-end;
         padding: 1rem;
+        gap: .5rem;
       }
 
+      .account-section-number-input input {
+        width: 10rem;
+      }
+      
     `}</style>
   </div>
   )
