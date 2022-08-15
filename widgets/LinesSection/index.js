@@ -13,13 +13,11 @@ export const LinesSection = () => {
   >
     <div>
       <h5>Lines: <span>{quote.lines.length}</span></h5>
-      
-
     </div>
+
     {quote.lines.map((line, i) => {
-      const l = {...line};
       return (
-        <Line key={l.id} line={l} index={i}/>
+        <Line key={line.id} line={line} index={i}/>
       )
     })}
 

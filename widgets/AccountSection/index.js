@@ -13,27 +13,25 @@ export const AccountSection = () => {
   >
     <div className="account-section-top">
       <h5>Account</h5>
-      {editMode ? (
-        <div className="account-edit-button">
+      <div 
+        className="account-edit-button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleEditMode();
+          e.target.scrollIntoView(true);
+        }}
+      >
+        {editMode ? (
           <KeyboardArrowDown
-            fontSize="inherit"
-            onClick={(e) => {
-              e.preventDefault();
-              toggleEditMode();
-            }}
+            fontSize="inherit"  
           />
-        </div>
-      ) : (
-        <div className="account-edit-button">
+        ) : (
           <KeyboardArrowRight
             fontSize="inherit"
-            onClick={(e) => {
-              e.preventDefault();
-              toggleEditMode();
-            }}
           /> 
-        </div>
-      )}
+        )}
+      </div>
     </div>
 
     {editMode ? <AccontSectionForm/> : <AccountSectionCollapsed/>}
