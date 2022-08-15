@@ -3,6 +3,7 @@ import { AccountSection } from "../AccountSection";
 import { AddALineMenu } from "../AddALineMenu";
 import { LinesSection } from "../LinesSection";
 import { quoteSlice, carriers } from "../../store/slices/quote-slice";
+import { QuoteMenu } from "./QuoteMenu";
 
 export const calcQuoteDueToday = (quote) => {
   let res = 0;
@@ -66,13 +67,19 @@ export const QuoteForm = () => {
     <div
       className="quote-form"
     >
-      <input
-        className="quote-name"
-        name="name"
-        onChange={handleChange}
-        value={quote.name}
-      />
+      <QuoteMenu/>
       
+      <label
+        className="quote-name-label"
+      >Quote:
+        <input
+          className="quote-name"
+          name="name"
+          onChange={handleChange}
+          value={quote.name}
+        />
+      </label>
+
       <div className="select-carrier">
         <label className="select-carrier-label">Carrier:
           <select
@@ -145,8 +152,15 @@ export const QuoteForm = () => {
           padding: 2rem 0;
         }
 
-        .quote-name {
+        .quote-name-label {
+          display: flex;
+          flex-flow: column wrap;
+          gap: .5rem;
           width: 90%;
+        }
+
+        .quote-name {
+          width: 100%;
           padding: 1rem;
         }
 
@@ -162,14 +176,17 @@ export const QuoteForm = () => {
           display: flex;
           flex-flow: row wrap;
           justify-content: space-between;
+          gap: .5rem;
         }
 
         .select-carrier-select {
           padding: 1rem;
+          width: 100%;
         }
 
         .select-carrier-input {
-          padding: 1rem;  
+          padding: 1rem;
+          margin-top: .5rem;
         }
 
         .amount-due-section {
