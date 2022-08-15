@@ -17,30 +17,29 @@ export const Line = ({ line, index }) => {
       className="line"
     >
       <div className="line-head">
-        <h6>Line {index + 1}</h6>
+        <h6 className="line-title">Line {index + 1}</h6>
         
-        {editMode ? (
-          <div className="line-edit-button">
+        <div 
+          className="line-edit-button"
+          id={`line-edit-button-line-id-${l.id}`}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            toggleEditMode();
+            e.target.scrollIntoView(true)
+          }}
+        >
+          {editMode ? (
             <KeyboardArrowDown
-              onClick={(e) => {
-                e.preventDefault();
-                toggleEditMode();
-              }}
               fontSize="inherit"
             />
-          </div>
-        ) : (
-          <div className="line-edit-button">
+          ) : (
             <KeyboardArrowRight
-              onClick={(e) => {
-                e.preventDefault();
-                toggleEditMode();
-              }}
-              fontSize="inherit"
+              fontSize="inherit"  
             />
-          </div>
-        )}
-
+          )}
+        </div>
+      
       </div>
 
       {editMode ? <LineForm line={l}/> : <LineCollapsed line={l}/>}

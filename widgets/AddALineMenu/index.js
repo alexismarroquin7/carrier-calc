@@ -73,7 +73,7 @@ export const AddALineMenu = () => {
 
           return (
           <button
-            key={deviceType}
+            key={deviceType.type}
             onClick={(e) => {
               e.preventDefault()
               dispatch(quoteSlice.actions.addALine(deviceType.type));
