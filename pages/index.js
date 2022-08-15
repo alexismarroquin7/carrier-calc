@@ -12,11 +12,9 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head> 
       
-      <h6>Member Quote Comparison</h6>
+      <h6><Menu />Member Quote Comparison </h6>
       
       {quote.list.length > 0 && <QuoteTabs />}
-
-      <Menu />
 
       {quote.list.length > 0 && <QuoteForm />}
 
@@ -30,8 +28,9 @@ export default function Home() {
         }
 
         h6 {
-          width: 100%;
+          display: flex;
           padding: 2rem;
+          gap: 2rem;
         }      
 
         .vzw {
