@@ -16,7 +16,6 @@ const calcLineDueMonthly = (line) => {
 export const LineCollapsed = ({line}) => {
   return (
     <div className="line-collapsed">
-      <p className="line-detail-collapsed">{line.type}</p>
       <p className="line-detail-collapsed">{line.name}</p>
       <p className="line-detail-collapsed">{line.phoneNumber}</p>
       <div className="line-detail-border"></div>
@@ -71,26 +70,25 @@ export const LineCollapsed = ({line}) => {
           justify-content: space-between;
         }
 
-
         .line-detail-border {
           width: 100%;
-          padding: .2rem;
+          padding: .1rem;
           background-color: #eee;
         }
-
+        
         .due-today-text {
-          background-color: var(--white);
-          color: var(--google-green);
+          background-color: transparent;
+          color: var(--teal);
           border-radius: 1rem;
-          border: 1px solid var(--google-green);
+          border: 1px solid var(--teal);
           padding: .5rem;
         }
         
         .due-monthly-text {
-          background-color: var(--google-green);
-          color: var(--white);
+          background-color: var(--teal);
+          color: var(--dark-blue);
           border-radius: 1rem;
-          border: 1px solid var(--google-green);
+          border: 1px solid var(--teal);
           padding: .5rem;
         }
       `}</style>

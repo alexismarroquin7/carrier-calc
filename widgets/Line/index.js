@@ -2,6 +2,25 @@ import { useToggle } from "../../hooks/useToggle";
 import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
 import { LineCollapsed } from "./LineCollapsed";
 import { LineForm } from "./LineForm";
+import SmartphoneIcon from '@mui/icons-material/Smartphone';
+import TabletIcon from '@mui/icons-material/Tablet';
+import WatchIcon from '@mui/icons-material/Watch';
+import WifiIcon from '@mui/icons-material/Wifi';
+
+const Icon = ({type}) => {
+  switch(type){
+    case 'smartphone':
+      return <SmartphoneIcon fontSize="inherit"/>
+    case 'tablet':
+      return <TabletIcon fontSize="inherit"/>
+    case 'watch':
+      return <WatchIcon fontSize="inherit"/>
+    case 'hotspot':
+      return <WifiIcon fontSize="inherit"/>
+    
+    default: throw Error('unknown icon type in Line');
+  }
+}
 
 export const Line = ({ line, index }) => {
   
@@ -17,7 +36,18 @@ export const Line = ({ line, index }) => {
       className="line"
     >
       <div className="line-head">
-        <h6 className="line-title">Line {index + 1}</h6>
+        <div
+          className="line-title"
+        >
+          <div
+            className="line-type-icon"
+          >
+            <Icon type={line.type} />
+            <p>Line {index + 1}</p>
+          </div>
+          <p className="line-type-text">{line.type}</p>
+
+        </div>
         
         <div 
           className="line-edit-button"
@@ -64,9 +94,24 @@ export const Line = ({ line, index }) => {
           justify-content: space-between;
         }
 
+        .line-title {
+          font-size: 3rem;
+          display: flex;
+          flex-flow: column wrap;
+          gap: 1rem;
+        }
+        
+        .line-type-icon {
+          font-size: 3rem;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: flex-end;
+          gap: 1rem;
+        }
+
         .line-edit-button {
           font-size: 4rem;
-          color: var(--google-blue);
+          color: var(--teal);
         }
         
       `}</style>

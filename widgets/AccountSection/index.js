@@ -38,8 +38,10 @@ export const AccountSection = () => {
 
     <style jsx>{`
       .account-section {
-        border: 1px solid #eee;
-        border-radius: 2rem;
+        border: .2rem solid var(--dark-blue);
+        background-color: var(--dark-blue);
+        border-radius: 1rem;
+        color: white;
         width: 90%;
         padding: 2rem;
         display: flex;
@@ -53,10 +55,11 @@ export const AccountSection = () => {
         flex-flow: row wrap;
         align-items: center;
         justify-content: space-between;
+        color: var(--teal);
       }
 
       .account-edit-button {
-        color: var(--google-blue);
+        color: var(--teal);
         font-size: 4rem;
         display: flex;
         flex-flow: row wrap;

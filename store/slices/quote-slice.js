@@ -179,6 +179,52 @@ export const quoteSlice = createSlice({
         }
         return item;
       })
+    },
+    addMultipleLinesToSelectedQuote: (state, {payload}) => {
+      /*
+      @param payload {
+        smartphone @type number
+        tablet @type number
+        watch @type number
+        hotspot @type number
+      }
+      
+      */ 
+
+      const validPayload = () => {
+        let valid = true;
+
+        if(Number(payload.smartphone) < 0){
+          valid = false;
+        }
+        if(Number(payload.tablet) < 0){
+          valid = false;
+        }
+        if(Number(payload.watch) < 0){
+          valid = false;
+        }
+        if(Number(payload.hotspot) < 0){
+          valid = false;
+        }
+        return valid;
+      }
+
+      if(!validPayload()) throw Error(`invalid payload`);
+      
+      state.list = state.list.map(item => {
+        if(item.id === state.selected.quote.id){
+
+          const types = Object.keys(payload);
+          types.forEach(type => {
+            for(let i = 0, len = Number(payload[type]); i<len; i++){
+              item.lines.push(new Line(type));
+            }
+          });
+        
+        }
+
+        return item;
+      });
     }
   }
 });

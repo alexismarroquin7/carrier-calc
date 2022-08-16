@@ -25,6 +25,7 @@ export default function Home() {
           flex-flow: column wrap;
           align-items: center;
           justify-content: space-between;
+          background-color: var(--grayish-blue);
         }
       `}</style>
     </div>
