@@ -65,6 +65,10 @@ export const AddALineMenu = () => {
     >
       <div
         className={`add-a-line-menu-wrapper`}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
       >
         <div className="close-icon">
           <p>Add a line</p>
@@ -152,6 +156,7 @@ export const AddALineMenu = () => {
         align-items: center;
         font-size: 3rem;
         background-color: var(--teal);
+        color: var(--dark-blue);
         border: 0;
         border-top: .2rem solid var(--dark-blue);
         font-weight: bold;
