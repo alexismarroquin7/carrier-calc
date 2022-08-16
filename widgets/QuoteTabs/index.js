@@ -27,27 +27,25 @@ export const QuoteTabs = () => {
         display: flex;
         width: 100%;
         flex-flow: row wrap;
-        border: 1px solid #eee;
+        border-bottom: .5rem solid var(--teal);
         padding: 2rem;
         gap: 1rem;
+        background-color: var(--greyish-blue);
       }
-
-      .quote-tab,
-      .create-quote-tab {
-        border: 1px solid #eee;
-        padding: 1rem 2rem;
-        border-radius: 2rem;
-        background-color: white;
-      }
-
-      .create-quote-tab {
-        border-color: var(--google-blue);
-        color: white;
-        background-color: var(--google-blue);
+      
+      .quote-tab {
+        border: .2rem solid var(--teal);
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: transparent;
+        font-weight: bold;
+        color: var(--teal);
+        transition: all .2s;
       }
       
       .selected {
-        background-color: #eee;
+        background-color: var(--teal);
+        color: var(--dark-blue);
       }
 
     `}</style>

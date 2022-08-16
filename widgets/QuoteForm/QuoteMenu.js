@@ -443,6 +443,7 @@ export const QuoteMenu = () => {
 
       .more-icon {
         font-size: 3rem;
+        color: var(--teal);
       }
 
       .menu {

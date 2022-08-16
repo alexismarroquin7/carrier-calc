@@ -126,6 +126,7 @@ export const AddALineMenu = () => {
             e.stopPropagation();
             dispatch(quoteSlice.actions.addMultipleLinesToSelectedQuote(values));
             setValues(initialValues);
+            toggle();
           }}  
         >Add</button>
 
@@ -138,6 +139,7 @@ export const AddALineMenu = () => {
         display: flex;
         flex-flow: column wrap;
         align-items: center;
+        transition: all .2s;
       }
 
       .add-a-line-menu-content {
@@ -161,7 +163,7 @@ export const AddALineMenu = () => {
         display: flex;
         flex-flow: column wrap;
         background-color: white;
-        box-shadow: 0 0 1rem black;
+        box-shadow: 0 -1rem 2rem black;
       }
 
       .add-a-line-button {

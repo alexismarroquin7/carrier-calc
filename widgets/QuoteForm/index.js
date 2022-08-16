@@ -150,6 +150,7 @@ export const QuoteForm = () => {
           align-items: center;
           gap: 2rem;
           padding: 2rem 0;
+          color: var(--white);
         }
 
         .quote-name-label {
@@ -162,6 +163,10 @@ export const QuoteForm = () => {
         .quote-name {
           width: 100%;
           padding: 1rem;
+          background-color: var(--grayish-blue);
+          color: var(--teal);
+          border: .2rem solid var(--teal);
+          border-radius: 1rem;
         }
 
         .select-carrier {
@@ -182,6 +187,10 @@ export const QuoteForm = () => {
         .select-carrier-select {
           padding: 1rem;
           width: 100%;
+          background-color: var(--grayish-blue);
+          border-radius: 1rem;
+          border: .2rem solid var(--teal);
+          color: var(--teal);
         }
 
         .select-carrier-input {
@@ -194,6 +203,7 @@ export const QuoteForm = () => {
           display: flex;
           flex-flow: row wrap;
           justify-content: space-between;
+          color: var(--white);
         }
         
         .amount-due-item {

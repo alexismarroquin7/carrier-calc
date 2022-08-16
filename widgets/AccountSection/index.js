@@ -19,7 +19,6 @@ export const AccountSection = () => {
           e.preventDefault();
           e.stopPropagation();
           toggleEditMode();
-          e.target.scrollIntoView(true);
         }}
       >
         {editMode ? (
