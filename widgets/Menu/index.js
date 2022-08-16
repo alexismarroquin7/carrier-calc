@@ -160,7 +160,7 @@ export const Menu = () => {
           transition: all .2s;
           border-radius: 2rem;
           padding: .5rem;
-          color: white;
+          color: var(--teal);
         }
 
         .menu-button.active {
@@ -207,18 +207,20 @@ export const Menu = () => {
           padding: 2rem;
           gap: 1rem;
           align-items: center;
-          border: .2rem solid var(--teal);
           background-color: var(--teal);
           color: var(--dark-blue);
           font-weight: bold;
+          border: 0;
         }
-
+        
         .menu-option-button:first-child {
+          border: .2rem solid var(--teal);
           border-top-left-radius: 1rem;
           border-top-right-radius: 1rem;
         }
         
         .menu-option-button:last-child {
+          border: .2rem solid var(--teal);
           border-bottom-left-radius: 1rem;
           border-bottom-right-radius: 1rem;
         }
