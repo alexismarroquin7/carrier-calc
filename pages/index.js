@@ -1,9 +1,10 @@
-import Head from 'next/head'
-import { useSelector } from 'react-redux'
+import Head from 'next/head';
+import { useSelector } from 'react-redux';
 import { QuoteTabs, QuoteForm, Navbar } from '../widgets';
 
 export default function Home() {
   const quote = useSelector(s => s.quote);
+  
   return (
     <div className="home">
       <Head>

@@ -25,16 +25,24 @@ export const QuoteTabs = () => {
     <style jsx>{`
       .quote-tabs {
         display: flex;
-        width: 100%;
-        flex-flow: row wrap;
-        border-bottom: .5rem solid var(--teal);
-        padding: 2rem;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+
         gap: 1rem;
-        background-color: var(--greyish-blue);
+        
+        padding: 2rem;
+        
         background-color: var(--teal);
         position: sticky;
+        width: 100%;
+        
         top: 8rem;
+        
+        left: 0;
+        right: 0;
+        
         box-shadow: 0 0 1rem black;
+        overflow-x: scroll;
       }
       
       .quote-tab {

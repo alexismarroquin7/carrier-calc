@@ -162,14 +162,20 @@ export const quoteSlice = createSlice({
       state.selected.quote.id = copyToUse.id;
     },
     deleteSelectedQuote: (state) => {
-      const filteredQuoteList = state.list.filter(item => item.id !== state.selected.quote.id);
+      let newSelectedQuote;
+      
+      const filteredQuoteList = state.list.filter((item, i) => {
+        if(item.id === state.selected.quote.id) {
+          newSelectedQuote = i - 1;
+        }
+        return item.id !== state.selected.quote.id
+      });
 
-      if(filteredQuoteList.length > 0){
-        state.selected.quote.id = filteredQuoteList[0].id;
+      if(newSelectedQuote >= 0){
+        state.selected.quote.id = filteredQuoteList[newSelectedQuote].id;
       }
 
       state.list = filteredQuoteList;
-
 
     },
     deleteLineFromSelectedQuote: (state, {payload}) => {
