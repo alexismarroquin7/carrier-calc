@@ -23,7 +23,7 @@ export const Navbar = () => {
         left: 0;
         right: 0;
         background-color: var(--dark-blue);
-        color: var(--white);
+        color: var(--teal);
         z-index: 1001;
       }
 

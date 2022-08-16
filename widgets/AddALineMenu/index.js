@@ -6,6 +6,7 @@ import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletIcon from '@mui/icons-material/Tablet';
 import WatchIcon from '@mui/icons-material/Watch';
 import WifiIcon from '@mui/icons-material/Wifi';
+import AddIcon from '@mui/icons-material/Add';
 
 const deviceTypes = [
   {
@@ -49,17 +50,30 @@ export const AddALineMenu = () => {
         toggle();
       }}
       className="add-a-line-button"
-    >Add A Line</button>
+    >
+      Add A Line
+      <AddIcon fontSize="inherit"/>
+    </button>
     
     <div
       className={`add-a-line-menu-content ${active ? '' : 'hidden'}`}
+      onClick={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggle();
+      }}
     >
       <div
         className={`add-a-line-menu-wrapper`}
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
       >
         <div className="close-icon">
-          <h6>Add A Line</h6>
-          <CloseIcon fontSize="inherit"
+          <p>Add a line</p>
+          <CloseIcon 
+            fontSize="inherit"
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
@@ -105,7 +119,6 @@ export const AddALineMenu = () => {
         bottom: 0;
         left: 0;
         right: 0;
-        border: 1px solid blue;
       }
 
       .add-a-line-menu-content.hidden {
@@ -121,16 +134,18 @@ export const AddALineMenu = () => {
         flex-flow: column wrap;
         background-color: white;
         box-shadow: 0 0 1rem black;
-        border-top-left-radius: 2rem;
-        border-top-right-radius: 2rem;
       }
 
       .add-a-line-button {
-        border-radius: 2rem;
+        border-radius: 1rem;
         padding: 1rem 2rem;
-        border: 1px solid var(--google-blue);
-        background-color: var(--google-blue);
-        color: white;
+        border: .2rem solid var(--teal);
+        background-color: var(--teal);
+        color: var(--dark-blue);
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
       }
       
       .add-a-line-button-option {
@@ -138,29 +153,30 @@ export const AddALineMenu = () => {
         flex-flow: row wrap;
         gap: 1rem;
         padding: 4rem 2rem;
-        border: 1px solid #eee;
-        border-top: 1px solid #ddd;
         align-items: center;
-        font-size: 4rem;
-        background-color: white;
+        font-size: 3rem;
+        background-color: var(--teal);
+        color: var(--dark-blue);
+        border: 0;
+        border-top: .2rem solid var(--dark-blue);
+        font-weight: bold;
       }
 
       .close-icon {
+        background-color: var(--dark-blue);
         color: var(--google-red);
         padding: 1rem;
         width: 100%;
-        font-size: 4rem;
+        font-size: 3rem;
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
         align-items: center;
-        background-color: #eee;
-        border-top-left-radius: 2rem;
-        border-top-right-radius: 2rem;
       }
 
-      .close-icon h6 {
-        color: black;
+      .close-icon p {
+        color: var(--white);
+        font-weight: bold;
       }
     `}</style>
   </div>
