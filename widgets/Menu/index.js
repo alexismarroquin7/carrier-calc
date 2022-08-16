@@ -108,6 +108,7 @@ export const Menu = () => {
             >
               <button
                 className="menu-option-button"
+                name={option.name}
                 onClick={(e) => {
                   e.preventDefault();
                   setOptions(options.map(opt => {
@@ -129,6 +130,7 @@ export const Menu = () => {
                   {option.options.map(subOption => {
                     return (
                       <button
+                        name={subOption.name}
                         key={subOption.id}
                         className={`menu-option-button carrier-button carrier-button-${subOption.name}`}
                         onClick={(e) => {
