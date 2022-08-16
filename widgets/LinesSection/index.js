@@ -26,8 +26,10 @@ export const LinesSection = () => {
         width: 90%;
         display: flex;
         flex-flow: column wrap;
-        border: 1px solid #eee;
-        border-radius: 2rem;
+        border: .2rem solid var(--dark-blue);
+        background-color: var(--dark-blue);
+        color: var(--white);
+        border-radius: 1rem;
         padding: 2rem;
         gap: 2rem;
       }
@@ -38,6 +40,7 @@ export const LinesSection = () => {
         flex-flow: row wrap;
         align-items: flex-end;
         justify-content: space-between;
+        color: var(--teal);
       }
 
       span {

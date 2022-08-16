@@ -328,16 +328,16 @@ export const AccontSectionForm = () => {
           )
         })}
       </select>
+      {quote.account.plan.name === 'other' && (
+        <input 
+          type="text"
+          name="account.plan.title"
+          onChange={handleChange}
+          value={quote.account.plan.title}
+        />
+      )}
     </label>
     
-    {quote.account.plan.name === 'other' && (
-      <input 
-        type="text"
-        name="account.plan.title"
-        onChange={handleChange}
-        value={quote.account.plan.title}
-      />
-    )}
     
     <label
       className="account-section-number-label"
@@ -371,16 +371,16 @@ export const AccontSectionForm = () => {
           )
         })}
       </select>
+      {quote.account.protection.name === 'other' && (
+        <input 
+          type="text"
+          name="account.protection.title"
+          onChange={handleChange}
+          value={quote.account.protection.title}
+        />
+      )}
     </label>
 
-    {quote.account.protection.name === 'other' && (
-      <input 
-        type="text"
-        name="account.protection.title"
-        onChange={handleChange}
-        value={quote.account.protection.title}
-      />
-    )}
 
     <label
       className="account-section-number-label"
@@ -392,6 +392,7 @@ export const AccontSectionForm = () => {
         value={quote.account.protection.dueMonthly}
       />
     </label>
+    
     <style jsx>{`
       .account-section-form {
         display: flex;
@@ -405,6 +406,8 @@ export const AccontSectionForm = () => {
         flex-flow: column wrap;
         justify-content: space-between;
         gap: .5rem;
+        color: var(--white);
+        padding: 1rem 2rem;
       }
       
       .account-section-select-label select {
@@ -414,6 +417,10 @@ export const AccontSectionForm = () => {
         align-items: center;
         justify-content: space-between;
         padding: 1rem;
+        border: .2rem solid var(--teal);
+        border-radius: 1rem;
+        background-color: var(--dark-blue);
+        color: var(--teal);
       }
 
       .account-section-text-label {
@@ -429,6 +436,14 @@ export const AccontSectionForm = () => {
         flex-flow: row wrap;
         justify-content: space-between;
         gap: .5rem;
+        padding: 1rem 2rem;
+      }
+
+      input {
+        background-color: var(--dark-blue);
+        color: var(--teal);
+        border: .2rem solid var(--teal);
+        border-radius: 1rem;
       }
       
       input[type="text"],

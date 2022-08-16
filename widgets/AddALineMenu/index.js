@@ -7,8 +7,10 @@ import TabletIcon from '@mui/icons-material/Tablet';
 import WatchIcon from '@mui/icons-material/Watch';
 import WifiIcon from '@mui/icons-material/Wifi';
 import AddIcon from '@mui/icons-material/Add';
+import { LineTypeOption } from "./LineTypeOption";
+import { useState } from "react";
 
-const deviceTypes = [
+const lineTypes = [
   {
     title: 'Smartphone',
     type: 'smartphone',
@@ -31,6 +33,13 @@ const deviceTypes = [
   },
 ]
 
+const initialValues = {
+  smartphone: 0,
+  tablet: 0,
+  watch: 0,
+  hotspot: 0
+}
+
 export const AddALineMenu = () => {
 
   const {
@@ -39,6 +48,16 @@ export const AddALineMenu = () => {
   } = useToggle();
 
   const dispatch = useDispatch();
+
+  const [values, setValues] = useState(initialValues);
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setValues({
+      ...values,
+      [name]: Number(value)
+    });
+  }
 
   return (
   <div
@@ -51,7 +70,7 @@ export const AddALineMenu = () => {
       }}
       className="add-a-line-button"
     >
-      Add A Line
+      Add a line
       <AddIcon fontSize="inherit"/>
     </button>
     
@@ -82,25 +101,35 @@ export const AddALineMenu = () => {
           />
         </div>
       
-        {deviceTypes.map(deviceType => {
-          const { icon: Icon } = deviceType;
-
+        {lineTypes.map(lineType => {
           return (
-          <button
-            key={deviceType.type}
-            onClick={(e) => {
-              e.preventDefault()
-              dispatch(quoteSlice.actions.addALine(deviceType.type));
-              toggle();
-            }}
-            className="add-a-line-button-option"
-          >
-            <Icon/>    
-            <p>{deviceType.title}</p>
-          </button>
+            <LineTypeOption 
+              key={lineType.type}
+              lineType={lineType}
+              count={values[lineType.type]} 
+              handleChange={handleChange}
+              setValue={(amount) => {
+                setValues({
+                  ...values,
+                  [lineType.type]: Number(amount)
+                })
+              }}
+            />
           )
         })}
-      
+        
+        <button 
+        
+          className="add-lines-button"
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dispatch(quoteSlice.actions.addMultipleLinesToSelectedQuote(values));
+            setValues(initialValues);
+            toggle();
+          }}  
+        >Add</button>
+
       </div>
       
     </div>
@@ -110,6 +139,7 @@ export const AddALineMenu = () => {
         display: flex;
         flex-flow: column wrap;
         align-items: center;
+        transition: all .2s;
       }
 
       .add-a-line-menu-content {
@@ -133,7 +163,7 @@ export const AddALineMenu = () => {
         display: flex;
         flex-flow: column wrap;
         background-color: white;
-        box-shadow: 0 0 1rem black;
+        box-shadow: 0 -1rem 2rem black;
       }
 
       .add-a-line-button {
@@ -146,20 +176,6 @@ export const AddALineMenu = () => {
         display: flex;
         align-items: center;
         gap: 1rem;
-      }
-      
-      .add-a-line-button-option {
-        display: flex;
-        flex-flow: row wrap;
-        gap: 1rem;
-        padding: 4rem 2rem;
-        align-items: center;
-        font-size: 3rem;
-        background-color: var(--teal);
-        color: var(--dark-blue);
-        border: 0;
-        border-top: .2rem solid var(--dark-blue);
-        font-weight: bold;
       }
 
       .close-icon {
@@ -175,8 +191,16 @@ export const AddALineMenu = () => {
       }
 
       .close-icon p {
-        color: var(--white);
+        color: var(--teal);
         font-weight: bold;
+      }
+
+      .add-lines-button {
+        padding: 2rem;
+        background-color: var(--dark-blue);
+        color: var(--teal);
+        font-weight: bold;
+        border: .2rem solid var(--dark-blue);
       }
     `}</style>
   </div>

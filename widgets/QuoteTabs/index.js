@@ -25,29 +25,39 @@ export const QuoteTabs = () => {
     <style jsx>{`
       .quote-tabs {
         display: flex;
-        width: 100%;
-        flex-flow: row wrap;
-        border: 1px solid #eee;
-        padding: 2rem;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+
         gap: 1rem;
+        
+        padding: 2rem;
+        
+        background-color: var(--teal);
+        position: sticky;
+        width: 100%;
+        
+        top: 8rem;
+        
+        left: 0;
+        right: 0;
+        
+        box-shadow: 0 0 1rem black;
+        overflow-x: scroll;
       }
-
-      .quote-tab,
-      .create-quote-tab {
-        border: 1px solid #eee;
-        padding: 1rem 2rem;
-        border-radius: 2rem;
-        background-color: white;
-      }
-
-      .create-quote-tab {
-        border-color: var(--google-blue);
-        color: white;
-        background-color: var(--google-blue);
+      
+      .quote-tab {
+        border: .2rem solid var(--dark-blue);
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: transparent;
+        font-weight: bold;
+        color: var(--dark-blue);
+        transition: all .2s;
       }
       
       .selected {
-        background-color: #eee;
+        background-color: var(--dark-blue);
+        color: var(--teal);
       }
 
     `}</style>

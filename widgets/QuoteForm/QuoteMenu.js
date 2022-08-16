@@ -343,7 +343,6 @@ export const QuoteMenu = () => {
   <div
     className="quote-menu"
   >
-    
     <div
       className="more-icon"
       onClick={(e) => {
@@ -381,7 +380,7 @@ export const QuoteMenu = () => {
           <div
             className='close-icon'
           >
-            <h6>Quote actions</h6>
+            <p>Quote actions</p>
             <CloseIcon
               fontSize='inherit'
               onClick={(e) => {
@@ -438,11 +437,19 @@ export const QuoteMenu = () => {
         width: 90%;
         display: flex;
         flex-flow: row wrap;
-        justify-content: flex-end;
+        justify-content: space-between;
+      }
+
+      button[name="hide-tabs"] {
+        border: 0;
+        text-decoration: underline;
+        background-color: transparent;
+        color: var(--teal);
       }
 
       .more-icon {
         font-size: 3rem;
+        color: var(--teal);
       }
 
       .menu {
@@ -457,6 +464,7 @@ export const QuoteMenu = () => {
         justify-content: center;
         align-items: center;
         z-index: 1000;
+        background-color: rgba(0,0,0,.75);
       }
       
       .menu-content {
@@ -468,7 +476,7 @@ export const QuoteMenu = () => {
         bottom: 0;
         padding: 2rem;
         box-shadow: 0 0 1rem black;
-        background-color: var(--white);
+        background-color: var(--grayish-blue);
       }
 
       .menu-content-wrapper {
@@ -500,8 +508,10 @@ export const QuoteMenu = () => {
         justify-content: space-between;
       }
 
-      .close-icon h6 {
-        color: black;
+      .close-icon p {
+        font-weight: bold;
+        color: var(--teal);
+        font-size: 3rem;
       }
 
       .selected-quote-action-button {
@@ -511,15 +521,16 @@ export const QuoteMenu = () => {
         flex-flow: row wrap;
         align-items: center;
         gap: 1rem;
-        border: .2rem solid var(--google-blue);
-        background-color: var(--white);
-        color: var(--google-blue);
+        border: .2rem solid var(--teal);
+        background-color: var(--teal);
+        color: var(--dark-blue);
         border-radius: 1rem;
+        font-weight: bold;
       }
 
       .selected-quote-action-button:last-child {
-        color: var(--google-red);
-        background-color: var(--white);
+        color: var(--white);
+        background-color: var(--google-red);
         border-color: var(--google-red);
       }
 
