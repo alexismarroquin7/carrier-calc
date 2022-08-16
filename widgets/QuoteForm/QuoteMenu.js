@@ -442,7 +442,7 @@ export const QuoteMenu = () => {
       }
 
       .more-icon {
-        font-size: 4rem;
+        font-size: 3rem;
       }
 
       .menu {
@@ -491,7 +491,7 @@ export const QuoteMenu = () => {
       }
 
       .close-icon {
-        font-size: 4rem;
+        font-size: 3rem;
         color: var(--google-red);
         width: 100%;
         display: flex;
@@ -506,12 +506,12 @@ export const QuoteMenu = () => {
 
       .selected-quote-action-button {
         padding: 2rem 1rem;
-        font-size: 4rem;
+        font-size: 3rem;
         display: flex;
         flex-flow: row wrap;
         align-items: center;
         gap: 1rem;
-        border: 1px solid var(--google-blue);
+        border: .2rem solid var(--google-blue);
         background-color: var(--white);
         color: var(--google-blue);
         border-radius: 1rem;
