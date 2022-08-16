@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import { useSelector } from 'react-redux'
-import { QuoteTabs, QuoteForm, Menu } from '../widgets';
+import { QuoteTabs, QuoteForm, Navbar } from '../widgets';
 
 export default function Home() {
   const quote = useSelector(s => s.quote);
@@ -12,7 +12,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head> 
       
-      <h6><Menu />Member Quote Comparison </h6>
+      <Navbar/>
       
       {quote.list.length > 0 && <QuoteTabs />}
 
@@ -26,25 +26,6 @@ export default function Home() {
           align-items: center;
           justify-content: space-between;
         }
-
-        h6 {
-          display: flex;
-          padding: 2rem;
-          gap: 2rem;
-        }      
-
-        .vzw {
-          background-color: var(--vzw-red);
-        }
-
-        .att {
-          background-color: var(--att-blue);
-        }
-
-        .tmo {
-          background-color: var(--tmo-magenta);
-        }
-        
       `}</style>
     </div>
   )
