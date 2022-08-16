@@ -1,16 +1,16 @@
 import { useDispatch } from "react-redux"
 import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
-import { calcQuoteDueMonthly, calcQuoteDueToday } from "../QuoteForm";
 import { v4 as uuid } from "uuid";
 import { useState } from "react";
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
-
+import MenuIcon from '@mui/icons-material/Menu';
+import CloseIcon from '@mui/icons-material/Close';
 const initialOptions = [
   {
     id: uuid(),
-    name: 'Create Quote',
+    name: 'Quote',
     open: false,
     options: [
       {
@@ -77,13 +77,22 @@ export const Menu = () => {
       className="menu-wrapper"
     >
       <button
-        className="menu-button"
+        className={`menu-button ${menuActive ? 'active' : ''}`}
         onClick={(e) => {
           e.preventDefault();
           toggleMenuActive();
         }}
       >
-        |||
+        {menuActive ? (
+          <CloseIcon
+            fontSize="inherit"
+          />
+        ) : (
+          <MenuIcon
+            fontSize="inherit"
+          />
+        )}
+        
       </button>
       
       <div
@@ -114,23 +123,26 @@ export const Menu = () => {
                 </span>
                 {option.open ? <RemoveIcon fontSize="inherit"/> : <AddIcon fontSize="inherit"/>}
               </button>
-              {option.open && <div>
-                {option.options.map(subOption => {
-                  return <div
-                    key={subOption.id}
-                  >
-                    <button
-                      className={`menu-sub-option-button carrier-button carrier-button-${subOption.name}`}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        handleDispatch(subOption.action);
-                      }}
-                    >
-                      {subOption.title}
-                    </button>
-                  </div>    
-                })}
-              </div>}
+              
+              {option.open && (
+                <>
+                  {option.options.map(subOption => {
+                    return (
+                      <button
+                        key={subOption.id}
+                        className={`menu-option-button carrier-button carrier-button-${subOption.name}`}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          handleDispatch(subOption.action);
+                        }}
+                      >
+                        {subOption.title}
+                      </button>   
+                    )
+                  })}
+                </>
+              )}
+
             </div>
           })}
         </div>
@@ -140,26 +152,47 @@ export const Menu = () => {
 
         .menu-button {
           border: 0;
-          transform-origin: center;
-          transform: rotate(90deg);
-          font-size: 4rem;
+          font-size: 3rem;
           background-color: transparent;
+          display: flex;
+          flex-flow: column wrap;
+          justify-content: center;
+          transition: all .2s;
+          border-radius: 2rem;
+          padding: .5rem;
+          color: white;
+        }
+
+        .menu-button.active {
+          transform: rotate(-90deg);
+          color: var(--google-red);
+        }
+        
+        .menu-content {
+          width: 100%;
+          position: fixed;
+          left: 0%;
+          top: 8rem;
+          bottom: 0;
+          z-index: 999;
+          transition: all .2s;
+          background-color: var(--grayish-blue);
+          display: flex;
+          flex-flow: column wrap;
+          align-items: center;
+          padding: 2rem 0;
         }
         
         .menu-content.hidden {
-          display: none;
+          transform: translateX(-100%);
         }
 
         .menu-content-container {
+          width: 90%;
           display: flex;
           flex-flow: column wrap;
           align-items: flex-start;
-          position: fixed;
-          top: 11rem;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: var(--white);
+          border-radius: 1rem;
         }
 
         .menu-option {
@@ -174,36 +207,38 @@ export const Menu = () => {
           padding: 2rem;
           gap: 1rem;
           align-items: center;
-          border: 0;
-          font-size: 4rem;
-        }
-        
-        .menu-sub-option-button {
-          width: 100%;
-          display: flex;
-          flex-flow: row wrap;
-          padding: 2rem;
-          padding-left: 4rem;
-          border: 0;
-          background-color: white;
+          border: .2rem solid var(--teal);
+          background-color: var(--teal);
+          color: var(--dark-blue);
+          font-weight: bold;
         }
 
+        .menu-option-button:first-child {
+          border-top-left-radius: 1rem;
+          border-top-right-radius: 1rem;
+        }
+        
+        .menu-option-button:last-child {
+          border-bottom-left-radius: 1rem;
+          border-bottom-right-radius: 1rem;
+        }
+        
         .carrier-button {
-          border: 1px solid #eee;
-          font-weight: bold;
+          padding: 2rem 4rem;
+          color: white;
         }
         
         .carrier-button-vzw {
-          color: var(--vzw);
+          background-color: var(--vzw);
         }
         .carrier-button-att {
-          color: var(--att);
+          background-color: var(--att);
         }
         .carrier-button-tmo {
-          color: var(--tmo);
+          background-color: var(--tmo);
         }
         .carrier-button-other {
-          color: var(--black);
+          background-color: transparent;
         }
       `}</style>
     </div>

@@ -100,7 +100,7 @@ export const AddALineMenu = () => {
 
       .add-a-line-menu-content {
         position: absolute;
-        z-index: 999;
+        z-index: 998;
         top: 0;
         bottom: 0;
         left: 0;
