@@ -361,13 +361,10 @@ export const LineForm = ({line}) => {
   }
   
   return (
-  <div className="line-expanded">  
-
+  <div className="line-expanded">
     <div
       className="line-attrs"
-    >
-      <label className="line-label">Type: {line.type}</label>
-      
+    >      
       <label
         className="line-label"
       >Name:
@@ -621,6 +618,10 @@ export const LineForm = ({line}) => {
       
       .line-label input {
         padding: 1rem;
+        border: .2rem solid var(--teal);
+        border-radius: 1rem;
+        background-color: var(--dark-blue);
+        color: var(--teal);
       }
 
       .line-label input[type="text"],
@@ -635,6 +636,10 @@ export const LineForm = ({line}) => {
       .line-label select {
         width: 100%;
         padding: 1rem;
+        border: .2rem solid var(--teal);
+        border-radius: 1rem;
+        background-color: var(--dark-blue);
+        color: var(--teal);
       }
 
       .line-attrs,

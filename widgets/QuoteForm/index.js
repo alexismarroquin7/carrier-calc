@@ -110,7 +110,6 @@ export const QuoteForm = () => {
         {quote.carrier.name === 'other' && (
           <input
             className="select-carrier-input"
-            placeholder="Other"
             value={quote.carrier.title}
             name="carrier.title"
             onChange={handleChange}
@@ -195,7 +194,10 @@ export const QuoteForm = () => {
 
         .select-carrier-input {
           padding: 1rem;
-          margin-top: .5rem;
+          background-color: var(--grayish-blue);
+          border: .2rem solid var(--teal);
+          color: var(--teal);
+          border-radius: 1rem;
         }
 
         .amount-due-section {

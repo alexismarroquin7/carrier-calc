@@ -31,21 +31,25 @@ export const QuoteTabs = () => {
         padding: 2rem;
         gap: 1rem;
         background-color: var(--greyish-blue);
+        background-color: var(--teal);
+        position: sticky;
+        top: 8rem;
+        box-shadow: 0 0 1rem black;
       }
       
       .quote-tab {
-        border: .2rem solid var(--teal);
+        border: .2rem solid var(--dark-blue);
         padding: 1rem;
         border-radius: 1rem;
         background-color: transparent;
         font-weight: bold;
-        color: var(--teal);
+        color: var(--dark-blue);
         transition: all .2s;
       }
       
       .selected {
-        background-color: var(--teal);
-        color: var(--dark-blue);
+        background-color: var(--dark-blue);
+        color: var(--teal);
       }
 
     `}</style>

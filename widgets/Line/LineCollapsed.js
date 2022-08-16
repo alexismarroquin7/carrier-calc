@@ -60,6 +60,7 @@ export const LineCollapsed = ({line}) => {
           display: flex;
           flex-flow: column wrap;
           gap: 1rem;
+          color: var(--teal);
         }
 
         .line-detail-collapsed {
