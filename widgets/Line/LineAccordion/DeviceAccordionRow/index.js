@@ -19,8 +19,9 @@ export const DeviceAccordionRow = ({ device, active, toggle, handleChange }) => 
 
     <style jsx>{`
       .device-accordion-row {
-        display: flex;
         width: 100%;
+        display: flex;
+        flex-flow: column wrap;
       }
     `}</style>
   </div>

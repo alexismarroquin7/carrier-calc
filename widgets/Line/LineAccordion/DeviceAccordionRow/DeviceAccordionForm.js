@@ -3,7 +3,6 @@ export const DeviceAccordionForm = ({device, handleChange}) => {
   <div
     className="device-attrs"
   >
-    <h6>Device</h6>
     <label
       className="line-label"
     >Name: 
