@@ -52,7 +52,7 @@ export const Line = ({ line, index }) => {
         
         <div className="line-icons-container">
              
-          <div 
+          {/* <div 
             className={`${editMode ? 'open' : ''} line-icon`}
             id={`line-edit-button-line-id-${line.id}`}
             onClick={(e) => {
@@ -64,7 +64,7 @@ export const Line = ({ line, index }) => {
             <KeyboardArrowDown
               fontSize="inherit"
             />
-          </div>
+          </div> */}
           <LineActionsMenu
             line={line}
           />
