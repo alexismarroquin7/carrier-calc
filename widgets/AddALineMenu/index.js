@@ -96,6 +96,7 @@ export const AddALineMenu = () => {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
+              setValues(initialValues);
               toggle();
             }}
             className="close-icon-svg"
@@ -119,16 +120,32 @@ export const AddALineMenu = () => {
           )
         })}
         
-        <button 
-          className="add-lines-button"
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dispatch(quoteSlice.actions.addMultipleLinesToSelectedQuote(values));
-            setValues(initialValues);
-            toggle();
-          }}  
-        >Add</button>
+        <div
+          className="control-buttons-container"
+        >
+          <button
+            className="cancel-add-lines-button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setValues(initialValues);
+              toggle();
+            }}
+          >
+            Cancel
+          </button>
+
+          <button 
+            className="add-lines-button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              dispatch(quoteSlice.actions.addMultipleLinesToSelectedQuote(values));
+              setValues(initialValues);
+              toggle();
+            }}  
+          >Add</button>
+        </div>
 
       </div>
       
@@ -143,9 +160,9 @@ export const AddALineMenu = () => {
       }
 
       .add-a-line-menu-content {
-        position: absolute;
-        z-index: 998;
-        /* top: 0; */
+        position: fixed;
+        z-index: 1009;
+        top: 0;
         bottom: 0;
         left: 0;
         right: 0;
@@ -160,9 +177,10 @@ export const AddALineMenu = () => {
         bottom: 0;
         left: 0;
         right: 0;
+        /* top: 0; */
         display: flex;
         flex-flow: column wrap;
-        background-color: white;
+        background-color: rgba(0,0,0,.75);
         box-shadow: 0 -1rem 2rem black;
       }
 
@@ -195,7 +213,22 @@ export const AddALineMenu = () => {
         font-weight: bold;
       }
 
+      .control-buttons-container {
+        display: flex;
+        flex-flow: row wrap;
+      }
+
+      .cancel-add-lines-button {
+        width: 50%;
+        padding: 2rem;
+        background-color: var(--google-red);
+        color: var(--white);
+        font-weight: bold;
+        border: .2rem solid var(--google-red);
+      }
+      
       .add-lines-button {
+        width: 50%;
         padding: 2rem;
         background-color: var(--dark-blue);
         color: var(--teal);

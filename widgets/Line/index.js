@@ -1,11 +1,13 @@
 import { useToggle } from "../../hooks/useToggle";
-import { KeyboardArrowRight, KeyboardArrowDown } from '@mui/icons-material';
+import { KeyboardArrowDown } from '@mui/icons-material';
 import { LineCollapsed } from "./LineCollapsed";
 import { LineForm } from "./LineForm";
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletIcon from '@mui/icons-material/Tablet';
 import WatchIcon from '@mui/icons-material/Watch';
 import WifiIcon from '@mui/icons-material/Wifi';
+import { LineActionsMenu } from "./LineActionsMenu";
+
 
 const Icon = ({type}) => {
   switch(type){
@@ -23,8 +25,6 @@ const Icon = ({type}) => {
 }
 
 export const Line = ({ line, index }) => {
-  
-  const l = {...line};
 
   const {
     active: editMode,
@@ -49,30 +49,29 @@ export const Line = ({ line, index }) => {
 
         </div>
         
-        <div 
-          className="line-edit-button"
-          id={`line-edit-button-line-id-${l.id}`}
-          onClick={(e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            toggleEditMode();
-            e.target.scrollIntoView(true)
-          }}
-        >
-          {editMode ? (
+        <div className="line-icons-container">
+             
+          <div 
+            className={`${editMode ? 'open' : ''} line-icon`}
+            id={`line-edit-button-line-id-${line.id}`}
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              toggleEditMode();
+            }}
+          >
             <KeyboardArrowDown
               fontSize="inherit"
             />
-          ) : (
-            <KeyboardArrowRight
-              fontSize="inherit"  
-            />
-          )}
+          </div>
+          <LineActionsMenu
+            line={line}
+          />
         </div>
       
       </div>
 
-      {editMode ? <LineForm line={l}/> : <LineCollapsed line={l}/>}
+      {editMode ? <LineForm line={line}/> : <LineCollapsed line={line}/>}
 
       
       <style jsx>{`
@@ -109,9 +108,25 @@ export const Line = ({ line, index }) => {
           gap: 1rem;
         }
 
-        .line-edit-button {
-          font-size: 4rem;
+        .line-icons-container {
+          font-size: 3rem;
           color: var(--teal);
+          display: flex;
+          flex-flow: row wrap;
+          gap: 1rem;
+        }
+
+        .line-icon {
+          font-size: 3rem;
+          color: var(--teal);
+          border: .2rem solid var(--teal);
+          display: flex;
+          border-radius: 1rem;
+          transition: all .2s;
+        }
+        
+        .open {
+          transform: rotate(-180deg);
         }
         
       `}</style>
