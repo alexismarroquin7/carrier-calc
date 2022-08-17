@@ -117,10 +117,7 @@ export const DeviceAccordionForm = ({device, handleChange}) => {
         color: var(--teal);
       }
 
-      .line-attrs,
-      .device-attrs,
-      .plan-attrs,
-      .protection-attrs {
+      .device-attrs {
         display: flex;
         flex-flow: column wrap;
         gap: 2rem;

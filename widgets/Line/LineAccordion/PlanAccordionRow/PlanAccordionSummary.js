@@ -1,13 +1,13 @@
 import { KeyboardArrowDown } from "@mui/icons-material"
 
-export const DeviceAccordionSummary = ({ device, active, toggle }) => {
+export const PlanAccordionSummary = ({ plan, active, toggle }) => {
   return <div
-    className="device-accordion-summary"
+    className="plan-accordion-summary"
   >
 
-    <p>{device.name ? device.name : 'Device'}</p>
+    <p>{plan.name ? plan.name : 'Plan'}</p>
     <div
-      className={`device-accordion-summary-icon ${active ? 'active' : ''}`}
+      className={`plan-accordion-summary-icon ${active ? 'active' : ''}`}
     >
       <KeyboardArrowDown 
         fontSize="inherit"
@@ -20,14 +20,14 @@ export const DeviceAccordionSummary = ({ device, active, toggle }) => {
     </div>
     
     <style jsx>{`
-      .device-accordion-summary {
+      .plan-accordion-summary {
         width: 100%;
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
         align-items: center;
       }
-      .device-accordion-summary-icon {
+      .plan-accordion-summary-icon {
         display: flex;
         font-size: 3rem;
         border-radius: 1rem;
@@ -37,7 +37,7 @@ export const DeviceAccordionSummary = ({ device, active, toggle }) => {
         transition: all .2s;
       }
 
-      .device-accordion-summary-icon.active {
+      .plan-accordion-summary-icon.active {
         transform: rotate(-180deg);
       }
     `}</style>

@@ -1,4 +1,5 @@
 import { DeviceAccordionRow } from "./DeviceAccordionRow"
+import { PlanAccordionRow } from "./PlanAccordionRow"
 import { useToggle } from "../../../hooks";
 import { useDispatch } from "react-redux";
 import { quoteSlice } from "../../../store/slices/quote-slice";
@@ -6,6 +7,8 @@ import { quoteSlice } from "../../../store/slices/quote-slice";
 export const LineAccordion = ({expandAll, line }) => {
 
   const {active: deviceEditMode, toggle: toggleDeviceEditMode } = useToggle();
+  const { active: planEditMode, toggle: togglePlanEditMode } = useToggle();
+
   const dispatch = useDispatch();
   
   
@@ -217,10 +220,18 @@ export const LineAccordion = ({expandAll, line }) => {
         toggle={toggleDeviceEditMode}
         handleChange={handleChange}
       />
+      <PlanAccordionRow
+        plan={line.plan}
+        active={expandAll === true || planEditMode === true} 
+        toggle={togglePlanEditMode}
+        handleChange={handleChange}
+      />
       <style jsx>{`
-        .line-accoridon {
+        .line-accordion {
           display: flex;
           width: 100%;
+          flex-flow: column wrap;
+          gap: 1rem;
         }
       `}</style>
     </div>
