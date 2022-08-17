@@ -7,6 +7,7 @@ import TabletIcon from '@mui/icons-material/Tablet';
 import WatchIcon from '@mui/icons-material/Watch';
 import WifiIcon from '@mui/icons-material/Wifi';
 import { LineActionsMenu } from "./LineActionsMenu";
+import { LineAccordion } from "./LineAccordion";
 
 
 const Icon = ({type}) => {
@@ -71,8 +72,9 @@ export const Line = ({ line, index }) => {
       
       </div>
 
-      {editMode ? <LineForm line={line}/> : <LineCollapsed line={line}/>}
+      {/* {editMode ? <LineForm line={line}/> : <LineCollapsed line={line}/>} */}
 
+      <LineAccordion expandAll={editMode} line={line}/>
       
       <style jsx>{`
         .line {
@@ -82,7 +84,7 @@ export const Line = ({ line, index }) => {
           border-top: 1px solid #eee;
           padding: 2rem 0;
           gap: 2rem;
-          align-items: center;
+          /* align-items: center; */
         }
 
         .line-head {
