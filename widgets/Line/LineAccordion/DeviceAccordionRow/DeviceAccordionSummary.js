@@ -7,7 +7,7 @@ export const DeviceAccordionSummary = ({ device, active, toggle }) => {
     <div
       className="device-accordion-summary-section"
     >
-      <p>{device.name ? device.name : 'Device'}</p>
+      <p>{device.name ? device.name : 'None'}</p>
       <div
         className={`device-accordion-summary-icon ${active ? 'active' : ''}`}
       >
@@ -22,12 +22,12 @@ export const DeviceAccordionSummary = ({ device, active, toggle }) => {
       </div>
     </div>
 
-    <div
+    {device.name !== '' && <div
       className="device-accordion-summary-section"
     >
       <p className="device-due-text device-due-text--today">${Number(device.dueToday).toFixed(2)} today</p>
       <p className="device-due-text device-due-text--monthly">${Number(device.dueMonthly).toFixed(2)}/month</p>
-    </div>
+    </div>}
     
     <style jsx>{`
       .device-accordion-summary {

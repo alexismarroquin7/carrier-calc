@@ -1,7 +1,4 @@
 import { useToggle } from "../../hooks/useToggle";
-import { KeyboardArrowDown } from '@mui/icons-material';
-import { LineCollapsed } from "./LineCollapsed";
-import { LineForm } from "./LineForm";
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletIcon from '@mui/icons-material/Tablet';
 import WatchIcon from '@mui/icons-material/Watch';
@@ -27,11 +24,6 @@ const Icon = ({type}) => {
 
 export const Line = ({ line, index }) => {
 
-  const {
-    active: editMode,
-    toggle: toggleEditMode
-  } = useToggle();
-  
   return (
     <section
       className="line"
@@ -51,20 +43,6 @@ export const Line = ({ line, index }) => {
         </div>
         
         <div className="line-icons-container">
-             
-          {/* <div 
-            className={`${editMode ? 'open' : ''} line-icon`}
-            id={`line-edit-button-line-id-${line.id}`}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              toggleEditMode();
-            }}
-          >
-            <KeyboardArrowDown
-              fontSize="inherit"
-            />
-          </div> */}
           <LineActionsMenu
             line={line}
           />
@@ -72,9 +50,7 @@ export const Line = ({ line, index }) => {
       
       </div>
 
-      {/* {editMode ? <LineForm line={line}/> : <LineCollapsed line={line}/>} */}
-
-      <LineAccordion expandAll={editMode} line={line}/>
+      <LineAccordion line={line}/>
       
       <style jsx>{`
         .line {
@@ -84,7 +60,6 @@ export const Line = ({ line, index }) => {
           border-top: 1px solid #eee;
           padding: 2rem 0;
           gap: 2rem;
-          /* align-items: center; */
         }
 
         .line-head {

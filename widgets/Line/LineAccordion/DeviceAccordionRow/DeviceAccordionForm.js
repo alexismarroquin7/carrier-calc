@@ -1,4 +1,6 @@
-export const DeviceAccordionForm = ({device, handleChange}) => {
+import { DeviceSelectionMenu } from "./DeviceSelectionMenu"
+
+export const DeviceAccordionForm = ({device, handleChange, line}) => {
   return (
   <div
     className="device-attrs"
@@ -15,6 +17,8 @@ export const DeviceAccordionForm = ({device, handleChange}) => {
         value={device.name}
       />
     </label>
+
+    <DeviceSelectionMenu line={line}/>
     
     <label
       className="line-label"
@@ -123,6 +127,8 @@ export const DeviceAccordionForm = ({device, handleChange}) => {
         gap: 2rem;
         padding: 2rem 0;
       }
+
+      
     `}</style>
   </div>
   )

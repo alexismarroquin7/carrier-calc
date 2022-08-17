@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { quoteSlice } from "../../../store/slices/quote-slice";
 import { ProtectionAccordionRow } from "./ProtectionAccordionRow";
 
-export const LineAccordion = ({expandAll, line }) => {
+export const LineAccordion = ({ line }) => {
 
   const { active: deviceEditMode, toggle: toggleDeviceEditMode } = useToggle();
   const { active: planEditMode, toggle: togglePlanEditMode } = useToggle();
@@ -218,19 +218,20 @@ export const LineAccordion = ({expandAll, line }) => {
     >
       <DeviceAccordionRow 
         device={line.device}
-        active={expandAll === true || deviceEditMode === true} 
+        active={deviceEditMode} 
         toggle={toggleDeviceEditMode}
         handleChange={handleChange}
+        line={line}
       />
       <PlanAccordionRow
         plan={line.plan}
-        active={expandAll === true || planEditMode === true} 
+        active={planEditMode} 
         toggle={togglePlanEditMode}
         handleChange={handleChange}
       />
       <ProtectionAccordionRow
         protection={line.protection}
-        active={expandAll === true || protectionEditMode === true} 
+        active={protectionEditMode} 
         toggle={toggleProtectionEditMode}
         handleChange={handleChange}
       />
