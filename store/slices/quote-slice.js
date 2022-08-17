@@ -94,6 +94,9 @@ const initialState = {
     quote: {
       id: null
     }
+  },
+  lineClipboard: {
+    id: null
   }
 }
 
@@ -231,6 +234,95 @@ export const quoteSlice = createSlice({
 
         return item;
       });
-    }
-  }
+    },
+    applySameDevice: (state, {payload}) => {
+      state.list = state.list.map(item => {
+        if(item.id === state.selected.quote.id){
+          item.lines = item.lines.map(line => {
+            if(line.type === payload.type){
+              line.device = {
+                ...line.device,
+                ...payload.device
+              };
+            }
+            return line;
+          });
+        }
+        return item;
+      })
+    },
+    applySamePlan: (state, {payload}) => {
+      state.list = state.list.map(item => {
+        if(item.id === state.selected.quote.id){
+          item.lines = item.lines.map(line => {
+            if(line.type === payload.type){
+              line.plan = {
+                ...line.plan,
+                ...payload.plan
+              };
+            }
+
+            return line;
+          });
+        }
+        return item;
+      })
+    },
+    applySameProtection: (state, {payload}) => {
+      state.list = state.list.map(item => {
+        if(item.id === state.selected.quote.id){
+          item.lines = item.lines.map(line => {
+            if(line.type === payload.type){
+              line.protection = {
+                ...line.protection,
+                ...payload.protection
+              };
+            }
+            return line;
+          });
+        }
+        return item;
+      })
+    },
+    duplicateLine: (state, {payload}) => {
+      state.list = state.list.map(item => {
+        if(item.id === state.selected.quote.id){
+          item.lines.push({...payload, id: uuid()});
+        }
+        return item;
+      })
+    },
+    copyLineToClipboard: (state, {payload}) => {
+      let clip = state.lineClipboard;
+
+      state.list.forEach(item => {
+        if(item.id === state.selected.quote.id){
+          [clip] = item.lines.filter(line => line.id === payload.id);
+        }
+        return item;
+      })
+
+      
+      state.lineClipboard = clip;
+      
+      console.log('state.lineClipboard', state.lineClipboard)
+    },
+    pasteLineFromClipboard: (state, {payload}) => {
+      state.list = state.list.map(item => {
+        if(item.id === state.selected.quote.id){
+          item.lines = item.lines.map(line => {
+            if(line.id === payload.id){
+              line = {
+                ...state.lineClipboard,
+                id: uuid()
+              }
+            }
+            
+            return line;
+          });
+        }
+        return item;
+      })
+    },
+  },
 });

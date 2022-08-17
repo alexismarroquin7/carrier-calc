@@ -11,6 +11,9 @@ import WatchIcon from '@mui/icons-material/Watch';
 import WifiIcon from '@mui/icons-material/Wifi';
 import ShieldIcon from '@mui/icons-material/Shield';
 import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+import { useDispatch, useSelector } from 'react-redux';
+import { quoteSlice } from '../../store/slices/quote-slice';
+
 const DynamicIcon = ({type}) => {
   switch(type) {
     case 'smartphone':
@@ -27,25 +30,26 @@ const DynamicIcon = ({type}) => {
 
 const lineActions = [
   {
-    title: 'Apply to every line.type line',
+    title: 'Apply to ALL line.type lines',
     replaceText: true,
     className: '',
     options: [
       {
         title: 'Device',
-        name: '',
         dynamicIcon: true,
-        icon: () => <></>
+        icon: () => <></>,
+        type: 'apply-device-to-all-matching-lines',
+        alertText: 'Device applied to all matching lines'
       },
       {
         title: 'Plan',
-        name: '',
-        icon: () => <SignalCellularAltIcon fontSize='inherit'/>
+        icon: () => <SignalCellularAltIcon fontSize='inherit'/>,
+        type: 'apply-plan-to-all-matching-lines'
       },
       {
         title: 'Protection',
-        name: '',
-        icon: () => <ShieldIcon fontSize='inherit'/>
+        icon: () => <ShieldIcon fontSize='inherit'/>,
+        type: 'apply-protection-to-all-matching-lines'
       },
     ]
   },
@@ -54,24 +58,16 @@ const lineActions = [
     className: '',
     options: [
       {
-        title: 'Copy',
-        className: '',
-        icon: () => <ContentCopyIcon fontSize="inherit" />
-      },
-      {
         title: 'Duplicate',
         className: '',
-        icon: () => <ContentCopyIcon fontSize="inherit" />
-      },
-      {
-        title: 'Paste',
-        className: '',
-        icon: () => <ContentPasteIcon fontSize="inherit" />
+        icon: () => <ContentCopyIcon fontSize="inherit" />,
+        type: 'duplicate'
       },
       {
         title: 'Delete',
         className: 'delete-button',
-        icon: () => <DeleteForeverIcon fontSize="inherit" />
+        icon: () => <DeleteForeverIcon fontSize="inherit" />,
+        type: 'delete'
       }
     ]
   }
@@ -79,9 +75,42 @@ const lineActions = [
 
 export const LineActionsMenu = ({line}) => {
   const { active, toggle } = useToggle();
+  const dispatch = useDispatch();
+  const { lineClipboard } = useSelector(s => {
+    return {
+      lineClipboard: s.quote.lineClipboard
+    }
+  })
+  
+  const handleDispatch = ({type}) => {
+    switch(type) {    
+      case 'apply-device-to-all-matching-lines':
+        dispatch(quoteSlice.actions.applySameDevice(line));
+        break;
+      case 'apply-plan-to-all-matching-lines':
+        dispatch(quoteSlice.actions.applySamePlan(line));
+        break;
+      case 'apply-protection-to-all-matching-lines':
+        dispatch(quoteSlice.actions.applySameProtection(line));
+        break;
+      case 'copy':
+        dispatch(quoteSlice.actions.copyLineToClipboard(line));
+        break;
+      case 'paste':
+        if(lineClipboard.id === null) break;
+        dispatch(quoteSlice.actions.pasteLineFromClipboard(line));
+        break;
+      case 'duplicate':
+        dispatch(quoteSlice.actions.duplicateLine(line));
+        break;
+      case 'delete':
+        dispatch(quoteSlice.actions.deleteLineFromSelectedQuote({lineId: line.id}));
+        break;
+      default: throw Error(`unkown type: ${type}`);
+    }
+  }
 
   return <div className='line-actions-menu'>
-    
     <div className='line-actions-menu-icon'>
       <MoreVertIcon fontSize="inherit"
         onClick={(e) => {
@@ -135,7 +164,8 @@ export const LineActionsMenu = ({line}) => {
                   onClick={(e)=> {
                     e.preventDefault();
                     e.stopPropagation();
-                    handleDispatch(action.type);
+                    handleDispatch(action);
+                    toggle();
                   }}
                   className={`line-action-button ${action.className}`}
                 >
