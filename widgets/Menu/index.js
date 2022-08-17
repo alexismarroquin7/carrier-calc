@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { useToggle } from "../../hooks/useToggle";
 import { quoteSlice } from "../../store/slices/quote-slice";
 import { v4 as uuid } from "uuid";
@@ -48,6 +48,8 @@ export const Menu = () => {
   const { active: menuActive, toggle: toggleMenuActive } = useToggle();
   
   const [options, setOptions] = useState(initialOptions);
+  
+  const { settings } = useSelector(s => s.quote);
 
   const handleDispatch = (action) => {
     switch(action){
@@ -101,52 +103,72 @@ export const Menu = () => {
         <div
           className={`menu-content-container`}
         >
-          {options.map(option => {
-            return <div
-              key={option.id}
-              className="menu-option"
-            >
-              <button
-                className="menu-option-button"
-                name={option.name}
-                onClick={(e) => {
-                  e.preventDefault();
-                  setOptions(options.map(opt => {
-                    if(opt.id === option.id){
-                      opt.open = !opt.open;
-                    }
-                    return opt;
-                  }))
-                }}
+          <div
+            className={`menu-content-group`}
+          >
+            {options.map(option => {
+              return <div
+                key={option.id}
+                className="menu-option"
               >
-                <span>
-                  {option.name}
-                </span>
-                {option.open ? <RemoveIcon fontSize="inherit"/> : <AddIcon fontSize="inherit"/>}
-              </button>
-              
-              {option.open && (
-                <>
-                  {option.options.map(subOption => {
-                    return (
-                      <button
-                        name={subOption.name}
-                        key={subOption.id}
-                        className={`menu-option-button carrier-button carrier-button-${subOption.name}`}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleDispatch(subOption.action);
-                        }}
-                      >
-                        {subOption.title}
-                      </button>   
-                    )
-                  })}
-                </>
-              )}
+                <button
+                  className="menu-option-button"
+                  name={option.name}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    setOptions(options.map(opt => {
+                      if(opt.id === option.id){
+                        opt.open = !opt.open;
+                      }
+                      return opt;
+                    }))
+                  }}
+                >
+                  <span>
+                    {option.name}
+                  </span>
+                  {option.open ? <RemoveIcon fontSize="inherit"/> : <AddIcon fontSize="inherit"/>}
+                </button>
+                
+                {option.open && (
+                  <>
+                    {option.options.map(subOption => {
+                      return (
+                        <button
+                          name={subOption.name}
+                          key={subOption.id}
+                          className={`menu-option-button carrier-button carrier-button-${subOption.name}`}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDispatch(subOption.action);
+                          }}
+                        >
+                          {subOption.title}
+                        </button>   
+                      )
+                    })}
+                  </>
+                )}
 
-            </div>
-          })}
+              </div>
+            })}
+          </div>
+
+          <label className="hide-tabs-label">Display quote tabs
+            <div
+              className={`hide-tabs-slider ${settings.showTabs && 'hide-tabs-active'}`} 
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                dispatch(quoteSlice.actions.toggleShowTabs());
+              }}
+            >
+              <div
+                className={`hide-tabs-ball ${settings.showTabs &&  'hide-tabs-active'}`}
+              >
+              </div>
+            </div>    
+          </label>
         </div>
       </div>
 
@@ -193,9 +215,18 @@ export const Menu = () => {
           width: 90%;
           display: flex;
           flex-flow: column wrap;
+          justify-content: space-between;
+          height: 100vh;
+          border-radius: 1rem;
+        }
+        
+        .menu-content-group {
+          display: flex;
+          flex-flow: column wrap;
           align-items: flex-start;
           border-radius: 1rem;
         }
+
 
         .menu-option {
           width: 100%;
@@ -243,6 +274,45 @@ export const Menu = () => {
         }
         .carrier-button-other {
           background-color: transparent;
+        }
+
+        .hide-tabs-label {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: space-between;
+        }
+        
+        .hide-tabs-slider {
+          display: flex;
+          flex-flow: row wrap;
+          justify-content: flex-start;
+          align-items: center;
+          width: 5rem;
+          background-color: var(--teal);
+          border: .2rem solid var(--teal);
+          border-radius: 1rem;
+          transition: all .2s;
+        }
+        
+        .hide-tabs-ball {
+          width: 2rem;
+          border-radius: 1rem;
+          padding: 1rem;
+          background-color: var(--dark-blue);
+        }
+
+        .hide-tabs-slider.hide-tabs-active {
+          justify-content: flex-end;
+          background-color: var(--dark-blue);
+          border-color: var(--dark-blue);
+        }
+        
+        .hide-tabs-ball.hide-tabs-active {
+          justify-content: flex-end;
+          background-color: var(--teal);
+          border-color: var(--dark-blue);
         }
       `}</style>
     </div>

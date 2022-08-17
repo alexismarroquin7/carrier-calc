@@ -97,6 +97,9 @@ const initialState = {
   },
   lineClipboard: {
     id: null
+  },
+  settings: {
+    showTabs: true
   }
 }
 
@@ -324,5 +327,8 @@ export const quoteSlice = createSlice({
         return item;
       })
     },
+    toggleShowTabs: (state) => {
+      state.settings.showTabs = !state.settings.showTabs;
+    }
   },
 });
