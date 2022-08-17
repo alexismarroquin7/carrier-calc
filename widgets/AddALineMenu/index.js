@@ -98,6 +98,7 @@ export const AddALineMenu = () => {
               e.stopPropagation();
               toggle();
             }}
+            className="close-icon-svg"
           />
         </div>
       
@@ -119,7 +120,6 @@ export const AddALineMenu = () => {
         })}
         
         <button 
-        
           className="add-lines-button"
           onClick={(e) => {
             e.preventDefault();
@@ -145,7 +145,7 @@ export const AddALineMenu = () => {
       .add-a-line-menu-content {
         position: absolute;
         z-index: 998;
-        top: 0;
+        /* top: 0; */
         bottom: 0;
         left: 0;
         right: 0;

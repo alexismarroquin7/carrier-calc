@@ -37,6 +37,7 @@ export const LineTypeOption = ({lineType, count, handleChange, setValue}) => {
             setValue(count+1);
           }}
           name="add-count"
+          className={`add-${lineType.type}`}
         >+</button>
       
       </div>
