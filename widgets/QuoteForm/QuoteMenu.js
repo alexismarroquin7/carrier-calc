@@ -515,7 +515,7 @@ export const QuoteMenu = () => {
       }
 
       .selected-quote-action-button {
-        padding: 2rem 1rem;
+        padding: 1rem;
         font-size: 3rem;
         display: flex;
         flex-flow: row wrap;

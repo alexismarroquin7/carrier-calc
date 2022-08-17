@@ -15,7 +15,7 @@ export default function Home() {
       
       <Navbar/>
       
-      {quote.list.length > 0 && <QuoteTabs />}
+      {quote.list.length > 0 && quote.settings.showTabs && <QuoteTabs />}
 
       {quote.list.length > 0 && <QuoteForm />}
 

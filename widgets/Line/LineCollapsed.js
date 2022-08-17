@@ -38,7 +38,7 @@ export const LineCollapsed = ({line}) => {
       </p>
       <div className="line-detail-border"></div>
       <p className="line-detail-collapsed">
-        {line.protection.name === '' ? 'No Plan Selected' : ''}
+        {line.protection.name === '' ? 'No Protection Selected' : ''}
         {line.protection.name === 'other' && line.protection.title === '' ? 'other' : ''}
         {line.protection.name === 'other' && line.protection.title.length > 0 ? line.protection.title : ''}
         {line.protection.name !== '' && line.protection.name !== 'other' && line.protection.title === '' ? line.protection.name : ''}

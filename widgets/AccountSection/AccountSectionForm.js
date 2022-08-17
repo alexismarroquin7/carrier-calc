@@ -407,7 +407,7 @@ export const AccontSectionForm = () => {
         justify-content: space-between;
         gap: .5rem;
         color: var(--white);
-        padding: 1rem 2rem;
+        padding: 1rem 0;
       }
       
       .account-section-select-label select {
@@ -436,7 +436,7 @@ export const AccontSectionForm = () => {
         flex-flow: row wrap;
         justify-content: space-between;
         gap: .5rem;
-        padding: 1rem 2rem;
+        padding: 1rem 0;
       }
 
       input {
