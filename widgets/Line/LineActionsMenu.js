@@ -2,8 +2,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CloseIcon from '@mui/icons-material/Close';
 import { useToggle } from '../../hooks/useToggle';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
-import ContentPasteOffIcon from '@mui/icons-material/ContentPasteOff';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import SmartphoneIcon from '@mui/icons-material/Smartphone';
 import TabletIcon from '@mui/icons-material/Tablet';

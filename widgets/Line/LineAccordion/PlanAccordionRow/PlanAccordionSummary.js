@@ -1,4 +1,25 @@
 import { KeyboardArrowDown } from "@mui/icons-material"
+import SignalCellularAltIcon from '@mui/icons-material/SignalCellularAlt';
+
+const displayText = ({plan}) => {
+  let text = 'None';
+  
+  if(plan.name.length > 0 && plan.name !== 'other'){
+    text = plan.name;
+  }
+  
+  if(plan.name.length > 0 && plan.name === 'other'){
+    if(plan.title.length === 0){
+      text = 'other';
+    }
+
+    if(plan.title.length > 0){
+      text = plan.title;
+    }
+  }
+  
+  return text;
+}
 
 export const PlanAccordionSummary = ({ plan, active, toggle }) => {
   return <div
@@ -7,9 +28,14 @@ export const PlanAccordionSummary = ({ plan, active, toggle }) => {
     <div
       className="plan-accordion-summary-section"
     >
-      <p
-        className={`${active ? 'active' : ''}`}
-      >{plan.name ? plan.name : 'Plan'}</p>
+      <div
+        className="plan-accordion-summary-section-top-left"
+      >
+        <SignalCellularAltIcon fontSize="inherit"/>
+        <p
+          className={`${active ? 'active' : ''}`}
+        >{displayText({plan})}</p>
+      </div>
       <div
         className={`plan-accordion-summary-icon ${active ? 'active' : ''}`}
       >
@@ -24,19 +50,17 @@ export const PlanAccordionSummary = ({ plan, active, toggle }) => {
       </div>
     </div>
     
-    <div
-      className="plan-accordion-summary-section"
+    {plan.name !== '' && <div
+      className="plan-accordion-summary-section due"
     >
-      <p className="plan-due-text plan-due-text--monthly">{Number(plan.dueMonthly).toFixed(2)}/month</p>
-    </div>
+      <p className="plan-due-text plan-due-text--monthly">${Number(plan.dueMonthly).toFixed(2)}/month</p>
+    </div>}
 
     <style jsx>{`
       .plan-accordion-summary {
         width: 100%;
         display: flex;
-        flex-flow: row wrap;
-        justify-content: space-between;
-        align-items: center;
+        flex-flow: column wrap;
       }
 
       .plan-accordion-summary-section {
@@ -48,8 +72,16 @@ export const PlanAccordionSummary = ({ plan, active, toggle }) => {
         padding: 1rem 0;
       }
       
-      .plan-accordion-summary-section:last-child {
+      .plan-accordion-summary-section.due {
         justify-content: flex-end;
+      }
+
+      .plan-accordion-summary-section-top-left {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1rem;
+        align-items: center;
+        font-size: 3rem;
       }
 
       .plan-accordion-summary-icon {
