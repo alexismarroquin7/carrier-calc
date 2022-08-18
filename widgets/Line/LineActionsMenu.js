@@ -37,17 +37,19 @@ const lineActions = [
         dynamicIcon: true,
         icon: () => <></>,
         type: 'apply-device-to-all-matching-lines',
-        alertText: 'Device applied to all matching lines'
+        dynamicText: true
       },
       {
         title: 'Plan',
         icon: () => <SignalCellularAltIcon fontSize='inherit'/>,
-        type: 'apply-plan-to-all-matching-lines'
+        type: 'apply-plan-to-all-matching-lines',
+        dynamicText: true,
       },
       {
         title: 'Protection',
         icon: () => <ShieldIcon fontSize='inherit'/>,
-        type: 'apply-protection-to-all-matching-lines'
+        type: 'apply-protection-to-all-matching-lines',
+        dynamicText: true,
       },
     ]
   },
@@ -59,17 +61,63 @@ const lineActions = [
         title: 'Duplicate',
         className: '',
         icon: () => <ContentCopyIcon fontSize="inherit" />,
-        type: 'duplicate'
+        type: 'duplicate',
+        dynamicText: false,
       },
       {
         title: 'Delete',
         className: 'delete-button',
         icon: () => <DeleteForeverIcon fontSize="inherit" />,
-        type: 'delete'
+        type: 'delete',
+        dynamicText: false,
       }
     ]
   }
 ]
+
+const handleLineActionButtonText = (title, line) => {
+  switch(title){
+    case 'Device':
+      if(line.device.name === '') {
+        return 'None';
+      } else if(line.device.name === 'other' && line.device.title === ''){
+        return 'Other';
+      } else if(line.device.name === 'other' && line.device.title.length > 0){
+        return line.device.title;
+      } else if(line.device.name.length > 0 && line.device.name !== 'other'){
+        return line.device.name;
+      } else {
+        throw Error();
+      }
+      
+      
+    case 'Plan':
+      if(line.plan.name === '') {
+        return 'None';
+      } else if(line.plan.name === 'other' && line.plan.title === ''){
+        return 'Other';
+      } else if(line.plan.name === 'other' && line.plan.title.length > 0){
+        return line.plan.title;
+      } else if(line.plan.name.length > 0 && line.plan.name !== 'other'){
+        return line.plan.name;
+      } else {
+        throw Error();
+      }
+    case 'Protection':
+      if(line.protection.name === '') {
+        return 'None';
+      } else if(line.protection.name === 'other' && line.protection.title === ''){
+        return 'Other';
+      } else if(line.protection.name === 'other' && line.protection.title.length > 0){
+        return line.protection.title;
+      } else if(line.protection.name.length > 0 && line.protection.name !== 'other'){
+        return line.protection.name;
+      } else {
+        throw Error();
+      }
+    default: throw Error(`unkown action title: ${title}`)
+  }
+}
 
 export const LineActionsMenu = ({line}) => {
   const { active, toggle } = useToggle();
@@ -79,6 +127,15 @@ export const LineActionsMenu = ({line}) => {
       lineClipboard: s.quote.lineClipboard
     }
   })
+
+  const handleToggle = () => {
+    toggle();
+    if(active){
+      document.querySelector('body').style.overflow = 'auto';
+    } else {
+      document.querySelector('body').style.overflow = 'hidden';
+    }
+  }
   
   const handleDispatch = ({type}) => {
     switch(type) {    
@@ -114,7 +171,7 @@ export const LineActionsMenu = ({line}) => {
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();
-          toggle();
+          handleToggle();
         }}
       />
     </div>
@@ -124,7 +181,7 @@ export const LineActionsMenu = ({line}) => {
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggle();
+        handleToggle();
       }}
     >
       <div
@@ -141,7 +198,7 @@ export const LineActionsMenu = ({line}) => {
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              toggle();
+              handleToggle();
             }}
           />
         </div>
@@ -163,17 +220,14 @@ export const LineActionsMenu = ({line}) => {
                     e.preventDefault();
                     e.stopPropagation();
                     handleDispatch(action);
-                    toggle();
+                    handleToggle();
                   }}
                   className={`line-action-button ${action.className}`}
                 >
                   {!action.dynamicIcon && <Icon/>}
                   {action.dynamicIcon && <DynamicIcon type={line.type} />}
                   <p>
-                    {action.title}{' '}
-                    {action.title === 'Device' && line.device.name.length > 0 && `- ${line.device.name}`}
-                    {action.title === 'Plan' && line.plan.name.length > 0 && `- ${line.plan.name}`}
-                    {action.title === 'Protection' && line.protection.name.length > 0 && `- ${line.protection.name}`}
+                    {action.dynamicText ? handleLineActionButtonText(action.title, line) : action.title}
                   </p>
                 </button>
               )
@@ -232,8 +286,14 @@ export const LineActionsMenu = ({line}) => {
         color: var(--google-red);
       }
 
-      p {
+      .close-line-actions-menu p {
         color: var(--teal);
+      }
+
+      p {
+        color: var(--white);
+        width: 50%;
+        text-align: left;
       }
 
       .line-action-group {
@@ -243,6 +303,7 @@ export const LineActionsMenu = ({line}) => {
       
       .line-action-group-title {
         padding: .5rem;
+        color: var(--teal);
       }
 
       .line-action-button {
@@ -250,9 +311,9 @@ export const LineActionsMenu = ({line}) => {
         display: flex;
         flex-flow: row wrap;
         align-items: center;
-        background-color: var(--grayish-blue);
-        color: var(--teal);
-        border: .2rem solid var(--teal);
+        background-color: var(--dark-blue);
+        color: var(--white);
+        border: .2rem solid var(--grayish-blue);
         font-size: 3rem;
         font-weight: bold;
         gap: 1rem;
