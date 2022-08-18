@@ -43,19 +43,19 @@ export const LineTypeOption = ({lineType, count, handleChange, setValue}) => {
       </div>
       <style jsx>{`
         .line-type-option {
+          width: 90%;
           display: flex;
           flex-flow: row wrap;
           align-items: center;
           justify-content: space-between;
-          gap: 1rem;
           
-          padding: 4rem 2rem;
-          
+          padding: 2rem;
           
           background-color: var(--teal);
           color: var(--dark-blue);
           
           border: 0;
+          border-radius: 1rem;
           border-top: .2rem solid var(--dark-blue);
 
           font-weight: bold;
@@ -73,7 +73,7 @@ export const LineTypeOption = ({lineType, count, handleChange, setValue}) => {
         }
 
         button {
-          width: 5rem;
+          width: 4rem;
           padding: 1rem;
           border: .2rem solid var(--dark-blue);
           background-color: var(--dark-blue);

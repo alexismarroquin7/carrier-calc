@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useToggle } from "../../../../hooks";
 import { DeviceSelectionForm } from "./DeviceSelectionForm";
 
@@ -54,6 +53,7 @@ export const DeviceSelectionMenu = ({line}) => {
         border-radius: 1rem;
         color: var(--dark-blue);
         background-color: var(--teal);
+        font-weight: bold;
       }
       .device-selection-menu-wrapper {
         position: fixed;

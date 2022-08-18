@@ -8,7 +8,7 @@ import WatchIcon from '@mui/icons-material/Watch';
 import WifiIcon from '@mui/icons-material/Wifi';
 import AddIcon from '@mui/icons-material/Add';
 import { LineTypeOption } from "./LineTypeOption";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const lineTypes = [
   {
@@ -59,6 +59,15 @@ export const AddALineMenu = () => {
     });
   }
 
+  const handleToggle = () => {
+    toggle();
+    if(active){
+      document.querySelector('body').style.overflow = 'auto';
+    } else {
+      document.querySelector('body').style.overflow = 'hidden';
+    }
+  }
+
   return (
   <div
     className="add-a-line-menu"
@@ -66,7 +75,7 @@ export const AddALineMenu = () => {
     <button
       onClick={(e) => {
         e.preventDefault();
-        toggle();
+        handleToggle();
       }}
       className="add-a-line-button"
     >
@@ -79,7 +88,7 @@ export const AddALineMenu = () => {
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
-        toggle();
+        handleToggle();
       }}
     >
       <div
@@ -97,43 +106,36 @@ export const AddALineMenu = () => {
               e.preventDefault();
               e.stopPropagation();
               setValues(initialValues);
-              toggle();
+              handleToggle();
             }}
             className="close-icon-svg"
           />
         </div>
-      
-        {lineTypes.map(lineType => {
-          return (
-            <LineTypeOption 
-              key={lineType.type}
-              lineType={lineType}
-              count={values[lineType.type]} 
-              handleChange={handleChange}
-              setValue={(amount) => {
-                setValues({
-                  ...values,
-                  [lineType.type]: Number(amount)
-                })
-              }}
-            />
-          )
-        })}
         
+        <div
+          className="line-types-group"
+        >
+          {lineTypes.map(lineType => {
+            return (
+              <LineTypeOption 
+                key={lineType.type}
+                lineType={lineType}
+                count={values[lineType.type]} 
+                handleChange={handleChange}
+                setValue={(amount) => {
+                  setValues({
+                    ...values,
+                    [lineType.type]: Number(amount)
+                  })
+                }}
+              />
+            )
+          })}
+        </div>
+
         <div
           className="control-buttons-container"
         >
-          <button
-            className="cancel-add-lines-button"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setValues(initialValues);
-              toggle();
-            }}
-          >
-            Cancel
-          </button>
 
           <button 
             className="add-lines-button"
@@ -142,9 +144,22 @@ export const AddALineMenu = () => {
               e.stopPropagation();
               dispatch(quoteSlice.actions.addMultipleLinesToSelectedQuote(values));
               setValues(initialValues);
-              toggle();
+              handleToggle();
             }}  
           >Add</button>
+          
+          <button
+            className="cancel-add-lines-button"
+            onClick={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+              setValues(initialValues);
+              handleToggle();
+            }}
+          >
+            Cancel
+          </button>
+          
         </div>
 
       </div>
@@ -166,6 +181,7 @@ export const AddALineMenu = () => {
         bottom: 0;
         left: 0;
         right: 0;
+        background-color: rgba(0,0,0,.75);
       }
 
       .add-a-line-menu-content.hidden {
@@ -177,16 +193,17 @@ export const AddALineMenu = () => {
         bottom: 0;
         left: 0;
         right: 0;
-        /* top: 0; */
+        top: 10%;
         display: flex;
-        flex-flow: column wrap;
-        background-color: rgba(0,0,0,.75);
-        box-shadow: 0 -1rem 2rem black;
+        flex-flow: column nowrap;
+        justify-content: space-between;
+        background-color: var(--grayish-blue);
+        overflow-y: scroll;
       }
 
       .add-a-line-button {
         border-radius: 1rem;
-        padding: 1rem 2rem;
+        padding: 1rem;
         border: .2rem solid var(--teal);
         background-color: var(--teal);
         color: var(--dark-blue);
@@ -197,9 +214,11 @@ export const AddALineMenu = () => {
       }
 
       .close-icon {
+        position: sticky;
+        top: 0;
         background-color: var(--dark-blue);
         color: var(--google-red);
-        padding: 1rem;
+        padding: 2rem;
         width: 100%;
         font-size: 3rem;
         display: flex;
@@ -213,25 +232,39 @@ export const AddALineMenu = () => {
         font-weight: bold;
       }
 
-      .control-buttons-container {
+      .line-types-group {
+        width: 100%;
         display: flex;
-        flex-flow: row wrap;
+        flex-flow: column wrap;
+        align-items: center;
+        gap: 2rem;
+      }
+
+      .control-buttons-container {
+        width: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: center;
+        gap: 1rem;
+        padding: 2rem 0;;
       }
 
       .cancel-add-lines-button {
-        width: 50%;
-        padding: 2rem;
-        background-color: var(--google-red);
-        color: var(--white);
+        width: 90%;
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: transparent;
+        color: var(--teal);
         font-weight: bold;
-        border: .2rem solid var(--google-red);
+        border: .2rem solid var(--teal);
       }
       
       .add-lines-button {
-        width: 50%;
-        padding: 2rem;
-        background-color: var(--dark-blue);
-        color: var(--teal);
+        width: 90%;
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: var(--teal);
+        color: var(--dark-blue);
         font-weight: bold;
         border: .2rem solid var(--dark-blue);
       }
