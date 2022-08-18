@@ -22,6 +22,7 @@ const displayText = ({plan}) => {
 }
 
 export const PlanAccordionSummary = ({ plan, active, toggle }) => {
+
   return <div
     className="plan-accordion-summary"
   >
@@ -50,7 +51,7 @@ export const PlanAccordionSummary = ({ plan, active, toggle }) => {
       </div>
     </div>
     
-    {plan.name !== '' && <div
+    {!active && (plan.name !== '' || Number(plan.dueMonthly) > 0) && <div
       className="plan-accordion-summary-section due"
     >
       <p className="plan-due-text plan-due-text--monthly">${Number(plan.dueMonthly).toFixed(2)}/month</p>

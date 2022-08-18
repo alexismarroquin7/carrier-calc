@@ -48,7 +48,7 @@ export const DeviceAccordionSummary = ({ device, active, toggle, line }) => {
       </div>
     </div>
 
-    {device.name !== '' && <div
+    {!active && (device.name !== '' || Number(device.dueToday) > 0 || Number(device.dueMonthly).toFixed(2) > 0) && <div
       className="device-accordion-summary-section"
     >
       <p className="device-due-text device-due-text--today">${Number(device.dueToday).toFixed(2)} today</p>

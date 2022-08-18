@@ -59,9 +59,12 @@ export const AccountSection = () => {
 
       .account-edit-button {
         color: var(--teal);
-        font-size: 4rem;
+        font-size: 3rem;
         display: flex;
         flex-flow: row wrap;
+        border: .2rem solid var(--teal);
+        border-radius: 1rem;
+        transform-origin: center;
       }
     `}</style>
   </div>
