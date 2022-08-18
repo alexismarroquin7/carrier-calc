@@ -7,7 +7,9 @@ const addALineButton = () => cy.get('.add-a-line-button');
 const closeAddALineMenuButton = () => cy.get('.close-icon-svg');
 const addSmartPhoneButton = () => cy.get('button.add-smartphone');
 const addLinesButton = () => cy.get('.add-lines-button');
-
+const accountEditButton = () => cy.get('.account-edit-button');
+const selectAccountPlan = () => cy.get('select[name="account.plan.name"]');
+const accountDueMonthly = () => cy.get('input[name="account.plan.dueMonthly"]');
 
 describe('Member Quote Comparison', {
   viewportWidth: 414,
@@ -34,24 +36,46 @@ describe('Member Quote Comparison', {
     createVZWQuoteButton()
     .click();
 
-
+    const quoteName = 'Current';
     quoteNameInput()
-    .clear();
+    .clear()
+    .type(quoteName)
+    .should('have.attr', 'value', quoteName)
+    
+    accountEditButton() // expand account section
+    .click();
 
-    quoteNameInput()
-    .type('Current');
+    const accountPlan = 'The Verizon Unlimited Plan';
+    selectAccountPlan()
+    .select(accountPlan)
+    .should('have.value', accountPlan);
+    
+    const accountPlanDueMonthly = '100';
+    accountDueMonthly()
+    .clear()
+    .type(accountPlanDueMonthly)
+    .should('have.value', accountPlanDueMonthly);
 
-    // Open add a line menu
+    // Close accountsection
+    accountEditButton()
+    .click();
+    
+    // Click add a line
     addALineButton()
     .click();
     
-    for(let i = 0, len = 4; i<len; i++){
+    // Add 4 smartphones
+    const count = 4;
+    for(let i = 0, len = count; i<len; i++){
       addSmartPhoneButton()
       .click();
     }
 
+    // add lines
     addLinesButton()
     .click();
+
+    
     
     /* ASSERT */
     expect(true).to.equal(true);
