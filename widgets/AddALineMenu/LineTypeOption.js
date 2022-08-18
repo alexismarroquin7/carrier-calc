@@ -56,7 +56,7 @@ export const LineTypeOption = ({lineType, count, handleChange, setValue}) => {
           
           border: 0;
           border-radius: 1rem;
-          border-top: .2rem solid var(--dark-blue);
+          border-bottom: .2rem solid var(--dark-blue);
 
           font-weight: bold;
           font-size: 3rem;

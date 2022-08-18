@@ -241,6 +241,11 @@ export const DeviceSelectionForm = ({line, toggle}) => {
           })
         } else if(value === '') {
           setValues(initialValues);
+        } else if(value !== values.manufacturer) {
+          setValues({
+            ...initialValues,
+            [name]: value
+          });
         } else {
           setValues({
             ...values,
@@ -453,6 +458,7 @@ export const DeviceSelectionForm = ({line, toggle}) => {
           e.preventDefault();
           e.stopPropagation();
           toggle();
+          setValues(initialValues);
         }}
       >Cancel</button>
     </div>
