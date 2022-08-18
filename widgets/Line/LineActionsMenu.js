@@ -268,15 +268,18 @@ export const LineActionsMenu = ({line}) => {
       .line-actions-menu-content {
         background-color: var(--grayish-blue);
         width: 100%;
-        padding: 2rem;
+        
         position: fixed;
         bottom: 0;
+        top: 25%;
         gap: 2rem;
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: column nowrap;
+        overflow-y: scroll;
       }
 
       .close-line-actions-menu {
+        padding: 2rem;
         font-size: 3rem;
         display: flex;
         flex-flow: row wrap;
@@ -284,6 +287,10 @@ export const LineActionsMenu = ({line}) => {
         align-items: center;
         font-weight: bold;
         color: var(--google-red);
+        width: 100%;
+        position: sticky;
+        top: 0;
+        background-color: var(--grayish-blue);
       }
 
       .close-line-actions-menu p {
@@ -299,6 +306,7 @@ export const LineActionsMenu = ({line}) => {
       .line-action-group {
         display: flex;
         flex-flow: column wrap;
+        padding: 0 2rem;
       }
       
       .line-action-group-title {
