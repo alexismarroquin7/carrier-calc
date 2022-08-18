@@ -10,14 +10,22 @@ export const memories = {
 }
 
 export const colors = {
-  black: 'Black',
-  white: 'White',
-  red: 'Red',
-  blue: 'Blue',
-  orange: 'Orange',
-  green: 'Green',
-  purple: 'Purple',
-  yellow: 'Yellow',
+  ALPINE_GREEN: 'Alpine Green',
+  SILVER: 'Silver',
+  GRAPHITE: 'Graphite',
+  GOLD: 'Gold',
+  SIERRA_BLUE: 'Sierra Blue',
+  PRODUCT_RED: 'Red',
+  GREEN: 'Green',
+  PINK: 'Pink',
+  BLUE: 'Blue',
+  MIDNIGHT: 'Midnight',
+  STARLIGHT: 'Starlight',
+  PHANTOM_BLACK: 'Phantom Black',
+  PHANTOM_WHITE: 'Phantom White',
+  BURGUNDY: 'Burgundy',
+  PINK_GOLD: 'Pink Gold',
+  BORA_PURPLE: 'Bora Purple',
 }
 
 export const manufacturers = {
@@ -40,7 +48,7 @@ export const devices = [
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.apple,
     model: 'iPhone 13 Pro Max',
-    colors: [colors.green],
+    colors: [colors.ALPINE_GREEN, colors.GRAPHITE, colors.GOLD, colors.SIERRA_BLUE],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
   },
   {
@@ -48,7 +56,7 @@ export const devices = [
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.apple,
     model: 'iPhone 13 Pro',
-    colors: [colors.blue],
+    colors: [colors.ALPINE_GREEN, colors.GRAPHITE, colors.GOLD, colors.SIERRA_BLUE],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
   },
   {
@@ -56,7 +64,15 @@ export const devices = [
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.apple,
     model: 'iPhone 13',
-    colors: [colors.black],
+    colors: [colors.GREEN, colors.PINK, colors.BLUE, colors.MIDNIGHT, colors.STARLIGHT, colors.PRODUCT_RED],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 13 mini',
+    colors: [colors.GREEN, colors.PINK, colors.BLUE, colors.MIDNIGHT, colors.STARLIGHT, colors.PRODUCT_RED],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
   },
   {
@@ -64,7 +80,7 @@ export const devices = [
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
     model: 's22 Ultra',
-    colors: [colors.black],
+    colors: [colors.PHANTOM_BLACK, colors.PHANTOM_WHITE, colors.GREEN, colors.BURGUNDY],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
   },
   {
@@ -72,15 +88,15 @@ export const devices = [
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
     model: 's22 +',
-    colors: [colors.black],
-    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+    colors: [colors.PHANTOM_BLACK, colors.PHANTOM_WHITE, colors.GREEN, colors.PINK_GOLD],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB]
   },
   {
     id: uuid(),
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
     model: 's22',
-    colors: [colors.black],
-    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+    colors: [colors.BORA_PURPLE, colors.PHANTOM_BLACK, colors.PHANTOM_WHITE, colors.PINK_GOLD, colors.GREEN],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB]
   },
 ];
