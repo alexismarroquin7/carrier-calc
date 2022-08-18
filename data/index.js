@@ -26,6 +26,10 @@ export const colors = {
   BURGUNDY: 'Burgundy',
   PINK_GOLD: 'Pink Gold',
   BORA_PURPLE: 'Bora Purple',
+  PACIFIC_BLUE: 'Pacific Blue',
+  BLACK: "Black",
+  WHITE: "White",
+  PURPLE: "Purple"
 }
 
 export const manufacturers = {
@@ -73,13 +77,141 @@ export const devices = [
     manufacturer: manufacturers.apple,
     model: 'iPhone 13 mini',
     colors: [colors.GREEN, colors.PINK, colors.BLUE, colors.MIDNIGHT, colors.STARLIGHT, colors.PRODUCT_RED],
-    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 12 Pro Max',
+    colors: [colors.SILVER, colors.GRAPHITE, colors.GOLD, colors.PACIFIC_BLUE],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 12 Pro',
+    colors: [colors.SILVER, colors.GRAPHITE, colors.GOLD, colors.PACIFIC_BLUE],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 12',
+    colors: [colors.BLUE, colors.GREEN, colors.BLACK, colors.WHITE, colors.PURPLE],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 12 mini',
+    colors: [colors.BLUE, colors.GREEN, colors.BLACK, colors.WHITE, colors.PURPLE],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 11 Pro Max',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 11 Pro',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 11',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone Xs Max',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone Xs',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone Xr',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone X',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone SE (2022)',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone SE (2020)',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone SE (2016)',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 8 Plus',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 8',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
   },
   {
     id: uuid(),
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
-    model: 's22 Ultra',
+    model: 'Galaxy s22 Ultra',
     colors: [colors.PHANTOM_BLACK, colors.PHANTOM_WHITE, colors.GREEN, colors.BURGUNDY],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
   },
@@ -87,7 +219,7 @@ export const devices = [
     id: uuid(),
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
-    model: 's22 +',
+    model: 'Galaxy s22 +',
     colors: [colors.PHANTOM_BLACK, colors.PHANTOM_WHITE, colors.GREEN, colors.PINK_GOLD],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB]
   },
@@ -95,8 +227,72 @@ export const devices = [
     id: uuid(),
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
-    model: 's22',
+    model: 'Galaxy s22',
     colors: [colors.BORA_PURPLE, colors.PHANTOM_BLACK, colors.PHANTOM_WHITE, colors.PINK_GOLD, colors.GREEN],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s21 Ultra',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s21 +',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s21',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s20 Ultra',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s20 +',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s20',
+    colors: [],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s10 +',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s10',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
   },
 ];

@@ -266,7 +266,7 @@ export const AddALineMenu = () => {
         background-color: var(--teal);
         color: var(--dark-blue);
         font-weight: bold;
-        border: .2rem solid var(--dark-blue);
+        border: .2rem solid var(--teal);
       }
     `}</style>
   </div>
