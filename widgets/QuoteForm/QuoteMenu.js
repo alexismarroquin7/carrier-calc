@@ -450,6 +450,10 @@ export const QuoteMenu = () => {
       .more-icon {
         font-size: 3rem;
         color: var(--teal);
+        width: 100%;
+        display: flex;
+        flex-flow: row wrap;
+        justify-content: flex-end;
       }
 
       .menu {
