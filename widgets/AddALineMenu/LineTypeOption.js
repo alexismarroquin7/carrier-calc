@@ -82,13 +82,13 @@ export const LineTypeOption = ({lineType, count, handleChange, setValue}) => {
         }
 
         button[name="sub-count"] {
-          border-top-left-radius: 2rem;
-          border-bottom-left-radius: 2rem;
+          border-top-left-radius: 1rem;
+          border-bottom-left-radius: 1rem;
         }
         
         button[name="add-count"] {
-          border-top-right-radius: 2rem;
-          border-bottom-right-radius: 2rem;
+          border-top-right-radius: 1rem;
+          border-bottom-right-radius: 1rem;
           
         }
 
