@@ -68,7 +68,7 @@ export const QuoteForm = () => {
       className="quote-form"
     >
       <QuoteMenu/>
-      
+
       <label
         className="quote-name-label"
       >Quote:
@@ -162,9 +162,9 @@ export const QuoteForm = () => {
         .quote-name {
           width: 100%;
           padding: 1rem;
-          background-color: var(--grayish-blue);
           color: var(--teal);
-          border: .2rem solid var(--teal);
+          border: .2rem solid var(--dark-blue);
+          background-color: var(--dark-blue);
           border-radius: 1rem;
         }
 
@@ -186,10 +186,12 @@ export const QuoteForm = () => {
         .select-carrier-select {
           padding: 1rem;
           width: 100%;
-          background-color: var(--grayish-blue);
+          
           border-radius: 1rem;
-          border: .2rem solid var(--teal);
+          
           color: var(--teal);
+          border: .2rem solid var(--dark-blue);
+          background-color: var(--dark-blue);
         }
 
         .select-carrier-input {

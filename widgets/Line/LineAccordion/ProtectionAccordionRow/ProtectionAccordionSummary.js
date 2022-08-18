@@ -51,7 +51,7 @@ export const ProtectionAccordionSummary = ({ protection, active, toggle }) => {
 
     </div>
 
-    {protection.name !== '' && <div
+    {!active && (protection.name !== '' || Number(protection.dueToday) > 0 || Number(protection.dueMonthly) > 0) && <div
       className="protection-accordion-summary-section"
     >
       <p className="protection-due-text protection-due-text--today">${Number(protection.dueToday).toFixed(2)} today</p>
