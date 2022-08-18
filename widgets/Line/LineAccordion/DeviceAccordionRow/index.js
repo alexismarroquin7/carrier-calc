@@ -10,6 +10,7 @@ export const DeviceAccordionRow = ({ device, active, toggle, handleChange, line 
       active={active}
       toggle={toggle}
       device={device}
+      line={line}
     />
     
     {active && <DeviceAccordionForm

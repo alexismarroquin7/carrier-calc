@@ -1,26 +1,8 @@
 import { useToggle } from "../../hooks/useToggle";
-import SmartphoneIcon from '@mui/icons-material/Smartphone';
-import TabletIcon from '@mui/icons-material/Tablet';
-import WatchIcon from '@mui/icons-material/Watch';
-import WifiIcon from '@mui/icons-material/Wifi';
+
 import { LineActionsMenu } from "./LineActionsMenu";
 import { LineAccordion } from "./LineAccordion";
 
-
-const Icon = ({type}) => {
-  switch(type){
-    case 'smartphone':
-      return <SmartphoneIcon fontSize="inherit"/>
-    case 'tablet':
-      return <TabletIcon fontSize="inherit"/>
-    case 'watch':
-      return <WatchIcon fontSize="inherit"/>
-    case 'hotspot':
-      return <WifiIcon fontSize="inherit"/>
-    
-    default: throw Error('unknown icon type in Line');
-  }
-}
 
 export const Line = ({ line, index }) => {
 
@@ -32,12 +14,8 @@ export const Line = ({ line, index }) => {
         <div
           className="line-title"
         >
-          <div
-            className="line-type-icon"
-          >
-            <Icon type={line.type} />
-            <p>Line {index + 1}</p>
-          </div>
+          
+          <p>Line {index + 1}</p>
           <p className="line-type-text">{line.type}</p>
 
         </div>
@@ -73,8 +51,16 @@ export const Line = ({ line, index }) => {
         .line-title {
           font-size: 3rem;
           display: flex;
-          flex-flow: column wrap;
+          flex-flow: row wrap;
           gap: 1rem;
+          align-items: center;
+        }
+
+        .line-type-text {
+          background-color: var(--teal);
+          padding: .5rem;
+          border-radius: 1rem;
+          color: var(--dark-blue);
         }
         
         .line-type-icon {

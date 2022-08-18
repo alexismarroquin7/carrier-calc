@@ -68,7 +68,7 @@ export const PlanAccordionSummary = ({ plan, active, toggle }) => {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         padding: 1rem 0;
       }
       
@@ -82,6 +82,7 @@ export const PlanAccordionSummary = ({ plan, active, toggle }) => {
         gap: 1rem;
         align-items: center;
         font-size: 3rem;
+        width: 75%;
       }
 
       .plan-accordion-summary-icon {

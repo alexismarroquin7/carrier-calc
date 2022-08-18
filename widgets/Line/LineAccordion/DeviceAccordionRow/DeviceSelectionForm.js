@@ -324,6 +324,7 @@ export const DeviceSelectionForm = ({line, toggle}) => {
       }
     }))
     toggle();
+    setValues(initialValues);
   }
 
   return <div

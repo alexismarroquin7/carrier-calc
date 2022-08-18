@@ -1,13 +1,39 @@
 import { KeyboardArrowDown } from "@mui/icons-material"
+import SmartphoneIcon from '@mui/icons-material/Smartphone';
+import TabletIcon from '@mui/icons-material/Tablet';
+import WatchIcon from '@mui/icons-material/Watch';
+import WifiIcon from '@mui/icons-material/Wifi';
 
-export const DeviceAccordionSummary = ({ device, active, toggle }) => {
+const Icon = ({type}) => {
+  switch(type){
+    case 'smartphone':
+      return <SmartphoneIcon fontSize="inherit"/>
+    case 'tablet':
+      return <TabletIcon fontSize="inherit"/>
+    case 'watch':
+      return <WatchIcon fontSize="inherit"/>
+    case 'hotspot':
+      return <WifiIcon fontSize="inherit"/>
+    
+    default: throw Error('unknown icon type in Line');
+  }
+}
+
+export const DeviceAccordionSummary = ({ device, active, toggle, line }) => {
   return <div
     className="device-accordion-summary"
   >
     <div
       className="device-accordion-summary-section"
     >
-      <p>{device.name ? device.name : 'None'}</p>
+      
+      <div
+        className="device-accordion-summary-section-top-left"
+      >
+        <Icon type={line.type} />
+        <p>{device.name ? device.name : 'None'}</p>
+      </div>
+      
       <div
         className={`device-accordion-summary-icon ${active ? 'active' : ''}`}
       >
@@ -43,8 +69,17 @@ export const DeviceAccordionSummary = ({ device, active, toggle }) => {
         display: flex;
         flex-flow: row wrap;
         justify-content: space-between;
-        align-items: center;
+        align-items: flex-start;
         padding: 1rem 0;
+      }
+
+      .device-accordion-summary-section-top-left {
+        display: flex;
+        flex-flow: row wrap;
+        gap: 1rem;
+        width: 75%;
+        align-items: center;
+        font-size: 3rem;
       }
 
       .device-accordion-summary-icon {
