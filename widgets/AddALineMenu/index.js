@@ -121,7 +121,6 @@ export const AddALineMenu = () => {
                 key={lineType.type}
                 lineType={lineType}
                 count={values[lineType.type]} 
-                handleChange={handleChange}
                 setValue={(amount) => {
                   setValues({
                     ...values,

@@ -38,7 +38,7 @@ const todaysDate = (withColons = false) => {
   }
 
   today = withColons 
-  ? `${month}-${date}-${year}T${hr}:${min}:${sec}`
+  ? `${month}-${date}-${year} ${hr}:${min}:${sec}`
   : `${month}-${date}-${year}T${hr}_${min}_${sec}`;
 
 
@@ -85,13 +85,11 @@ const generateQuoteDocument = (quote) => {
       <td>
         ${line.plan.name === '' ? 'None' : ''}
         ${line.plan.name === 'other' ?  `${line.plan.title === '' ? 'None' : line.plan.title}` : ''}
-        ${line.plan.name ? line.plan.name : ''}
       </td>
       <td>$${Number(line.plan.dueMonthly).toFixed(2)}</td>
       <td>
         ${line.protection.name === '' ? 'None' : ''}
         ${line.protection.name === 'other' ?  `${line.protection.title === '' ? 'None' : line.protection.title}` : ''}
-        ${line.protection.name ? line.protection.name : ''}
       </td>
       <td>$${Number(line.protection.dueToday).toFixed(2)}</td>
       <td>$${Number(line.protection.dueMonthly).toFixed(2)}</td>
@@ -138,13 +136,11 @@ const generateQuoteDocument = (quote) => {
             <td>
               ${quote.account.plan.name === '' ? 'None' : ''}
               ${quote.account.plan.name === 'other' ?  `${quote.account.plan.title === '' ? 'None' : quote.account.plan.title}` : ''}
-              ${quote.account.plan.name ? quote.account.plan.name : ''}
             </td>
             <td>$${Number(quote.account.plan.dueMonthly).toFixed(2)}</td>
             <td>
               ${quote.account.protection.name === '' ? 'None' : ''}
               ${quote.account.protection.name === 'other' ?  `${quote.account.protection.title === '' ? 'None' : quote.account.protection.title}` : ''}
-              ${quote.account.protection.name ? quote.account.protection.name : ''}
             </td>
             <td>$${Number(quote.account.protection.dueMonthly).toFixed(2)}</td>
           </tr>
