@@ -16,6 +16,7 @@ export const LineAccordion = ({ line }) => {
   
   const handleChange = (e) => {
     const { name, value } = e.target;
+    console.log({ name, value })
     switch(name){
       case 'name':
         dispatch(quoteSlice.actions.updateLineById({
@@ -212,10 +213,33 @@ export const LineAccordion = ({ line }) => {
     }
   }
 
+  const lineName = line.name;
+  const linePhoneNumber = line.phoneNumber;
+
   return (
     <div
       className="line-accordion"
     >
+      <div
+        className="line-name-and-phone"
+      >
+        <label>Name:
+          <input
+            type="text"
+            name="name"
+            onChange={handleChange}
+            value={line.name}
+          />
+        </label>
+        <label>Phone Number:
+          <input
+            type="tel"
+            name="phoneNumber"
+            onChange={handleChange}
+            value={line.phoneNumber}
+          />
+        </label>
+      </div>
       <DeviceAccordionRow 
         device={line.device}
         active={deviceEditMode} 
@@ -241,6 +265,29 @@ export const LineAccordion = ({ line }) => {
           width: 100%;
           flex-flow: column wrap;
           gap: 1rem;
+        }
+
+        .line-name-and-phone {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          gap: 1rem;
+        }
+
+        label {
+          width: 100%;
+          display: flex;
+          flex-flow: column wrap;
+          gap: .5rem;
+        }
+        
+        input {
+          width: 100%;
+          border-radius: 1rem;
+          padding: 1rem;
+          background-color: var(--dark-blue);
+          border: .2rem solid var(--teal);
+          color: var(--teal);
         }
       `}</style>
     </div>

@@ -29,6 +29,12 @@ export const LineTypeOption = ({lineType, count, handleChange, setValue}) => {
             type="number"
             value={count}
             min={0}
+            onChange={(e) => {
+              e.preventDefault()
+              e.stopPropagation();
+              if(Number(e.target.value) < 0) return;
+              setValue(Number(e.target.value));
+            }}
           />
         <button
           onClick={(e) => {
