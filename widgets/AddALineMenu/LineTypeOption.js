@@ -1,5 +1,5 @@
 
-export const LineTypeOption = ({lineType, count, handleChange, setValue}) => {
+export const LineTypeOption = ({lineType, count, setValue}) => {
   
   const {icon: Icon} = lineType;
   return (
