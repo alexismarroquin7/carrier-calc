@@ -196,8 +196,8 @@ export const QuoteForm = () => {
 
         .select-carrier-input {
           padding: 1rem;
-          background-color: var(--grayish-blue);
-          border: .2rem solid var(--teal);
+          background-color: var(--dark-blue);
+          border: .2rem solid var(--dark-blue);
           color: var(--teal);
           border-radius: 1rem;
         }
