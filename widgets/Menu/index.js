@@ -45,7 +45,17 @@ const initialOptions = [
 export const Menu = () => {
   const dispatch = useDispatch();
   
-  const { active: menuActive, toggle: toggleMenuActive } = useToggle();
+  const { active , toggle } = useToggle();
+
+  const handleToggle = () => {
+    toggle();
+    if(active){
+      document.querySelector('body').style.overflow = 'auto';
+    } else {
+      document.querySelector('body').style.overflow = 'hidden';
+    }
+
+  }
   
   const [options, setOptions] = useState(initialOptions);
   
@@ -55,19 +65,19 @@ export const Menu = () => {
     switch(action){
       case 'quote-create-vzw':
         dispatch(quoteSlice.actions.create({ carrier: 'vzw' }));
-        toggleMenuActive();
+        handleToggle();
         break;
       case 'quote-create-att':
         dispatch(quoteSlice.actions.create({ carrier: 'att' }));
-        toggleMenuActive();
+        handleToggle();
         break;
       case 'quote-create-tmo':
         dispatch(quoteSlice.actions.create({ carrier: 'tmo' }));
-        toggleMenuActive();
+        handleToggle();
         break;
       case 'quote-create-other':
         dispatch(quoteSlice.actions.create({ carrier: 'other' }));
-        toggleMenuActive();
+        handleToggle();
         break;
       default:
         throw Error(`unkown action: ${action}`);
@@ -79,13 +89,13 @@ export const Menu = () => {
       className="menu-wrapper"
     >
       <button
-        className={`menu-button ${menuActive ? 'active' : ''}`}
+        className={`menu-button ${active ? 'active' : ''}`}
         onClick={(e) => {
           e.preventDefault();
-          toggleMenuActive();
+          handleToggle();
         }}
       >
-        {menuActive ? (
+        {active ? (
           <CloseIcon
             fontSize="inherit"
           />
@@ -98,7 +108,7 @@ export const Menu = () => {
       </button>
       
       <div
-        className={`menu-content ${menuActive ? '' : 'hidden'}`}
+        className={`menu-content ${active ? '' : 'hidden'}`}
       >
         <div
           className={`menu-content-container`}
@@ -153,7 +163,6 @@ export const Menu = () => {
               </div>
             })}
           </div>
-
           <label className="hide-tabs-label">Display quote tabs
             <div
               className={`hide-tabs-slider ${settings.showTabs && 'hide-tabs-active'}`} 
@@ -168,7 +177,7 @@ export const Menu = () => {
               >
               </div>
             </div>    
-          </label>
+          </label> 
         </div>
       </div>
 
@@ -202,9 +211,10 @@ export const Menu = () => {
           transition: all .2s;
           background-color: var(--grayish-blue);
           display: flex;
-          flex-flow: column wrap;
+          flex-flow: column nowrap;
           align-items: center;
           padding: 2rem 0;
+          overflow-y: scroll;
         }
         
         .menu-content.hidden {
@@ -212,17 +222,27 @@ export const Menu = () => {
         }
 
         .menu-content-container {
-          width: 90%;
+          position: absolute;
+          left: 0%;
+          top: 1rem;
+          bottom: 0;
+          right: 0;
           display: flex;
-          flex-flow: column wrap;
+          flex-flow: column nowrap;
           justify-content: space-between;
-          height: 100vh;
           border-radius: 1rem;
+          gap: 1rem;
+          overflow-y: scroll;
         }
         
         .menu-content-group {
+          position: absolute;
+          z-index: 998;
+          top: 2rem;
+          left: 2rem;
+          right: 2rem;
           display: flex;
-          flex-flow: column wrap;
+          flex-flow: column nowrap;
           align-items: flex-start;
           border-radius: 1rem;
         }
@@ -277,7 +297,10 @@ export const Menu = () => {
         }
 
         .hide-tabs-label {
-          width: 100%;
+          position: absolute;
+          bottom: 10%;
+          left: 2rem;
+          right: 2rem;
           display: flex;
           flex-flow: row wrap;
           align-items: center;
