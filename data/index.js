@@ -29,7 +29,13 @@ export const colors = {
   PACIFIC_BLUE: 'Pacific Blue',
   BLACK: "Black",
   WHITE: "White",
-  PURPLE: "Purple"
+  PURPLE: "Purple",
+  GRAYGREEN: "Graygreen",
+  BEIGE: "Beige",
+  ROSE_GOLD: "Rose Gold",
+  BLACK_ONYX: "Black Onyx",
+  GOLD_PLATINUM: "Gold Platinum",
+  SILVER_TITANIUM: "Silver Titanium"
 }
 
 export const manufacturers = {
@@ -211,6 +217,22 @@ export const devices = [
     id: uuid(),
     type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
+    model: 'Z Fold 4',
+    colors: [colors.GRAYGREEN, colors.PHANTOM_BLACK, colors.BEIGE],
+    memories: [memories.twoFiftySixGB, memories.fiveTwelveGB, memories.oneTB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Z Flip 4',
+    colors: [colors.BORA_PURPLE, colors.GRAPHITE, colors.PINK_GOLD, colors.BLUE],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
     model: 'Galaxy s22 Ultra',
     colors: [colors.PHANTOM_BLACK, colors.PHANTOM_WHITE, colors.GREEN, colors.BURGUNDY],
     memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
@@ -294,5 +316,53 @@ export const devices = [
     model: 'Galaxy s10',
     colors: [],
     memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s9 +',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s9',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s8 +',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s8',
+    colors: [],
+    memories: [memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s7 Edge',
+    colors: [colors.BLACK_ONYX, colors.GOLD_PLATINUM, colors.SILVER_TITANIUM],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.samsung,
+    model: 'Galaxy s7',
+    colors: [colors.BLACK, colors.GOLD, colors.ROSE_GOLD, colors.SILVER, colors.WHITE],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight]
   },
 ];

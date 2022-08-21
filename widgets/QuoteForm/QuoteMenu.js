@@ -97,6 +97,64 @@ const generateQuoteDocument = (quote) => {
     `
   });
 
+  let planNameToUse = '';
+
+  if(quote.account.plan.name.trim() === ''){
+    planNameToUse = 'None';
+  } else if(quote.account.plan.name === 'other' && quote.account.plan.title.trim() === ''){
+    planNameToUse = 'other';
+  } else if(quote.account.plan.name === 'other' && quote.account.plan.title.trim() !== ''){
+    planNameToUse = quote.account.plan.title;
+  } else if(quote.account.plan.name.trim() !== ''){
+    planNameToUse = quote.account.plan.name.trim();
+  }
+
+  let protectionNameToUse = '';
+  if(quote.account.protection.name.trim() === ''){
+    protectionNameToUse = 'None';
+  } else if(quote.account.protection.name === 'other' && quote.account.protection.title.trim() === ''){
+    protectionNameToUse = 'other';
+  } else if(quote.account.protection.name === 'other' && quote.account.protection.title.trim() !== ''){
+    protectionNameToUse = quote.account.protection.title;
+  } else if(quote.account.protection.name.trim() !== ''){
+    protectionNameToUse = quote.account.protection.name.trim();
+  }
+
+  let accountHtml;
+
+  if(
+    planNameToUse === 'None' &&
+    protectionNameToUse === 'None' &&
+    Number(quote.account.plan.dueMonthly) === 0 &&
+    Number(quote.account.protection.dueMonthly) === 0
+  ) {
+    accountHtml = ``;
+  } else {
+    accountHtml = `
+    <table class="account-table">
+      <tr>
+        <th colspan="4">Account</th>
+      </tr>
+      
+      <tr>
+        <th>Plan</th>
+        <th>Plan (Due Monthly)</th>
+        <th>Protection</th>
+        <th>Protection (Due Monthly)</th>
+      </tr>
+        
+      <tr>
+        <td>${planNameToUse}</td>
+        <td>$${Number(quote.account.plan.dueMonthly).toFixed(2)}</td>
+        <td>${protectionNameToUse}</td>
+        <td>$${Number(quote.account.protection.dueMonthly).toFixed(2)}</td>
+      </tr>
+      
+    </table>
+    `
+  }
+
+
   const html = `
   <!DOCTYPE html>
   <html>
@@ -119,99 +177,75 @@ const generateQuoteDocument = (quote) => {
             <span>$${calcQuoteDueMonthly(quote).toFixed(2)}</span>
           </h2>
         </div>
+        <div class="table-wrapper">
+        
+          ${accountHtml}
 
-        <table>
-          <tr>
-            <th colspan="4">Account</th>
-          </tr>
-          
-          <tr>
-            <th>Plan</th>
-            <th>Plan (Due Monthly)</th>
-            <th>Protection</th>
-            <th>Protection (Due Monthly)</th>
-          </tr>
-            
-          <tr>
-            <td>
-              ${quote.account.plan.name === '' ? 'None' : ''}
-              ${quote.account.plan.name === 'other' ?  `${quote.account.plan.title === '' ? 'None' : quote.account.plan.title}` : ''}
-            </td>
-            <td>$${Number(quote.account.plan.dueMonthly).toFixed(2)}</td>
-            <td>
-              ${quote.account.protection.name === '' ? 'None' : ''}
-              ${quote.account.protection.name === 'other' ?  `${quote.account.protection.title === '' ? 'None' : quote.account.protection.title}` : ''}
-            </td>
-            <td>$${Number(quote.account.protection.dueMonthly).toFixed(2)}</td>
-          </tr>
-          
-        </table>
-
-        <table class="lines">
-          <tr>
-            <th colspan="15">Lines: ${quote.lines.length}</th>
-          </tr>
-          ${linesHtml}
-          <tr>
-            <th
-              colspan="5"
-            >
-              Totals:
-            </th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                console.log(acc)
-                acc += Number(curr.device.price);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                acc += Number(curr.device.downpayment);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                acc += Number(curr.device.tradeInCredit);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                acc += Number(curr.device.dueToday);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                acc += Number(curr.device.dueMonthly);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-            <th></th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                acc += Number(curr.plan.dueMonthly);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-            <th></th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                acc += Number(curr.protection.dueToday);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-            <th>
-              $${quote.lines.reduce((acc, curr) => {
-                acc += Number(curr.protection.dueMonthly);
-                return acc;
-              }, 0).toFixed(2)}
-            </th>
-
-          </tr>
-        </table>
+          <table class="lines">
+            <tr>
+              <th colspan="15">Lines: ${quote.lines.length}</th>
+            </tr>
+            ${linesHtml}
+            <tr>
+              <th
+                colspan="5"
+              >
+                Totals:
+              </th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  console.log(acc)
+                  acc += Number(curr.device.price);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  acc += Number(curr.device.downpayment);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  acc += Number(curr.device.tradeInCredit);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  acc += Number(curr.device.dueToday);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  acc += Number(curr.device.dueMonthly);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+              <th></th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  acc += Number(curr.plan.dueMonthly);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+              <th></th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  acc += Number(curr.protection.dueToday);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+              <th>
+                $${quote.lines.reduce((acc, curr) => {
+                  acc += Number(curr.protection.dueMonthly);
+                  return acc;
+                }, 0).toFixed(2)}
+              </th>
+            </tr>
+          </table>
+        </div>
       </div>
     </body>
       
@@ -254,20 +288,6 @@ const generateQuoteDocument = (quote) => {
         align-items: center;
       }
 
-      .account-wrapper {
-        display: flex;
-        flex-flow: column wrap;
-      }
-
-      .account-feature {
-        border: 1px solid black;
-        padding: 1rem;
-        display: flex;
-        flex-flow: column wrap;
-        align-items: flex-start;
-        gap: 1rem;
-      }
-
       table {
         border: 1px solid black;
         padding: 1rem;
@@ -283,6 +303,17 @@ const generateQuoteDocument = (quote) => {
       td {
         border: 1px solid black;
         padding: 1rem;
+      }
+      
+      .table-wrapper {
+        width: 100%;
+        display: flex;
+        flex-flow: column wrap;
+        align-items: flex-start;
+      }
+
+      .account-table {
+        width: 100vw;
       }
 
     </style>
