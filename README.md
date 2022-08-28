@@ -26,8 +26,8 @@
 ## Installation Guide
 
 ```bash
-git clone https://github.com/alexismarroquin7/mpg
-cd mpg
+git clone https://github.com/alexismarroquin7/carrier-calc.git
+cd carrier-calc
 npm i
 npm run dev
 ```
