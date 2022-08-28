@@ -1,9 +1,12 @@
 import { Menu } from "../Menu";
+import { useSelector } from 'react-redux';
 
 export const Navbar = () => {
+  const quote = useSelector(s => s.quote);
+
   return (
-  <div className="navbar">
-    <nav className="navbar-nav">
+  <div className={`navbar ${quote.settings.showTabs ? '' : 'use-margin'}`}>
+    <nav className="navbar-nav"> 
       <div className="navbar-nav-wrapper">
         <Menu/>
         <p
@@ -26,6 +29,9 @@ export const Navbar = () => {
         color: var(--teal);
       }
       
+      .navbar.use-margin {
+      margin-bottom: 8rem;
+      }
       .navbar-nav {
         z-index: 1001;
         position: fixed;
