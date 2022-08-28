@@ -5,7 +5,7 @@
 
 ## Demo
 
-![](https://github.com/alexismarroquin7/carrier-calc-demo.gif)
+<img src="https://github.com/alexismarroquin7/carrier-calc/blob/main/carrier-calc-demo.gif" width="250"/>
 
 ## Table of Contents:
 
