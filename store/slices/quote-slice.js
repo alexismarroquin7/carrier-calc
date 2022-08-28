@@ -207,8 +207,13 @@ export const quoteSlice = createSlice({
             
             return line.id !== payload.lineId;
           });
+
+          if(item.lines.length === 0){
+            item.selectedLineIndex = null;
+          } else if(index === item.lines.length){
+            item.selectedLineIndex -= 1;
+          }
           
-          item.selectedLineIndex = index > 0 ? index - 1 : null;
         }
         return item;
       })
