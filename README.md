@@ -1,7 +1,11 @@
 # Carrier Calc
 
 ## Description:
-  - allows anyone to efficiently create multiple quotes for any carrier.
+  - allows the user to efficiently create multiple quotes for any carrier.
+
+## Demo
+
+![](https://github.com/alexismarroquin7/carrier-calc-demo.gif)
 
 ## Table of Contents:
 
