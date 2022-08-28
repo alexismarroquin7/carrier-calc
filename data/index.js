@@ -216,6 +216,62 @@ export const devices = [
   {
     id: uuid(),
     type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 7 Plus',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 7',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 6 Plus',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 6',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight, memories.twoFiftySixGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 5c',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 5s',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 5',
+    colors: [],
+    memories: [memories.thirtyTwoGB, memories.sixtyFour, memories.oneTwentyEight]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
     manufacturer: manufacturers.samsung,
     model: 'Z Fold 4',
     colors: [colors.GRAYGREEN, colors.PHANTOM_BLACK, colors.BEIGE],
