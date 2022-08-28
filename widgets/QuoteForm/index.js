@@ -135,8 +135,9 @@ export const QuoteForm = () => {
         </div>
       </div>
 
-      <AddALineMenu/>
 
+      <AddALineMenu/>
+      
       <AccountSection/>
 
       <LinesSection/>
