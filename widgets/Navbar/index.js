@@ -2,33 +2,39 @@ import { Menu } from "../Menu";
 
 export const Navbar = () => {
   return (
-  <>
-    <nav>
-      <div className="nav-wrapper">
+  <div className="navbar">
+    <nav className="navbar-nav">
+      <div className="navbar-nav-wrapper">
         <Menu/>
         <p>Member Quote Comparison</p>
       </div>
     </nav>
-    <div className="spacer"></div>
+    
     <style jsx>{`
-      nav {
+
+      .navbar {
         width: 100%;
         display: flex;
         flex-flow: column wrap;
         align-items: center;
-        padding: 2rem 0;
+        position: relative;
         box-shadow: 0 0 .5rem black;
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        background-color: var(--dark-blue);
         color: var(--teal);
-        z-index: 1001;
+        /* margin-bottom: 8rem; */
       }
-
-      .nav-wrapper {
-        width: 90%;
+      
+      .navbar-nav {
+        z-index: 1001;
+        position: fixed;
+        width: 100%;
+        padding: 2rem;
+        display: flex;
+        flex-flow: column wrap;
+        background-color: var(--dark-blue);
+      }
+      
+      .navbar-nav-wrapper {
+        width: 100%;
         display: flex;
         flex-flow: row wrap;
         align-items: center;
@@ -37,12 +43,13 @@ export const Navbar = () => {
 
       p {
         font-weight: bold;
+        width: 50%;
       }
 
       .spacer {
         margin: 4rem;
       }
     `}</style>
-  </>
+  </div>
   )
 }

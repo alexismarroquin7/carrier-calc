@@ -10,17 +10,21 @@ export const QuoteTabs = () => {
   <div
     className="quote-tabs"
   >
-    {quote.list.map(q => {
-      return <button
-        key={q.id}
-        className={`quote-tab ${q.carrier.name} ${q.id === quote.selected.quote.id ? 'selected' : ''}`}
-        onClick={(e) => {
-          e.preventDefault();
-          if(quote.selected.quote.id === q.id) return;
-          dispatch(quoteSlice.actions.selectQuoteById(q.id));
-        }}
-      >{q.name}</button>
-    })}
+    <div
+      className="quote-tabs-wrapper"
+    >
+      {quote.list.map(q => {
+        return <button
+          key={q.id}
+          className={`quote-tab ${q.carrier.name} ${q.id === quote.selected.quote.id ? 'selected' : ''}`}
+          onClick={(e) => {
+            e.preventDefault();
+            if(quote.selected.quote.id === q.id) return;
+            dispatch(quoteSlice.actions.selectQuoteById(q.id));
+          }}
+        >{q.name}</button>
+      })}
+    </div>
 
     <style jsx>{`
       .quote-tabs {
@@ -33,15 +37,37 @@ export const QuoteTabs = () => {
         padding: 2rem;
         
         background-color: var(--teal);
-        position: sticky;
-        width: 100%;
+        position: relative;
+        margin-bottom: 14rem;
         
-        top: 8rem;
+        width: 100%;
         
         left: 0;
         right: 0;
         
         box-shadow: 0 0 1rem black;
+        
+      }
+
+      .quote-tabs-wrapper {
+        position: fixed;
+        top: 8rem;
+        display: flex;
+        flex-flow: row nowrap;
+        align-items: flex-start;
+        z-index: 999;
+        gap: 1rem;
+        
+        padding: 2rem;
+        
+        background-color: var(--teal);
+        
+        width: 100%;
+        
+        left: 0;
+        right: 0;
+        
+        
         overflow-x: scroll;
       }
       

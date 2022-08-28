@@ -122,21 +122,22 @@ export const QuoteForm = () => {
         className="amount-due-section"
       >
         <div
-          className="amount-due-item"
-        >
-          <h6>Due Today:</h6>
+          className="amount-due-item today"
+        >          
           <h6>${calcQuoteDueToday(quote).toFixed(2)}</h6>
+          <h6>today</h6>
         </div>
         <div
           className="amount-due-item"
         >
-          <h6>Due Monthly:</h6>
           <h6>${calcQuoteDueMonthly(quote).toFixed(2)}</h6>
+          <h6>/month</h6>
         </div>
       </div>
 
-      <AddALineMenu/>
 
+      <AddALineMenu/>
+      
       <AccountSection/>
 
       <LinesSection/>
@@ -207,13 +208,25 @@ export const QuoteForm = () => {
           display: flex;
           flex-flow: row wrap;
           justify-content: space-between;
-          color: var(--white);
+          color: var(--dark-blue);
+          background-color: var(--teal);
+          border-radius: 1rem;
         }
         
         .amount-due-item {
+          padding: 2rem 0;
+          width: 50%;
           display: flex;
           flex-flow: column wrap;
           align-items: center;
+          gap: 1rem;
+        }
+        
+        .amount-due-item.today {
+          color: var(--teal);
+          background-color: var(--dark-blue);
+          border-top-left-radius: 1rem;
+          border-bottom-left-radius: 1rem;
         }
         
       `}</style>

@@ -13,8 +13,9 @@ export const LineTypeOption = ({lineType, count, setValue}) => {
         <label>{lineType.title}</label>
       </div>
 
-      <div>
-        
+      <div
+        className="line-type-button-wrapper"
+      >
         <button
           onClick={(e) => {
             e.preventDefault();
@@ -51,11 +52,11 @@ export const LineTypeOption = ({lineType, count, setValue}) => {
         .line-type-option {
           width: 90%;
           display: flex;
-          flex-flow: row wrap;
+          flex-flow: column wrap;
           align-items: center;
           justify-content: space-between;
           
-          padding: 2rem;
+          padding: 4rem 2rem;
           
           background-color: var(--teal);
           color: var(--dark-blue);
@@ -66,16 +67,26 @@ export const LineTypeOption = ({lineType, count, setValue}) => {
 
           font-weight: bold;
           font-size: 3rem;
+          gap: 4rem
           
         }
         
         
         .line-type-icon-section {
           font-size: 3rem;
+          width: 100%;
           display: flex;
           flex-flow: row wrap;
           align-items: center;
-          gap: 1rem;
+          gap: 2rem;
+        }
+        
+        .line-type-button-wrapper {
+          width: 100%;
+          display: flex;
+          flex-flow: row wrap;
+          align-items: center;
+          justify-content: space-between;
         }
 
         button {
@@ -84,26 +95,16 @@ export const LineTypeOption = ({lineType, count, setValue}) => {
           border: .2rem solid var(--dark-blue);
           background-color: var(--dark-blue);
           color: var(--teal);
-          
-        }
-
-        button[name="sub-count"] {
-          border-top-left-radius: 1rem;
-          border-bottom-left-radius: 1rem;
-        }
-        
-        button[name="add-count"] {
-          border-top-right-radius: 1rem;
-          border-bottom-right-radius: 1rem;
-          
+          border-radius: 1rem;
         }
 
         input {
-          width: 5rem;
+          width: 8rem;
           padding: 1rem;
           color: var(--dark-blue);
           background-color: var(--teal);
           border: .2rem solid var(--dark-blue);
+          border-radius: 1rem;
         }
       `}</style>
     </div>

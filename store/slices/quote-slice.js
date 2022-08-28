@@ -84,6 +84,7 @@ class Quote {
       }
     };
     this.lines = [];
+    this.selectedLineIndex = null;
   }
 
 }
@@ -118,15 +119,24 @@ export const quoteSlice = createSlice({
       state.selected.quote.id = state.list.filter(item => item.id === payload)[0].id;
     },
     addALine: (state, {payload}) => {
+      
       state.list = state.list.map(item => {
         if(item.id === state.selected.quote.id){
           item.lines = [
             ...item.lines,
             new Line(payload)
-          ]
+          ];
+        
+          if(item.selectedLineIndex === null){
+            item.selectedLineIndex = 0;
+          }
+        
         }
+        
         return item;
       })
+      
+
     },
     updateLineById: (state, {payload}) => {
       const {
@@ -185,12 +195,29 @@ export const quoteSlice = createSlice({
 
     },
     deleteLineFromSelectedQuote: (state, {payload}) => {
+      
       state.list = state.list.map(item => {
         if(item.id === state.selected.quote.id){
-          item.lines = item.lines.filter(line => line.id !== payload.lineId);
+          let index = null;
+
+          item.lines = item.lines.filter((line, i) => {
+            if(line.id === payload.lineId){
+              index = i;
+            }
+            
+            return line.id !== payload.lineId;
+          });
+
+          if(item.lines.length === 0){
+            item.selectedLineIndex = null;
+          } else if(index === item.lines.length){
+            item.selectedLineIndex -= 1;
+          }
+          
         }
         return item;
       })
+
     },
     addMultipleLinesToSelectedQuote: (state, {payload}) => {
       /*
@@ -232,7 +259,11 @@ export const quoteSlice = createSlice({
               item.lines.push(new Line(type));
             }
           });
-        
+
+          if(item.selectedLineIndex === null){
+            item.selectedLineIndex = 0;
+          }
+
         }
 
         return item;
@@ -329,6 +360,21 @@ export const quoteSlice = createSlice({
     },
     toggleShowTabs: (state) => {
       state.settings.showTabs = !state.settings.showTabs;
+    },
+    selectLineIndex: (state, {payload}) => {
+      state.list = state.list.map(quote => {
+        if(quote.id === state.selected.quote.id){
+          quote.lines = quote.lines.map((line, i) => {
+            if(line.id === payload.lineId){
+              quote.selectedLineIndex = i;
+            }
+            return line;
+          });
+
+        }
+        
+        return quote;
+      })
     }
   },
 });
