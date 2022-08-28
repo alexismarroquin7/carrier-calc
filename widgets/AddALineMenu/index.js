@@ -137,10 +137,12 @@ export const AddALineMenu = () => {
         >
 
           <button 
-            className="add-lines-button"
+            className={`add-lines-button ${values.smartphone === 0 && values.hotspot === 0 && values.tablet === 0 && values.watch === 0 ? 'disabled' : ''}`}
+            disabled={values.smartphone === 0 && values.hotspot === 0 && values.tablet === 0 && values.watch === 0}
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
+              if(values.smartphone === 0 && values.hotspot === 0 && values.tablet === 0 && values.watch === 0) return;
               dispatch(quoteSlice.actions.addMultipleLinesToSelectedQuote(values));
               setValues(initialValues);
               handleToggle();
@@ -215,7 +217,7 @@ export const AddALineMenu = () => {
       .close-icon {
         position: sticky;
         top: 0;
-        background-color: var(--dark-blue);
+        background-color: var(--grayish-blue);
         color: var(--google-red);
         padding: 2rem;
         width: 100%;
@@ -234,9 +236,11 @@ export const AddALineMenu = () => {
       .line-types-group {
         width: 100%;
         display: flex;
-        flex-flow: column wrap;
+        flex-flow: column nowrap;
         align-items: center;
-        gap: 2rem;
+        gap: 1rem;
+        overflow-y: scroll;
+        padding: 2rem 0;
       }
 
       .control-buttons-container {
@@ -245,10 +249,22 @@ export const AddALineMenu = () => {
         flex-flow: column wrap;
         align-items: center;
         gap: 1rem;
-        padding: 2rem 0;;
+        padding: 2rem 0;
       }
 
-      .cancel-add-lines-button {
+      .add-lines-button {
+        width: 90%;
+        padding: 1rem;
+        border-radius: 1rem;
+        background-color: var(--teal);
+        color: var(--dark-blue);
+        font-weight: bold;
+        border: .2rem solid var(--teal);
+        transition: all .2s;
+      }
+
+      .cancel-add-lines-button,
+      .disabled {
         width: 90%;
         padding: 1rem;
         border-radius: 1rem;
@@ -258,15 +274,6 @@ export const AddALineMenu = () => {
         border: .2rem solid var(--teal);
       }
       
-      .add-lines-button {
-        width: 90%;
-        padding: 1rem;
-        border-radius: 1rem;
-        background-color: var(--teal);
-        color: var(--dark-blue);
-        font-weight: bold;
-        border: .2rem solid var(--teal);
-      }
     `}</style>
   </div>
   );

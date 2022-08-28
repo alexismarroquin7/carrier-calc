@@ -1,12 +1,14 @@
+import { useState } from "react";
 import  { useSelector } from "react-redux";
 import { Line } from "../Line";
+import { SelectLineIndexMenu } from "./SelectLineIndexMenu";
 
 export const LinesSection = () => {
   const quote = useSelector(s => {
     const [q] = s.quote.list.filter(item => item.id === s.quote.selected.quote.id);
     return q;
   });
-
+  console.log(quote.selectedLineIndex)
   return (
   <div
     className="lines-section"
@@ -15,12 +17,16 @@ export const LinesSection = () => {
       <h5>Lines: <span>{quote.lines.length}</span></h5>
     </div>
 
-    {quote.lines.map((line, i) => {
-      return (
-        <Line key={line.id} line={line} index={i}/>
-      )
-    })}
+    {quote.selectedLineIndex !== null && <SelectLineIndexMenu/>}
 
+    
+    {quote.selectedLineIndex !== null && (
+      <Line   
+        line={quote.lines[quote.selectedLineIndex]} 
+        index={quote.selectedLineIndex}
+      />
+    )}
+    
     <style jsx>{`
       .lines-section {
         width: 90%;
@@ -46,6 +52,7 @@ export const LinesSection = () => {
       span {
         font-size: 4rem;
       }
+
     `}</style>
   </div>
   )
