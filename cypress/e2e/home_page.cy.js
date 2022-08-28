@@ -11,7 +11,7 @@ const accountEditButton = () => cy.get('.account-edit-button');
 const selectAccountPlan = () => cy.get('select[name="account.plan.name"]');
 const accountDueMonthly = () => cy.get('input[name="account.plan.dueMonthly"]');
 
-describe('Member Quote Comparison', {
+describe('CarrierCalc.io', {
   viewportWidth: 414,
   viewportHeight: 896,
 }, () => {

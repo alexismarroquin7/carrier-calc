@@ -6,7 +6,11 @@ export const Navbar = () => {
     <nav className="navbar-nav">
       <div className="navbar-nav-wrapper">
         <Menu/>
-        <p>Member Quote Comparison</p>
+        <p
+          className="app-name"
+        >CarrierCalc
+          <span>.io</span>
+        </p>
       </div>
     </nav>
     
@@ -20,7 +24,6 @@ export const Navbar = () => {
         position: relative;
         box-shadow: 0 0 .5rem black;
         color: var(--teal);
-        /* margin-bottom: 8rem; */
       }
       
       .navbar-nav {
@@ -41,14 +44,25 @@ export const Navbar = () => {
         gap: 1rem;
       }
 
-      p {
+      .app-name {
         font-weight: bold;
-        width: 50%;
+        border-radius: 1rem;
+        display: flex;
+        flex-flow: row wrap;
+        align-items: flex-end;
+        gap: .5rem;
       }
 
-      .spacer {
-        margin: 4rem;
+      .app-name span {
+        border: .2rem solid var(--teal);
+        border-radius: 1rem;
+        padding: .1rem .5rem;
+        color: var(--dark-blue);
+        background-color: var(--teal);
+        font-size: 1.5rem;
       }
+
+      
     `}</style>
   </div>
   )

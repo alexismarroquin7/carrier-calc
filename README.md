@@ -1,6 +1,7 @@
-# Member Quote Comparison
+# Carrier Calc
 
-This app allows wireless salesmen to efficiently create multiple quotes for a member/customer with any carrier.
+## Description:
+  - allows anyone to efficiently create multiple quotes for any carrier.
 
 ## Table of Contents:
 
