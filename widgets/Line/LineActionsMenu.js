@@ -202,6 +202,9 @@ export const LineActionsMenu = ({line}) => {
             }}
           />
         </div>
+        {/* <div>
+          <p>Apply to ALL {line.type} lines</p>
+        </div> */}
         {lineActions.map(lineAction => {
           
           return (

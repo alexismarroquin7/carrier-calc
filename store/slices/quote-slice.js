@@ -100,7 +100,8 @@ const initialState = {
     id: null
   },
   settings: {
-    showTabs: true
+    showTabs: true,
+    lineListView: 'column'
   }
 }
 
@@ -375,6 +376,14 @@ export const quoteSlice = createSlice({
         
         return quote;
       })
+    },
+    updateSettings: (state, {payload}) => {
+      const {key, value} = payload;
+
+      state.settings = {
+        ...state.settings,
+        [key]: value
+      }
     }
   },
 });

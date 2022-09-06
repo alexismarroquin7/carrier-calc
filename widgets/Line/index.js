@@ -2,11 +2,11 @@ import { LineActionsMenu } from "./LineActionsMenu";
 import { LineAccordion } from "./LineAccordion";
 
 
-export const Line = ({ line, index }) => {
+export const Line = ({ line, index, view }) => {
 
   return (
     <section
-      className="line"
+      className={`line ${index === 0 ? 'first' : ''} ${view === 'row' ? 'first' : ''}`}
     >
       <div className="line-head">
         <div
@@ -33,9 +33,14 @@ export const Line = ({ line, index }) => {
           width: 100%;
           display: flex;
           flex-flow: column wrap;
-          border-top: 1px solid #eee;
+          border-top: .2rem solid #eee;
           padding: 2rem 0;
           gap: 2rem;
+        }
+        
+        .line.first {
+          border-top-color: transparent;
+
         }
 
         .line-head {
