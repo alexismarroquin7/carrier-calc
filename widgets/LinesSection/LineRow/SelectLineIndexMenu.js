@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
-import { useToggle } from "../../hooks";
-import { quoteSlice } from "../../store/slices/quote-slice";
+import { useToggle } from "../../../hooks";
+import { quoteSlice } from "../../../store/slices/quote-slice";
 
 export const SelectLineIndexMenu = () => {
   const quote = useSelector(s => {
@@ -74,7 +74,7 @@ export const SelectLineIndexMenu = () => {
                     dispatch(quoteSlice.actions.selectLineIndex({lineId: line.id}))
                   }}
                 >
-                  {'line '}{i+1}
+                  {'Line '}{i+1}
                 </button>
               )
             })}

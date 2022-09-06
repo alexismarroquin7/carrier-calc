@@ -247,7 +247,6 @@ export const Menu = () => {
           border-radius: 1rem;
         }
 
-
         .menu-option {
           width: 100%;
         }
