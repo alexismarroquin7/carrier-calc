@@ -134,9 +134,6 @@ export const QuoteForm = () => {
           <h6>/month</h6>
         </div>
       </div>
-
-
-      <AddALineMenu/>
       
       <AccountSection/>
 
