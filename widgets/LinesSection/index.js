@@ -20,14 +20,12 @@ export const LinesSection = () => {
     className="lines-section"
   >
 
-    <h5>Lines: <span>{quote.lines.length}</span></h5>
+    <h5>Lines <span>{quote.lines.length}</span></h5>
     
     <LinesSectionSettings/>
 
-    
-
-    {settings.lineListView === 'column' && <LineColumn/>}
-    {settings.lineListView === 'row' && <LineRow/>}
+    {quote.lines.length > 0 && settings.lineListView === 'column' && <LineColumn/>}
+    {quote.lines.length > 0 && settings.lineListView === 'row' && <LineRow/>}
 
     <style jsx>{`
       .lines-section {

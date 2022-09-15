@@ -94,23 +94,28 @@ export const AccountAccordion = () => {
     }
   }
   return (
-    <div>
+    <div
+      className="account-accordion"
+    >
       <AccountPlanAccordionRow
         active={editAccountPlanActive}
         toggle={toggleEditAccountPlan}
         handleChange={handleChange}
         plan={quote.account.plan}
       />
-      
       <AccountProtectionAccordionRow
         active={editAccountProtectionActive}
         toggle={toggleEditAccountProtection}
         handleChange={handleChange}
         protection={quote.account.protection}
       />
-      
+
       <style jsx>{`
-      
+        .account-accordion {
+          display: flex;
+          flex-flow: column nowrap;
+          gap: 1rem;
+        }
       `}</style>
     </div>
   )

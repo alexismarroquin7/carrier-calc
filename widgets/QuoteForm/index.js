@@ -145,12 +145,13 @@ export const QuoteForm = () => {
           display: flex;
           flex-flow: column wrap;
           align-items: center;
-          gap: 2rem;
+          /* gap: 2rem; */
           padding: 2rem 0;
           color: var(--white);
         }
 
         .quote-name-label {
+          padding: 2rem 0;
           display: flex;
           flex-flow: column wrap;
           gap: .5rem;
@@ -171,6 +172,7 @@ export const QuoteForm = () => {
           display: flex;
           flex-flow: column wrap;
           gap: .5rem;
+          padding: 2rem 0;
         }
 
         .select-carrier-label {

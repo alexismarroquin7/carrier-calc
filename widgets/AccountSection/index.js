@@ -6,21 +6,27 @@ export const AccountSection = () => {
   <div
     className="account-section"
   >
-    <h5>Account</h5>
-    
-    <AccountAccordion />
+    <div
+      className="account-section-wrapper"
+    >
+      <h5>Shared Features</h5>
+      <AccountAccordion />
+    </div>
 
     <style jsx>{`
       .account-section {
-        border: .2rem solid var(--dark-blue);
-        background-color: var(--dark-blue);
-        border-radius: 1rem;
         color: white;
-        width: 90%;
-        padding: 2rem;
-
+        width: 100%;
         display: flex;
         flex-flow: column wrap;
+        align-items: center;
+        padding: 4rem 0;
+      }
+      
+      .account-section-wrapper {
+        width: 90%;
+        display: flex;
+        flex-flow: column nowrap;
         gap: 2rem;
       }
 

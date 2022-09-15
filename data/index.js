@@ -35,7 +35,9 @@ export const colors = {
   ROSE_GOLD: "Rose Gold",
   BLACK_ONYX: "Black Onyx",
   GOLD_PLATINUM: "Gold Platinum",
-  SILVER_TITANIUM: "Silver Titanium"
+  SILVER_TITANIUM: "Silver Titanium",
+  DEEP_PURPLE: "Deep Purple",
+  SPACE_GRAY: "Space Gray"
 }
 
 export const manufacturers = {
@@ -53,6 +55,38 @@ export const LINE_TYPE = {
 }
 
 export const devices = [
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 14 Pro Max',
+    colors: [colors.SPACE_GRAY, colors.SILVER, colors.GOLD, colors.DEEP_PURPLE],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 14 Pro',
+    colors: [colors.SPACE_GRAY, colors.SILVER, colors.GOLD, colors.DEEP_PURPLE],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 14 Plus',
+    colors: [colors.BLUE, colors.PRODUCT_RED, colors.PURPLE, colors.MIDNIGHT, colors.STARLIGHT],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
+  {
+    id: uuid(),
+    type: LINE_TYPE.SMARTPHONE,
+    manufacturer: manufacturers.apple,
+    model: 'iPhone 14',
+    colors: [colors.BLUE, colors.PRODUCT_RED, colors.PURPLE, colors.MIDNIGHT, colors.STARLIGHT],
+    memories: [memories.oneTwentyEight, memories.twoFiftySixGB, memories.fiveTwelveGB]
+  },
   {
     id: uuid(),
     type: LINE_TYPE.SMARTPHONE,
