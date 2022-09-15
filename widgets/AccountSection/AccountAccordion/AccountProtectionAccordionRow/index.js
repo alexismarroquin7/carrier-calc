@@ -3,7 +3,7 @@ import { AccountProtectionAccordionSummary } from "./AccountProtectionAccordionS
 
 export const AccountProtectionAccordionRow = ({protection, active, toggle, handleChange}) => {
   return (
-    <div>
+    <div className="account-protection-accordion-row">
       <AccountProtectionAccordionSummary
         active={active}
         toggle={toggle}
@@ -14,7 +14,12 @@ export const AccountProtectionAccordionRow = ({protection, active, toggle, handl
         protection={protection}
       />}
       <style jsx>{`
-      
+        .account-protection-accordion-row {
+          border: .2rem solid var(--dark-blue);
+          padding: 1rem;
+          border-radius: 1rem;
+          background-color: var(--dark-blue);
+        }
       `}</style>
     </div>
   )

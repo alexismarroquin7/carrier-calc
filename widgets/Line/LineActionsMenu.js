@@ -242,6 +242,7 @@ export const LineActionsMenu = ({line}) => {
     </div>
 
     <style jsx>{`
+
       .line-actions-menu-icon {
         font-size: 3rem;
         color: var(--teal);

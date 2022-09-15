@@ -2,6 +2,8 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import { useDispatch, useSelector } from 'react-redux';
 import { useToggle } from '../../../hooks';
 import { quoteSlice } from '../../../store/slices/quote-slice';
+import { AddALineMenu } from '../../AddALineMenu';
+
 export const LinesSectionSettings = () => {
   const { lineListView } = useSelector(s => s.quote.settings);
   const { active, toggle } = useToggle();
@@ -29,6 +31,8 @@ export const LinesSectionSettings = () => {
 
   return (
     <div className='lines-section-settings'>
+      <AddALineMenu/>
+      
       <button 
         className='line-settings-icon'
         onPointerDown={(e) => {
@@ -39,6 +43,7 @@ export const LinesSectionSettings = () => {
       >
         <SettingsIcon fontSize='inherit'/>
       </button>
+
       <div
         className={`line-section-settings-modal ${active ? '' : 'hidden'}`}
         onPointerDown={(e) => {
@@ -64,7 +69,7 @@ export const LinesSectionSettings = () => {
             <div
               className='display-settings-view-as'
             >
-              <p>View As:</p>
+              <p>View:</p>
               <div
                 className='display-settings-view-as-options'
               >
@@ -80,7 +85,7 @@ export const LinesSectionSettings = () => {
                   />
                   <div className={`fake-radio-button ${lineListView === 'column' ? 'checked' : ''}`}>
                   </div>
-                  Column
+                  All lines
                 </label>
 
                 <label
@@ -95,7 +100,7 @@ export const LinesSectionSettings = () => {
                   />
                   <div className={`fake-radio-button ${lineListView === 'row' ? 'checked' : ''}`}>
                   </div>
-                  Row
+                  Selected line
                 </label>
               </div>
             </div>
@@ -112,12 +117,12 @@ export const LinesSectionSettings = () => {
           border: 0;
           color: var(--white);
         }
-
+        
         .lines-section-settings {
           width: 100%;
           display: flex;
           flex-flow: row wrap;
-          justify-content: flex-end;
+          justify-content: space-between;
           padding: 1rem;
           border-radius: 1rem;
           border: .2rem solid var(--dark-blue);

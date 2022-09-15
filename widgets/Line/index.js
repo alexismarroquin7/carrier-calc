@@ -9,6 +9,12 @@ export const Line = ({ line, index, view }) => {
       className={`line ${index === 0 ? 'first' : ''} ${view === 'row' ? 'first' : ''}`}
     >
       <div className="line-head">
+        <div className="line-icons-container">
+          <LineActionsMenu
+            line={line}
+          />
+        </div>
+
         <div
           className="line-title"
         >
@@ -18,11 +24,6 @@ export const Line = ({ line, index, view }) => {
 
         </div>
         
-        <div className="line-icons-container">
-          <LineActionsMenu
-            line={line}
-          />
-        </div>
       
       </div>
 
@@ -80,6 +81,8 @@ export const Line = ({ line, index, view }) => {
           display: flex;
           flex-flow: row wrap;
           gap: 1rem;
+          width: 100%;
+          justify-content: flex-end;
         }
 
         .line-icon {

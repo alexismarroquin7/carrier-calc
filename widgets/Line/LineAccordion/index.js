@@ -16,7 +16,7 @@ export const LineAccordion = ({ line }) => {
   
   const handleChange = (e) => {
     const { name, value } = e.target;
-    console.log({ name, value })
+    
     switch(name){
       case 'name':
         dispatch(quoteSlice.actions.updateLineById({
@@ -213,9 +213,7 @@ export const LineAccordion = ({ line }) => {
     }
   }
 
-  const lineName = line.name;
-  const linePhoneNumber = line.phoneNumber;
-
+ 
   return (
     <div
       className="line-accordion"
